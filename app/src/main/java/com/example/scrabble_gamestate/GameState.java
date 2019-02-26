@@ -50,9 +50,6 @@ public class GameState {
     //ArrayList<Tile> hand3 = new ArrayList<Tile>(7);
     //ArrayList<Tile> hand4 = new ArrayList<Tile>(7);
 
-    //if true, tile has been played and cannot be moved; if false, tile can be moved
-    boolean tilePlayed;
-
     //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
     int turn;
 
