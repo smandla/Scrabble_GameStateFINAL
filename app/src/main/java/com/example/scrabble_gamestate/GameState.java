@@ -50,6 +50,9 @@ public class GameState {
     //indicates which players turn it is; 1 for player 1, 2 for player 2
     int turn;
 
+    /**
+     * Constructor for objects of class GameState
+     */
     public GameState(){
         playerOneScore = 0;
         playerTwoScore = 0;
@@ -57,9 +60,26 @@ public class GameState {
         playerOneId = 1;
         playerTwoId = 2;
 
+        turn = 1;
 
+        makeTileBag();
+        shuffleTileBag();
+
+        for(int i=0; i < 7; i++)
+        {
+            drawTile(hand1);
+            drawTile(hand2);
+        }
 
     }
+
+    /**
+     * makeDeck
+     * Method to make the deck for a new game
+     */
+    public void makeDeck()
+    {
+        deck.add(new Card(0,0,'n',R.drawable.green0));//1
 
 
 }
