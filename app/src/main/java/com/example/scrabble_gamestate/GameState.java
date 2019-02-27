@@ -37,9 +37,6 @@ public class GameState {
     //instance variable
     int playerOneScore;
     int playerTwoScore;
-    //int playerThreeScore;
-    //int playerFourScore;
-
 
     int playerOneId;
     int playerTwoId;
@@ -47,8 +44,8 @@ public class GameState {
     ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
     ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
-    //ArrayList<Tile> hand3 = new ArrayList<Tile>(7);
-    //ArrayList<Tile> hand4 = new ArrayList<Tile>(7);
+
+    Tile[][] board = new Tile[15][15];
 
     //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
     int turn;
@@ -65,9 +62,17 @@ public class GameState {
 
         turn = 1;
 
+        //set entire array to null, representing board with no tiles played
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                board[i][j] = null;
+            }
+        }
+
         makeTileBag();
         shuffleTileBag();
 
+        //add seven tiles to each player's hand
         for(int i=0; i < 7; i++)
         {
             drawTile(hand1);
@@ -83,7 +88,7 @@ public class GameState {
     public void makeTileBag() {
 
         //blank tiles
-        ///////////////////////////to be added!
+        //TODO Get blank tile images from Sydney and add
 
         //a tiles
         tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a, false));
@@ -257,11 +262,26 @@ public class GameState {
         hand.add(tileBag.get(0));
         tileBag.remove(0);
 
+        //TODO Add in conditions
+
     }//drawTile
 
     @Override
     public String toString(){
+        System.out.println("Player One's Score: " + playerOneScore);
+        System.out.println("Player Two's Score: " + playerTwoScore);
+        System.out.println("Player One's ID: " + playerOneId);
 
+        //TODO Finish
+
+        ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
+        ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
+        ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
+
+        Tile[][] board = new Tile[15][15];
+
+        //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
+        int turn;
 
         return null;
     }
