@@ -7,12 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- *stuuuffff
+ *This is the primary activity for the Scrabble game
  *
  * @author Sydney Wells
  * @author Sarah Bunger
  * @author Kavva Mandla
  * @author Meredith Marcinko
+ * @version February 2019
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 

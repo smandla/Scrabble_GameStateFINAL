@@ -2,12 +2,13 @@ package com.example.scrabble_gamestate;
 
 public class Tile {
     /**
-     * stufffff
+     * Holds the information of the tiles and their values.
      *
      * @author Sydney Wells
      * @author Sarah Bunger
      * @author Kavva Mandla
      * @author Meredith Marcinko
+     * @version February 2019
      */
     //instance vars
     int pointVal;
