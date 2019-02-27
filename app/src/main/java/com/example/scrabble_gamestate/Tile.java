@@ -44,11 +44,11 @@ public class Tile {
      * Deep Copy Constructor
      */
     public class deepCopy {
-        private pointVal points;
+        /*private pointVal points;
 
         public deepCopy(Tile tiles){
             this.points = new pointVal(tiles.points);
-        }
+        }*/
 
     }
 }

@@ -5,7 +5,7 @@ package com.example.scrabble_gamestate;
  *
  * @author Sydney Wells
  * @author Sarah Bunger
- * @author Kavva Mandla
+ * @author Kavya Mandla
  * @author Meredith Marcinko
  * @version February 2019
  */

@@ -9,7 +9,7 @@ import java.util.Collections;
  *
  * @author Sydney Wells
  * @author Sarah Bunger
- * @author Kavva Mandla
+ * @author Kavya Mandla
  * @author Meredith Marcinko
  * @version February 2019
  */
@@ -271,34 +271,42 @@ public class GameState {
      */
     public void drawTile(ArrayList<Tile> hand)
     {
-        hand.add(tileBag.get(0));
-        tileBag.remove(0);
+        if(){
+            hand.add(tileBag.get(0));
+            tileBag.remove(0);
+        }
 
-        //TODO Add in conditions
+
+
+        //if it's a player's turn and they have less than seven tiles, draw (after a player plays a word
+        //but before the game state is updated and passed on to another player)
+
+        //draw until the hand1/2 arraylist is full (while loop)
+
+        //TODO Finish adding in conditions
 
     }//drawTile
 
     @Override
     public String toString(){
-        System.out.println("Player One's Score: " + playerOneScore);
-        System.out.println("Player Two's Score: " + playerTwoScore);
-        System.out.println("Player One's ID: " + playerOneId);
-        System.out.println("Player Two's ID: " + playerTwoId);
-        System.out.println("Turn: " + turn);
 
-        System.out.println("Tile Bag: " + tileBag);
-        System.out.println("Tiles in Player One Hand: " + hand1);
-        System.out.println("Tiles in Player Two Hand: "  + hand2);
+        String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: " + playerTwoScore
+                + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: " + playerTwoId
+                + "\nTurn: " + turn + "\nTile Bag: " + tileBag + "\nTiles in Player One Hand: " + hand1
+                + "\nTiles in Player Two Hand: "  + hand2 + "\nTiles on board: ";
 
         for(int i = 0; i < 15; i++){
+            //returns after every row, so board prints in a 15 x 15 grid
+            str = str + "\n";
+
             for(int j = 0; j < 15; j++){
-                System.out.println("Tiles on board: " + board[i][j]);
+                str = str + board[i][j] + " ";
             }
         }
 
         //TODO Ensure that this actually prints desired things.
 
-        return null;
+        return str;
     }
 
     /**
@@ -317,8 +325,8 @@ public class GameState {
      * instance of the placeTileAction class and updates the player's view.
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean placeTile(int turnId, ArrayList<board> position, Tile tile){
-        if(turnId == player
+    public boolean placeTile(int turnId, ArrayList<Tile> position, Tile tile){
+        //if(turnId == player
         return false;
     }
 
