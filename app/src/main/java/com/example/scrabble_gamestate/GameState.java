@@ -3,6 +3,15 @@ package com.example.scrabble_gamestate;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ *The State of the game. Includes values for all tiles, the tile bag, and each square on the board.
+ *
+ *
+ * @author Sydney Wells
+ * @author Sarah Bunger
+ * @author Kavva Mandla
+ * @author Meredith Marcinko
+ */
 public class GameState {
 
     //constants: the point value of each tile
@@ -295,57 +304,64 @@ public class GameState {
     }
 
     /**
-     *
+     * @param turnId the id of the player whose turn it is currently
      */
-    public boolean placeTile(){
+    public boolean placeTile(int turnId){
+        if(turnId == player
+        return false;
+    }
+
+    /**
+     * @param turnId the id of the player whose turn it is currently
+     */
+    public boolean recallTiles(int turnId){
 
         return false;
     }
 
     /**
-     *
+     * @param turnId the id of the player whose turn it is currently
      */
-    public boolean recallTiles(){
-
-        return false;
-    }
-
-    /**
-     *
-     */
-    public boolean playWord(){
+    public boolean playWord(int turnId){
         return false;
 
     }
 
     /**
-     *
+     * @param turnId the id of the player whose turn it is currently
      */
-    public boolean skipTurn(){
+    public boolean skipTurn(int turnId){
         return false;
 
     }
 
     /**
-     *
+     * @param turnId the id of the player whose turn it is currently
      */
-    public boolean shuffleTiles(){
+    public boolean shuffleTiles(int turnId){
 
         return false;
     }
 
     /**
-     *
+     * @param turnId the id of the player whose turn it is currently
      */
-    public boolean exchangeTile(){
+    public boolean exchangeTile(int turnId){
         return false;
 
     }
 
     /**
-     *
+     * @param turnId the id of the player whose turn it is currently
      */
-    public boolean selectBlankTileLetter(){
+    public boolean selectBlankTileLetter(int turnId){
+
+        return false;
+    }
+    /**
+     * @param turnId the id of the player whose turn it is currently
+     */
+    public boolean checkDictionary(int turnId){
 
         return false;
     }

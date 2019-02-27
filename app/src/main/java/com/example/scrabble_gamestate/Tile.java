@@ -1,7 +1,14 @@
 package com.example.scrabble_gamestate;
 
 public class Tile {
-
+    /**
+     * stufffff
+     *
+     * @author Sydney Wells
+     * @author Sarah Bunger
+     * @author Kavva Mandla
+     * @author Meredith Marcinko
+     */
     //instance vars
     int pointVal;
     char tileLetter; //for blank tiles, use a single space
