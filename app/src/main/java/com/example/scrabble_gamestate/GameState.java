@@ -11,6 +11,7 @@ import java.util.Collections;
  * @author Sarah Bunger
  * @author Kavva Mandla
  * @author Meredith Marcinko
+ * @version February 2019
  */
 public class GameState {
 
@@ -296,22 +297,29 @@ public class GameState {
     }
 
     /**
+     *Method that halts the game, reverting it to the original game state
+     * after pushing quit button.
      *
      */
     public boolean quitGame(){
-        return false;
+        return true; //should always remain true, because you should be able to quit whenever
 
     }
 
     /**
+     * Method that checks if it's your turn and the selected location is a valid point on the board
+     * -i.e. both free of other tiles and within the boundaries of the board. It then creates an
+     * instance of the placeTileAction class and updates the player's view.
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean placeTile(int turnId){
+    public boolean placeTile(int turnId, ArrayList<board> position, Tile tile){
         if(turnId == player
         return false;
     }
 
     /**
+     * Method that checks if it's the player's turn, and if so, pulls all the placed but not
+     * confirmed tiles from the board.
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean recallTiles(int turnId){
@@ -320,6 +328,8 @@ public class GameState {
     }
 
     /**
+     * Method that checks if it's the player's turn, and if so, resets the game state to match the
+     * current view of the board when the player presses the "Play" button.
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean playWord(int turnId){
@@ -328,6 +338,8 @@ public class GameState {
     }
 
     /**
+     * Method that checks if it's the player's turn, and if so, calls the skipTurnAction class,
+     * which changes the turn id to that of the other player.
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean skipTurn(int turnId){
