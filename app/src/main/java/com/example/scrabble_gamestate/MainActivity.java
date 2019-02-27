@@ -27,42 +27,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        editT = findViewById(R.id.editText);
+
         runTestButton = findViewById(R.id.runTestButton);
+        runTestButton.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View button) {
 
-        editT.getText().clear();  //TODO Check that this actually clears text
+        String currentText;
+
+        //clear any previous text
+        editT.setText("");
+
+        //create instance and deep copy
         GameState firstInstance = new GameState();
+        GameState secondInstance = new GameState(firstInstance); //TODO Change to deep copy constructor
 
-        //GameState secondInstance = new GameState(firstInstance); //TODO Change to deep copy constructor
-
+        //calling each method in GameState once and appending strings
         //TODO Call each action method in GameState on firstInstance at least once
 
-        editT.setText("testing", TextView.BufferType.NORMAL);
 
+        //create another instance and copy
         GameState thirdInstance = new GameState();
+        GameState fourthInstance = new GameState(thirdInstance); //TODO Change to deep copy constructor
 
-        //GameState fourthInstance = new GameState(thirdInstance); //TODO Change to deep copy constructor
+        //calling toString, assuring that the results are equivalent, and appending results
+        String secondString = secondInstance.toString();
+        String fourthString = fourthInstance.toString();
 
-        //String secondString = secondInstance.toString();
-        //String fourthString = fourthInstance.toString();
 
-        String currentText = editT.getText().toString();
+        if(secondString.equals(fourthString) == true){
+            editT.setText(secondString, TextView.BufferType.NORMAL);
 
-        editT.setText(currentText + " successful", TextView.BufferType.NORMAL);
+            currentText = editT.getText().toString();
+            editT.setText(currentText + " successful", TextView.BufferType.NORMAL);
 
-        /*if(secondString.equals(fourthString) == true){
-            System.out.println(secondString);
-            System.out.println(fourthString);
         }
         else{
             System.out.println("Strings are not equal.");
-        }*/
-
-
-
+        }
     }
 }

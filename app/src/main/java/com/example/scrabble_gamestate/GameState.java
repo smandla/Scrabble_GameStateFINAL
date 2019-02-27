@@ -60,6 +60,12 @@ public class GameState {
     //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
     int turn;
 
+    boolean gameWon;
+
+    boolean enoughPlayers; //because of quit functionality, must make sure there are at least 2 players
+
+    int numPlayers; //TODO I think this is necessary... not sure
+
     /**
      * Constructor for objects of class GameState
      */
@@ -88,6 +94,10 @@ public class GameState {
             drawTile(hand1);
             drawTile(hand2);
         }
+
+        gameWon = false;
+
+        enoughPlayers = true;
 
     }//constructor
 
@@ -255,7 +265,7 @@ public class GameState {
     }//makeTileBag
 
     /**
-     * Method to shuffle the tiles in the bag
+     * Helper method to shuffle the tiles in the bag
      */
     public void shuffleTileBag()
     {
@@ -265,25 +275,18 @@ public class GameState {
     }//shuffleTileBag
 
     /**
-     * Method to add a tile to a specific hand
+     * Helper method to add a tile to a specific hand
      *
      * @param hand  The hand to add the tile to
      */
     public void drawTile(ArrayList<Tile> hand)
     {
-        if(){
+        while(hand.size() < 7){
             hand.add(tileBag.get(0));
             tileBag.remove(0);
         }
 
-
-
-        //if it's a player's turn and they have less than seven tiles, draw (after a player plays a word
-        //but before the game state is updated and passed on to another player)
-
-        //draw until the hand1/2 arraylist is full (while loop)
-
-        //TODO Finish adding in conditions
+        //TODO Finish adding in conditions?
 
     }//drawTile
 
@@ -293,7 +296,7 @@ public class GameState {
         String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: " + playerTwoScore
                 + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: " + playerTwoId
                 + "\nTurn: " + turn + "\nTile Bag: " + tileBag + "\nTiles in Player One Hand: " + hand1
-                + "\nTiles in Player Two Hand: "  + hand2 + "\nTiles on board: ";
+                + "\nTiles in Player Two Hand: "  + hand2 + "\nEnough players? " + enoughPlayers + "\nTiles on board: ";
 
         for(int i = 0; i < 15; i++){
             //returns after every row, so board prints in a 15 x 15 grid
@@ -310,11 +313,15 @@ public class GameState {
     }
 
     /**
-     *Method that halts the game, reverting it to the original game state
+     * Method that halts the game, reverting it to the original game state
      * after pushing quit button.
      *
      */
     public boolean quitGame(){
+
+        //appropriately updating game state
+        enoughPlayers = false;
+
         return true; //should always remain true, because you should be able to quit whenever
 
     }
