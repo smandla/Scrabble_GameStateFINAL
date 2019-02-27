@@ -281,17 +281,20 @@ public class GameState {
         System.out.println("Player One's Score: " + playerOneScore);
         System.out.println("Player Two's Score: " + playerTwoScore);
         System.out.println("Player One's ID: " + playerOneId);
+        System.out.println("Player Two's ID: " + playerTwoId);
+        System.out.println("Turn: " + turn);
 
-        //TODO Finish
+        System.out.println("Tile Bag: " + tileBag);
+        System.out.println("Tiles in Player One Hand: " + hand1);
+        System.out.println("Tiles in Player Two Hand: "  + hand2);
 
-        ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
-        ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
-        ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                System.out.println("Tiles on board: " + board[i][j]);
+            }
+        }
 
-        Tile[][] board = new Tile[15][15];
-
-        //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
-        int turn;
+        //TODO Ensure that this actually prints desired things.
 
         return null;
     }
