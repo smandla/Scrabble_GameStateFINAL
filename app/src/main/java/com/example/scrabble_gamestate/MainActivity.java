@@ -3,6 +3,9 @@ package com.example.scrabble_gamestate;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
 /**
  *stuuuffff
  *
@@ -13,14 +16,23 @@ import android.view.View;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    Button runTestButton;
+    EditText editT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        runTestButton = findViewById(R.id.runTestButton);
+
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View button) {
+
+        editT.getText().clear();  //TODO Check that this actually clears text
+        GameState= //TODO finish
 
     }
 }
