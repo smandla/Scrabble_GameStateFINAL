@@ -32,9 +32,23 @@ public class Tile {
      */
     public Tile(int points, char letter, int id, boolean played)
     {
-        pointVal = points;
+       pointVal = points;
         tileLetter = letter;
         androidId = id;
         tilePlayed = played;
+
+
+    }
+
+    /**
+     * Deep Copy Constructor
+     */
+    public class deepCopy {
+        private pointVal points;
+
+        public deepCopy(Tile tiles){
+            this.points = new pointVal(tiles.points);
+        }
+
     }
 }
