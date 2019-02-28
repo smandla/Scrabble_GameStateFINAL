@@ -64,7 +64,7 @@ public class GameState {
 
     boolean enoughPlayers; //because of quit functionality, must make sure there are at least 2 players
 
-    int numPlayers; //TODO I think this is necessary... not sure
+    //int numPlayers; //TODO I think this is necessary... not sure
 
     /**
      * Constructor for objects of class GameState
@@ -101,6 +101,53 @@ public class GameState {
 
     }//constructor
 
+
+    /**Deep copy constructor
+     *
+     * @param state  The one true state of the game, to be copied
+     */
+    public GameState(GameState state){
+        playerOneScore = state.playerOneScore;
+        playerTwoScore = state.playerTwoScore;
+
+        playerOneId = state.playerOneId;
+        playerTwoId = state.playerTwoId;
+
+        turn = state.turn;
+
+        //remember that this array of tiles might actually contain tiles, not just null values,
+        //so we must copy over Tile objects
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                //using Tile copy constructor to duplicate orig tile obj and prevent pointing to same obj
+                //also, remember that the Tile copy constructor deals with copying over the Tile's
+                //primitive parameters
+                board[i][j] = new Tile(state.board[i][j]);
+            }
+        }
+
+        //making a Tile copy of each Tile in The One True tileBag, then adding it to a copy tileBag
+        //don't need to actually make/shuffle a new tilebag, as it already exists in The One True State
+        for (Tile t: state.tileBag) {
+            Tile copy = new Tile(t);
+            tileBag.add(copy);
+        }
+
+        for(Tile t: state.hand1){
+            Tile copy = new Tile(t);
+            hand1.add(copy);
+        }
+
+
+        for(Tile t: state.hand2){
+            Tile copy = new Tile(t);
+            hand2.add(copy);
+        }
+
+        gameWon = state.gameWon;
+
+        enoughPlayers = state.gameWon;
+    }
 
 
     /**
@@ -332,7 +379,7 @@ public class GameState {
      * instance of the placeTileAction class and updates the player's view.
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean placeTile(int turnId, ArrayList<Tile> position, Tile tile){
+    public boolean placeTile(int turnId, Tile[][] position, Tile tile){
         //if(turnId == player
         return false;
     }
@@ -353,6 +400,7 @@ public class GameState {
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean playWord(int turnId){
+        // make sure that turnId == turn otherwise not your turn
         return false;
 
     }

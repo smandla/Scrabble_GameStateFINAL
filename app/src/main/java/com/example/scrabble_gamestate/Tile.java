@@ -41,14 +41,12 @@ public class Tile {
     }
 
     /**
-     * Deep Copy Constructor
+     * Copy Constructor
      */
-    public class deepCopy {
-        /*private pointVal points;
-
-        public deepCopy(Tile tiles){
-            this.points = new pointVal(tiles.points);
-        }*/
-
+    public Tile(Tile tile) {
+        pointVal = tile.pointVal;
+        tileLetter = tile.tileLetter;
+        androidId = tile.androidId;
+        tilePlayed = tile.tilePlayed;
     }
 }
