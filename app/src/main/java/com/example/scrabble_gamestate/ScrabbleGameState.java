@@ -159,7 +159,20 @@ public class ScrabbleGameState {
                 // and prevent pointing to same obj
                 //also, remember that the Tile copy constructor deals with copying over the Tile's
                 //primitive parameters
-                board[i][j] = new Tile(state.board[i][j]);
+
+
+                /**
+                 * need to make an if and else statement for when the board is null because it will be at the beginning of the game.
+                 */
+
+                if (board == null){
+                    return;
+                }
+                
+                else{
+                    board[i][j] = new Tile(state.board[i][j]);
+                }
+
             }
         }
 
