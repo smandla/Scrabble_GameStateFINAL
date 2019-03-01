@@ -1,5 +1,7 @@
 package com.example.scrabble_gamestate;
 
+import android.graphics.Point;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -57,6 +59,41 @@ public class GameState {
 
     Tile[][] board = new Tile[15][15];
 
+    //shows the location of any tile placed on the board during one turn
+    ArrayList<Point> tileOnBoard = new ArrayList<Point>(7);
+
+    //makes an array of values that correspond to the board bonuses
+    int[][] letterBonuses =    {{1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+                                {1,1,1,1,1,3,1,1,1,3,1,1,1,1,1},
+                                {1,1,1,1,1,1,2,1,2,1,1,1,1,1,1},
+                                {2,1,1,1,1,1,1,2,1,1,1,1,1,1,2},
+                                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                                {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+                                {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+                                {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+                                {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+                                {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+                                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                                {2,1,1,1,1,1,1,2,1,1,1,1,1,1,2},
+                                {1,1,1,1,1,1,2,1,2,1,1,1,1,1,1},
+                                {1,1,1,1,1,3,1,1,1,3,1,1,1,1,1},
+                                {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1}};
+
+    int[][] wordBonuses =  {{3,1,1,1,1,1,1,3,1,1,1,1,1,1,3},
+                            {1,2,1,1,1,1,1,1,1,1,1,1,1,2,1},
+                            {1,1,2,1,1,1,1,1,1,1,1,1,2,1,1},
+                            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+                            {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                            {3,1,1,1,1,1,1,2,1,1,1,1,1,1,3},
+                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+                            {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+                            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+                            {1,1,2,1,1,1,1,1,1,1,1,1,2,1,1},
+                            {1,2,1,1,1,1,1,1,1,1,1,1,1,2,1},
+                            {3,1,1,1,1,1,1,3,1,1,1,1,1,1,3}};
     //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
     int turn;
 
@@ -69,7 +106,7 @@ public class GameState {
     /**
      * Constructor for objects of class GameState
      */
-    public GameState(){
+    public GameState() {
         playerOneScore = 0;
         playerTwoScore = 0;
 
@@ -79,8 +116,8 @@ public class GameState {
         turn = 1;
 
         //set entire array to null, representing board with no tiles played
-        for(int i = 0; i < 15; i++){
-            for(int j = 0; j < 15; j++){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
                 board[i][j] = null;
             }
         }
@@ -89,8 +126,7 @@ public class GameState {
         shuffleTileBag();
 
         //add seven tiles to each player's hand
-        for(int i=0; i < 7; i++)
-        {
+        for (int i = 0; i < 7; i++) {
             drawTile(hand1);
             drawTile(hand2);
         }
@@ -102,11 +138,12 @@ public class GameState {
     }//constructor
 
 
-    /**Deep copy constructor
+    /**
+     * Deep copy constructor
      *
-     * @param state  The one true state of the game, to be copied
+     * @param state The one true state of the game, to be copied
      */
-    public GameState(GameState state){
+    public GameState(GameState state) {
         playerOneScore = state.playerOneScore;
         playerTwoScore = state.playerTwoScore;
 
@@ -117,8 +154,8 @@ public class GameState {
 
         //remember that this array of tiles might actually contain tiles, not just null values,
         //so we must copy over Tile objects
-        for(int i = 0; i < 15; i++){
-            for(int j = 0; j < 15; j++){
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
                 //using Tile copy constructor to duplicate orig tile obj and prevent pointing to same obj
                 //also, remember that the Tile copy constructor deals with copying over the Tile's
                 //primitive parameters
@@ -128,18 +165,18 @@ public class GameState {
 
         //making a Tile copy of each Tile in The One True tileBag, then adding it to a copy tileBag
         //don't need to actually make/shuffle a new tilebag, as it already exists in The One True State
-        for (Tile t: state.tileBag) {
+        for (Tile t : state.tileBag) {
             Tile copy = new Tile(t);
             tileBag.add(copy);
         }
 
-        for(Tile t: state.hand1){
+        for (Tile t : state.hand1) {
             Tile copy = new Tile(t);
             hand1.add(copy);
         }
 
 
-        for(Tile t: state.hand2){
+        for (Tile t : state.hand2) {
             Tile copy = new Tile(t);
             hand2.add(copy);
         }
@@ -314,8 +351,7 @@ public class GameState {
     /**
      * Helper method to shuffle the tiles in the bag
      */
-    public void shuffleTileBag()
-    {
+    public void shuffleTileBag() {
         //Collections.shuffle - shuffles an arrayList
         Collections.shuffle(tileBag);
 
@@ -324,13 +360,13 @@ public class GameState {
     /**
      * Helper method to add a tile to a specific hand
      *
-     * @param hand  The hand to add the tile to
+     * @param hand The hand to add the tile to
      */
-    public void drawTile(ArrayList<Tile> hand)
-    {
-        while(hand.size() < 7){
+    public void drawTile(ArrayList<Tile> hand) {
+        while (hand.size() < 7) {
             hand.add(tileBag.get(0));
             tileBag.remove(0);
+            this.shuffleTileBag();
         }
 
         //TODO Finish adding in conditions?
@@ -338,18 +374,18 @@ public class GameState {
     }//drawTile
 
     @Override
-    public String toString(){
+    public String toString() {
 
         String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: " + playerTwoScore
                 + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: " + playerTwoId
                 + "\nTurn: " + turn + "\nTile Bag: " + tileBag + "\nTiles in Player One Hand: " + hand1
-                + "\nTiles in Player Two Hand: "  + hand2 + "\nEnough players? " + enoughPlayers + "\nTiles on board: ";
+                + "\nTiles in Player Two Hand: " + hand2 + "\nEnough players? " + enoughPlayers + "\nTiles on board: ";
 
-        for(int i = 0; i < 15; i++){
+        for (int i = 0; i < 15; i++) {
             //returns after every row, so board prints in a 15 x 15 grid
             str = str + "\n";
 
-            for(int j = 0; j < 15; j++){
+            for (int j = 0; j < 15; j++) {
                 str = str + board[i][j] + " ";
             }
         }
@@ -362,9 +398,8 @@ public class GameState {
     /**
      * Method that halts the game, reverting it to the original game state
      * after pushing quit button.
-     *
      */
-    public boolean quitGame(){
+    public boolean quitGame() {
 
         //appropriately updating game state
         enoughPlayers = false;
@@ -375,74 +410,189 @@ public class GameState {
 
     /**
      * Method that checks if it's your turn and the selected location is a valid point on the board
-     * -i.e. both free of other tiles and within the boundaries of the board. It then creates an
-     * instance of the placeTileAction class and updates the player's view.
+     * -i.e. both free of other tiles and within the boundaries of the board. It then updates the
+     * player's view.
+     *
      * @param turnId the id of the player whose turn it is currently
+     * @param xPosition the x coordinate of the selected board tile
+     * @param yPosition the y coordinate of the selected board tile
+     * @param tile the selected tile in the player's hand
      */
-    public boolean placeTile(int turnId, Tile[][] position, Tile tile){
-        //if(turnId == player
-        return false;
+    public boolean placeTile(int turnId, int xPosition, int yPosition, Tile tile) {
+        if(turnId == turn) {
+            if(board[xPosition][yPosition] == null) {
+                board[xPosition][yPosition] = tile;
+                Point tileLocation = new Point( xPosition, yPosition);
+                tileOnBoard.add(tileLocation);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
-     * Method that checks if it's the player's turn, and if so, pulls all the placed but not
-     * confirmed tiles from the board.
+     * Method that checks if it's the player's turn, and if so, updates the player's view in
+     * accordance with the action.
+     *
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean recallTiles(int turnId){
-
-        return false;
+    public boolean recallTiles(int turnId) {
+        if(turnId == turn) {
+            for(Point p: tileOnBoard ) {
+                board[p.x][p.y] = null;
+            }
+            tileOnBoard.clear();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**
      * Method that checks if it's the player's turn, and if so, resets the game state to match the
      * current view of the board when the player presses the "Play" button.
+     *
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean playWord(int turnId){
-        // make sure that turnId == turn otherwise not your turn
-        return false;
+    public boolean playWord(int turnId) {
+        if(turnId == turn) {
+            if(this.checkDictionary(turnId))
+            {
+                int counter = 0;
+                int wordBonusVal = 1;
+                for( Point p: tileOnBoard)
+                {
+                    wordBonusVal *= (wordBonuses[p.x][p.y]);
+                    counter += letterBonuses[p.x][p.y] * board[p.x][p.y].pointVal;
+                }
+
+                if(turn == 1) {
+                    playerOneScore += (counter * wordBonusVal);
+                    turn++;
+                    this.drawTile(hand1);
+                }
+                else {
+                    playerTwoScore += (counter * wordBonusVal);
+                    turn--;
+                    this.drawTile(hand2);
+                }
+                tileOnBoard.clear();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
 
     }
 
     /**
      * Method that checks if it's the player's turn, and if so, calls the skipTurnAction class,
      * which changes the turn id to that of the other player.
+     *
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean skipTurn(int turnId){
-        return false;
+    public boolean skipTurn(int turnId) {
+        if(turnId == turn){
+            if(turn == 1) {
+                turn++;
+            }
+            else
+            {
+                turn--;
+            }
+            this.recallTiles(turnId);
+            return true;
+        }
+        else {
+            return false;
+        }
 
     }
 
     /**
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean shuffleTiles(int turnId){
+    public boolean shuffleTiles(int turnId) {
 
-        return false;
+        if(turnId == turn){
+            this.recallTiles(turnId);
+            if(turn == 1) {
+                Collections.shuffle(hand1);
+            }
+            else
+            {
+                Collections.shuffle(hand2);
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * @param turnId the id of the player whose turn it is currently
+     * @param position placement of the selected tile in the hand array
+     */
+    public boolean exchangeTile(int turnId, int position) {
+        if(turnId == turn){
+            this.recallTiles(turnId);
+            if(turn == 1) {
+                tileBag.add(hand1.get(position));
+                hand1.remove(position);
+                this.drawTile(hand1);
+            }
+            else
+            {
+                tileBag.add(hand2.get(position));
+                hand2.remove(position);
+                this.drawTile(hand2);
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
 
     /**
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean exchangeTile(int turnId){
-        return false;
-
+    public boolean selectBlankTileLetter(int turnId) {
+        if(turnId == turn){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean selectBlankTileLetter(int turnId){
-
-        return false;
+    public boolean checkDictionary(int turnId) {
+        if(turnId == turn){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
-    /**
-     * @param turnId the id of the player whose turn it is currently
-     */
-    public boolean checkDictionary(int turnId){
 
-        return false;
-    }
 }
