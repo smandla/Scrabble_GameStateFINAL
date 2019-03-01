@@ -194,7 +194,8 @@ public class GameState {
     public void makeTileBag() {
 
         //blank tiles
-        //TODO Get blank tile images from Sydney and add
+        tileBag.add(new Tile(BLANK_VAL, ' ', R.drawable.tile_blank, false));
+        tileBag.add(new Tile(BLANK_VAL, ' ', R.drawable.tile_blank_2, false));
 
         //a tiles
         tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a, false));
