@@ -99,7 +99,8 @@ public class GameState {
 
     boolean gameWon;
 
-    boolean enoughPlayers; //because of quit functionality, must make sure there are at least 2 players
+    boolean enoughPlayers; //because of quit functionality,
+    // must make sure there are at least 2 players
 
     //int numPlayers; //TODO I think this is necessary... not sure
 
@@ -156,7 +157,8 @@ public class GameState {
         //so we must copy over Tile objects
         for (int i = 0; i < 15; i++) {
             for (int j = 0; j < 15; j++) {
-                //using Tile copy constructor to duplicate orig tile obj and prevent pointing to same obj
+                //using Tile copy constructor to duplicate orig tile obj
+                // and prevent pointing to same obj
                 //also, remember that the Tile copy constructor deals with copying over the Tile's
                 //primitive parameters
                 board[i][j] = new Tile(state.board[i][j]);
@@ -164,7 +166,8 @@ public class GameState {
         }
 
         //making a Tile copy of each Tile in The One True tileBag, then adding it to a copy tileBag
-        //don't need to actually make/shuffle a new tilebag, as it already exists in The One True State
+        //don't need to actually make/shuffle a new tilebag,
+        // as it already exists in The One True State
         for (Tile t : state.tileBag) {
             Tile copy = new Tile(t);
             tileBag.add(copy);
@@ -377,10 +380,11 @@ public class GameState {
     @Override
     public String toString() {
 
-        String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: " + playerTwoScore
-                + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: " + playerTwoId
-                + "\nTurn: " + turn + "\nTile Bag: " + tileBag + "\nTiles in Player One Hand: " + hand1
-                + "\nTiles in Player Two Hand: " + hand2 + "\nEnough players? " + enoughPlayers + "\nTiles on board: ";
+        String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: "
+                + playerTwoScore + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: "
+                + playerTwoId + "\nTurn: " + turn + "\nTile Bag: " + tileBag
+                + "\nTiles in Player One Hand: " + hand1 + "\nTiles in Player Two Hand: " + hand2
+                + "\nEnough players? " + enoughPlayers + "\nTiles on board: ";
 
         for (int i = 0; i < 15; i++) {
             //returns after every row, so board prints in a 15 x 15 grid
@@ -391,7 +395,7 @@ public class GameState {
             }
         }
 
-        //TODO Ensure that this actually prints desired things.
+        //TODO Ensure that this actually prints desired things- also needs commenting.
 
         return str;
     }
@@ -439,8 +443,8 @@ public class GameState {
     }
 
     /**
-     * Method that checks if it's the player's turn, and if so, updates the player's view in
-     * accordance with the action.
+     * Method that checks if it's the player's turn and removes all tiles that have been placed on
+     * the board in that turn and returns them to the player's hand.
      *
      * @param turnId the id of the player whose turn it is currently
      */
@@ -460,7 +464,8 @@ public class GameState {
 
     /**
      * Method that checks if it's the player's turn, and if so, resets the game state to match the
-     * current view of the board when the player presses the "Play" button.
+     * current view of the board when the player presses the "Play" button, as well as switches the
+     * current turn and updates the score.
      *
      * @param turnId the id of the player whose turn it is currently
      */
@@ -526,6 +531,9 @@ public class GameState {
     }
 
     /**
+     * method that checks if it is the player's turn, recalls all tiles to the player's hand, and
+     * shuffles the visual display of the tiles in the hand.
+     *
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean shuffleTiles(int turnId) {
@@ -546,7 +554,10 @@ public class GameState {
         }
     }
 
-    /**
+    /** method that checks if it is the player's turn, recalls all tiles to the player's hand, and
+     * removes a selected tile from the player's hand, replacing it with a random tile from the tile
+     * bag, and then returns the old tile to the tilebag.
+     *
      * @param turnId the id of the player whose turn it is currently
      * @param position placement of the selected tile in the hand array
      */
@@ -573,10 +584,22 @@ public class GameState {
     }
 
     /**
+     * method that checks if it is the player's turn, then adds a selected letter to a selected
+     * blank tile in the player's hand without changing the point value of the tile.
+     *
      * @param turnId the id of the player whose turn it is currently
      */
-    public boolean selectBlankTileLetter(int turnId) {
+    public boolean selectBlankTileLetter(int turnId, int position) {
         if(turnId == turn){
+            if(turn == 1 && hand1.get(position).pointVal == 0) {
+                //need to implement more of UI and user code in order to receive selected tile
+                //info
+                //with that info, this would rewrite the tile to display the selected letter
+            }
+            if (turn == 2 && hand2.get(position).pointVal == 0)
+            {
+                //same as above
+            }
             return true;
         }
         else {
@@ -584,7 +607,9 @@ public class GameState {
         }
     }
 
-    /**
+    /**method that checks if it is the player's turn, then cross-references the current turn's
+     * already placed tiles with the dictionary to check if they spell a valid word.
+     *
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean checkDictionary(int turnId) {
