@@ -42,16 +42,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editT.setText("");
 
         //create instance and deep copy
-        GameState firstInstance = new GameState();
-        GameState secondInstance = new GameState(firstInstance); //TODO Change to deep copy constructor
+        ScrabbleGameState firstInstance = new ScrabbleGameState();
+        ScrabbleGameState secondInstance = new ScrabbleGameState(firstInstance);
 
-        //calling each method in GameState once and appending strings
-        //TODO Call each action method in GameState on firstInstance at least once
+        //calling each method in ScrabbleGameState once and appending strings
+        //firstInstance.
+        //TODO Call each action method in ScrabbleGameState on firstInstance at least once
 
 
         //create another instance and copy
-        GameState thirdInstance = new GameState();
-        GameState fourthInstance = new GameState(thirdInstance); //TODO Change to deep copy constructor
+        /**ScrabbleGameState thirdInstance = new ScrabbleGameState();
+        ScrabbleGameState fourthInstance = new ScrabbleGameState(thirdInstance);
 
         //calling toString, assuring that the results are equivalent, and appending results
         String secondString = secondInstance.toString();
@@ -67,6 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else{
             System.out.println("Strings are not equal.");
-        }
+        }*/
     }
 }

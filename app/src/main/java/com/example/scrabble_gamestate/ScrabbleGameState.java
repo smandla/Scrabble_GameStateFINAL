@@ -15,7 +15,7 @@ import java.util.Collections;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class GameState {
+public class ScrabbleGameState {
 
     //constants: the point value of each tile
     final int A_VAL = 1;
@@ -46,68 +46,66 @@ public class GameState {
     final int Z_VAL = 10;
     final int BLANK_VAL = 0;
 
+    //makes an array of values that correspond to the board bonuses
+    final int[][] letterBonuses =    {{1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+            {1,1,1,1,1,3,1,1,1,3,1,1,1,1,1},
+            {1,1,1,1,1,1,2,1,2,1,1,1,1,1,1},
+            {2,1,1,1,1,1,1,2,1,1,1,1,1,1,2},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+            {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+            {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
+            {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {2,1,1,1,1,1,1,2,1,1,1,1,1,1,2},
+            {1,1,1,1,1,1,2,1,2,1,1,1,1,1,1},
+            {1,1,1,1,1,3,1,1,1,3,1,1,1,1,1},
+            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1}};
+
+    final int[][] wordBonuses =  {{3,1,1,1,1,1,1,3,1,1,1,1,1,1,3},
+            {1,2,1,1,1,1,1,1,1,1,1,1,1,2,1},
+            {1,1,2,1,1,1,1,1,1,1,1,1,2,1,1},
+            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+            {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {3,1,1,1,1,1,1,2,1,1,1,1,1,1,3},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
+            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
+            {1,1,2,1,1,1,1,1,1,1,1,1,2,1,1},
+            {1,2,1,1,1,1,1,1,1,1,1,1,1,2,1},
+            {3,1,1,1,1,1,1,3,1,1,1,1,1,1,3}};
+
     //instance variable
-    int playerOneScore;
-    int playerTwoScore;
+    private int playerOneScore;
+    private int playerTwoScore;
 
-    int playerOneId;
-    int playerTwoId;
+    private int playerOneId;
+    private int playerTwoId;
 
-    ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
-    ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
-    ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
+    private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
+    private ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
+    private ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
 
-    Tile[][] board = new Tile[15][15];
+    private Tile[][] board = new Tile[15][15];
 
     //shows the location of any tile placed on the board during one turn
-    ArrayList<Point> tileOnBoard = new ArrayList<Point>(7);
+    private ArrayList<Point> tileOnBoard = new ArrayList<Point>(7);
 
-    //makes an array of values that correspond to the board bonuses
-    int[][] letterBonuses =    {{1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
-                                {1,1,1,1,1,3,1,1,1,3,1,1,1,1,1},
-                                {1,1,1,1,1,1,2,1,2,1,1,1,1,1,1},
-                                {2,1,1,1,1,1,1,2,1,1,1,1,1,1,2},
-                                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
-                                {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
-                                {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
-                                {1,1,2,1,1,1,2,1,2,1,1,1,2,1,1},
-                                {1,3,1,1,1,3,1,1,1,3,1,1,1,3,1},
-                                {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                                {2,1,1,1,1,1,1,2,1,1,1,1,1,1,2},
-                                {1,1,1,1,1,1,2,1,2,1,1,1,1,1,1},
-                                {1,1,1,1,1,3,1,1,1,3,1,1,1,1,1},
-                                {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1}};
-
-    int[][] wordBonuses =  {{3,1,1,1,1,1,1,3,1,1,1,1,1,1,3},
-                            {1,2,1,1,1,1,1,1,1,1,1,1,1,2,1},
-                            {1,1,2,1,1,1,1,1,1,1,1,1,2,1,1},
-                            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
-                            {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
-                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                            {3,1,1,1,1,1,1,2,1,1,1,1,1,1,3},
-                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-                            {1,1,1,1,2,1,1,1,1,1,2,1,1,1,1},
-                            {1,1,1,2,1,1,1,1,1,1,1,2,1,1,1},
-                            {1,1,2,1,1,1,1,1,1,1,1,1,2,1,1},
-                            {1,2,1,1,1,1,1,1,1,1,1,1,1,2,1},
-                            {3,1,1,1,1,1,1,3,1,1,1,1,1,1,3}};
     //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
-    int turn;
+    private int turn;
 
-    boolean gameWon;
+    private boolean gameWon;
 
-    boolean enoughPlayers; //because of quit functionality,
-    // must make sure there are at least 2 players
-
-    //int numPlayers; //TODO I think this is necessary... not sure
+    private boolean enoughPlayers; //because of quit functionality, must make sure there's at least 2 players
 
     /**
-     * Constructor for objects of class GameState
+     * Constructor for objects of class ScrabbleGameState
      */
-    public GameState() {
+    public ScrabbleGameState() {
         playerOneScore = 0;
         playerTwoScore = 0;
 
@@ -144,7 +142,7 @@ public class GameState {
      *
      * @param state The one true state of the game, to be copied
      */
-    public GameState(GameState state) {
+    public ScrabbleGameState(ScrabbleGameState state) {
         playerOneScore = state.playerOneScore;
         playerTwoScore = state.playerTwoScore;
 
@@ -427,7 +425,7 @@ public class GameState {
         if(turnId == turn) {
             if(board[xPosition][yPosition] == null) {
                 board[xPosition][yPosition] = tile;
-                Point tileLocation = new Point( xPosition, yPosition);
+                Point tileLocation = new Point(xPosition, yPosition);
                 tileOnBoard.add(tileLocation);
                 return true;
             }
@@ -450,7 +448,7 @@ public class GameState {
      */
     public boolean recallTiles(int turnId) {
         if(turnId == turn) {
-            for(Point p: tileOnBoard ) {
+            for(Point p: tileOnBoard) {
                 board[p.x][p.y] = null;
             }
             tileOnBoard.clear();
@@ -475,7 +473,7 @@ public class GameState {
             {
                 int counter = 0;
                 int wordBonusVal = 1;
-                for( Point p: tileOnBoard)
+                for(Point p: tileOnBoard)
                 {
                     wordBonusVal *= (wordBonuses[p.x][p.y]);
                     counter += letterBonuses[p.x][p.y] * board[p.x][p.y].pointVal;
