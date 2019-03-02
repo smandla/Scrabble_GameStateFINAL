@@ -1,20 +1,23 @@
 package com.example.scrabble_gamestate;
 
+/**
+ * Holds the information of the tiles and their values.
+ *
+ * @author Sydney Wells
+ * @author Sarah Bunger
+ * @author Kavva Mandla
+ * @author Meredith Marcinko
+ * @version February 2019
+ */
 public class Tile {
-    /**
-     * Holds the information of the tiles and their values.
-     *
-     * @author Sydney Wells
-     * @author Sarah Bunger
-     * @author Kavva Mandla
-     * @author Meredith Marcinko
-     * @version February 2019
-     */
+
     //instance vars
-    int pointVal;
-    char tileLetter; //for blank tiles, use a single space
-    int androidId;
-    boolean tilePlayed; //if true, tile cannot be moved on board; if false, tile can be moved
+    private int pointVal;
+    private char tileLetter; //for blank tiles, use a dash
+    private int androidId;
+    private int xCoord;
+    private int yCoord;
+
 
     /**
      * Generic constructor for Tile class
@@ -22,22 +25,22 @@ public class Tile {
     public Tile()
     {
         pointVal = -1; //to avoid confusion with blank tiles, which have 0 value
-        tileLetter = '!'; //to avoid confusion with blank tiles, which have ' ' value
+        tileLetter = '!'; //to avoid confusion with blank tiles, which have '-' value
         androidId = 0;
-        tilePlayed = false;
+        xCoord = -1;
+        yCoord = -1;
     }
 
     /**
      * Constructor for Tile class
      */
-    public Tile(int points, char letter, int id, boolean played)
+    public Tile(int points, char letter, int id)
     {
-       pointVal = points;
+        pointVal = points;
         tileLetter = letter;
         androidId = id;
-        tilePlayed = played;
-
-
+        xCoord = -1;
+        yCoord = -1;
     }
 
     /**
@@ -47,6 +50,36 @@ public class Tile {
         pointVal = tile.pointVal;
         tileLetter = tile.tileLetter;
         androidId = tile.androidId;
-        tilePlayed = tile.tilePlayed;
+        xCoord = tile.xCoord;
+        yCoord = tile.yCoord;
     }
+
+    //getters and setters
+    public int getPointVal(){
+        return pointVal;
+    }
+    //will not change point value, so no setter
+
+    public char getTileLetter(){
+        return tileLetter;
+    }
+    //will not change letter, so no setter
+
+
+    public int getxCoord(){
+        return xCoord;
+    }
+
+    public void setxCoord(int x){
+        xCoord = x;
+    }
+
+    public int getyCoord(){
+        return yCoord;
+    }
+
+    public void setyCoord(int y){
+        yCoord = y;
+    }
+
 }

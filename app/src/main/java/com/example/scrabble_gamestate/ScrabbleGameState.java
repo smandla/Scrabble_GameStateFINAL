@@ -89,11 +89,10 @@ public class ScrabbleGameState {
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
+    //shows the location of any tile placed on the board during one turn
+    private ArrayList<Tile> onBoard;
 
     private Tile[][] board = new Tile[15][15];
-
-    //shows the location of any tile placed on the board during one turn
-    private ArrayList<Point> tileOnBoard = new ArrayList<Point>(7);
 
     //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
     private int turn;
@@ -122,13 +121,19 @@ public class ScrabbleGameState {
         }
 
         makeTileBag();
-        shuffleTileBag();
+        //Leaving out shuffling so that strings for secondInstance & fourthInstance are easily the same
+        //because even with correct deep copying, firstInstance and thirdInstance would be different
+        //due to shuffling
+        //TODO Uncomment after hw4d
+        //shuffleTileBag();
 
         //add seven tiles to each player's hand
         for (int i = 0; i < 7; i++) {
             drawTile(hand1);
             drawTile(hand2);
         }
+
+        onBoard = new ArrayList<Tile>(7);
 
         gameWon = false;
 
@@ -165,8 +170,8 @@ public class ScrabbleGameState {
                  * need to make an if and else statement for when the board is null because it will be at the beginning of the game.
                  */
 
-                if (board == null){
-                    return;
+                if (board[i][j] == null){
+                    board[i][j] = null;
                 }
                 
                 else{
@@ -195,11 +200,99 @@ public class ScrabbleGameState {
             hand2.add(copy);
         }
 
+        for (Tile t : state.onBoard) {
+            Tile copy = new Tile(t);
+            onBoard.add(copy);
+        }
+
         gameWon = state.gameWon;
 
-        enoughPlayers = state.gameWon;
+        enoughPlayers = state.enoughPlayers;
     }
 
+
+    //getters and setters
+    public int getPlayerOneScore(){
+        return playerOneScore;
+    }
+
+    public void setPlayerOneScore(int score){
+        playerOneScore = score;
+    }
+
+    public int getPlayerTwoScore(){
+        return playerTwoScore;
+    }
+
+    public void setPlayerTwoScore(int score){
+        playerTwoScore = score;
+    }
+
+    public int getPlayerOneId(){
+        return playerOneId;
+    }
+
+    public void setPlayerOneId(int id){
+        playerOneId = id;
+    }
+
+    public int getPlayerTwoId(){
+        return playerTwoId;
+    }
+
+    public void setPlayerTwoId(int id){
+        playerTwoId = id;
+    }
+
+    public ArrayList<Tile> getTileBag(){
+        return tileBag;
+    }
+    //no tileBag setter needed
+
+    public ArrayList<Tile> getHand1(){
+        return hand1;
+    }
+    //no hand1 setter needed
+
+    public ArrayList<Tile> getHand2(){
+        return hand2;
+    }
+    //no hand2 setter needed
+
+    public Tile[][] getBoard(){
+        return board;
+    }
+    //no board setter needed
+
+    public ArrayList<Tile> getOnBoard(){
+        return onBoard;
+    }
+    //no tileOnBoard setter needed
+
+    public int getTurn(){
+        return turn;
+    }
+
+    public void setTurn(int turnId){
+        turn = turnId;
+    }
+
+    public boolean getGameWon(){
+        return gameWon;
+    }
+
+    public void setGameWon(boolean gWon){
+        gameWon = gWon;
+    }
+
+    public boolean getEnoughPlayers(){
+        return enoughPlayers;
+    }
+
+    public void setPlayerOneId(boolean enoughP){
+        enoughPlayers = enoughP;
+    }
+    //end of getters and setters
 
     /**
      * makeTileBag
@@ -208,158 +301,158 @@ public class ScrabbleGameState {
     public void makeTileBag() {
 
         //blank tiles
-        tileBag.add(new Tile(BLANK_VAL, ' ', R.drawable.tile_blank, false));
-        tileBag.add(new Tile(BLANK_VAL, ' ', R.drawable.tile_blank_2, false));
+        tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank));
+        tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank_2));
 
         //a tiles
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_2, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_3, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_4, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_5, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_6, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_7, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_8, false));
-        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_9, false));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_2));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_3));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_4));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_5));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_6));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_7));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_8));
+        tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a_9));
 
         //b tiles
-        tileBag.add(new Tile(B_VAL, 'b', R.drawable.tile_b, false));
-        tileBag.add(new Tile(B_VAL, 'b', R.drawable.tile_b_2, false));
+        tileBag.add(new Tile(B_VAL, 'b', R.drawable.tile_b));
+        tileBag.add(new Tile(B_VAL, 'b', R.drawable.tile_b_2));
 
         //c tiles
-        tileBag.add(new Tile(C_VAL, 'c', R.drawable.tile_c, false));
-        tileBag.add(new Tile(C_VAL, 'c', R.drawable.tile_c_2, false));
+        tileBag.add(new Tile(C_VAL, 'c', R.drawable.tile_c));
+        tileBag.add(new Tile(C_VAL, 'c', R.drawable.tile_c_2));
 
         //d tiles
-        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d, false));
-        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d_2, false));
-        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d_3, false));
-        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d_4, false));
+        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d));
+        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d_2));
+        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d_3));
+        tileBag.add(new Tile(D_VAL, 'd', R.drawable.tile_d_4));
 
         //e tiles
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_2, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_3, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_4, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_5, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_6, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_7, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_8, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_9, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_10, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_11, false));
-        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_12, false));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_2));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_3));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_4));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_5));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_6));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_7));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_8));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_9));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_10));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_11));
+        tileBag.add(new Tile(E_VAL, 'e', R.drawable.tile_e_12));
 
         //f tiles
-        tileBag.add(new Tile(F_VAL, 'f', R.drawable.tile_f, false));
-        tileBag.add(new Tile(F_VAL, 'f', R.drawable.tile_f_2, false));
+        tileBag.add(new Tile(F_VAL, 'f', R.drawable.tile_f));
+        tileBag.add(new Tile(F_VAL, 'f', R.drawable.tile_f_2));
 
         //g tiles
-        tileBag.add(new Tile(G_VAL, 'g', R.drawable.tile_g, false));
-        tileBag.add(new Tile(G_VAL, 'g', R.drawable.tile_g_2, false));
-        tileBag.add(new Tile(G_VAL, 'g', R.drawable.tile_g_3, false));
+        tileBag.add(new Tile(G_VAL, 'g', R.drawable.tile_g));
+        tileBag.add(new Tile(G_VAL, 'g', R.drawable.tile_g_2));
+        tileBag.add(new Tile(G_VAL, 'g', R.drawable.tile_g_3));
 
         //h tiles
-        tileBag.add(new Tile(H_VAL, 'h', R.drawable.tile_h, false));
-        tileBag.add(new Tile(H_VAL, 'h', R.drawable.tile_h_2, false));
+        tileBag.add(new Tile(H_VAL, 'h', R.drawable.tile_h));
+        tileBag.add(new Tile(H_VAL, 'h', R.drawable.tile_h_2));
 
         //i tiles
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_2, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_3, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_4, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_5, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_6, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_7, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_8, false));
-        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_9, false));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_2));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_3));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_4));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_5));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_6));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_7));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_8));
+        tileBag.add(new Tile(I_VAL, 'i', R.drawable.tile_i_9));
 
         //j tile
-        tileBag.add(new Tile(J_VAL, 'j', R.drawable.tile_j, false));
+        tileBag.add(new Tile(J_VAL, 'j', R.drawable.tile_j));
 
         //k tile
-        tileBag.add(new Tile(K_VAL, 'k', R.drawable.tile_k, false));
+        tileBag.add(new Tile(K_VAL, 'k', R.drawable.tile_k));
 
         //l tiles
-        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l, false));
-        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l_2, false));
-        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l_3, false));
-        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l_4, false));
+        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l));
+        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l_2));
+        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l_3));
+        tileBag.add(new Tile(L_VAL, 'l', R.drawable.tile_l_4));
 
         //m tiles
-        tileBag.add(new Tile(M_VAL, 'm', R.drawable.tile_m, false));
-        tileBag.add(new Tile(M_VAL, 'm', R.drawable.tile_m_2, false));
+        tileBag.add(new Tile(M_VAL, 'm', R.drawable.tile_m));
+        tileBag.add(new Tile(M_VAL, 'm', R.drawable.tile_m_2));
 
         //n tiles
-        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n, false));
-        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_2, false));
-        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_3, false));
-        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_4, false));
-        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_5, false));
-        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_6, false));
+        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n));
+        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_2));
+        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_3));
+        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_4));
+        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_5));
+        tileBag.add(new Tile(N_VAL, 'n', R.drawable.tile_n_6));
 
         //o tiles
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_2, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_3, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_4, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_5, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_6, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_7, false));
-        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_8, false));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_2));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_3));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_4));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_5));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_6));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_7));
+        tileBag.add(new Tile(O_VAL, 'o', R.drawable.tile_o_8));
 
         //p tiles
-        tileBag.add(new Tile(P_VAL, 'p', R.drawable.tile_p, false));
-        tileBag.add(new Tile(P_VAL, 'p', R.drawable.tile_p_2, false));
+        tileBag.add(new Tile(P_VAL, 'p', R.drawable.tile_p));
+        tileBag.add(new Tile(P_VAL, 'p', R.drawable.tile_p_2));
 
         //q tile
-        tileBag.add(new Tile(Q_VAL, 'q', R.drawable.tile_q, false));
+        tileBag.add(new Tile(Q_VAL, 'q', R.drawable.tile_q));
 
         //r tiles
-        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r, false));
-        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_2, false));
-        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_3, false));
-        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_4, false));
-        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_5, false));
-        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_6, false));
+        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r));
+        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_2));
+        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_3));
+        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_4));
+        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_5));
+        tileBag.add(new Tile(R_VAL, 'r', R.drawable.tile_r_6));
 
         //s tiles
-        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s, false));
-        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s_2, false));
-        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s_3, false));
-        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s_4, false));
+        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s));
+        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s_2));
+        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s_3));
+        tileBag.add(new Tile(S_VAL, 's', R.drawable.tile_s_4));
 
         //t tiles
-        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t, false));
-        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_2, false));
-        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_3, false));
-        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_4, false));
-        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_5, false));
-        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_6, false));
+        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t));
+        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_2));
+        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_3));
+        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_4));
+        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_5));
+        tileBag.add(new Tile(T_VAL, 't', R.drawable.tile_t_6));
 
         //u tiles
-        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u, false));
-        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u_2, false));
-        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u_3, false));
-        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u_4, false));
+        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u));
+        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u_2));
+        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u_3));
+        tileBag.add(new Tile(U_VAL, 'u', R.drawable.tile_u_4));
 
         //v tiles
-        tileBag.add(new Tile(V_VAL, 'v', R.drawable.tile_v, false));
-        tileBag.add(new Tile(V_VAL, 'v', R.drawable.tile_v_2, false));
+        tileBag.add(new Tile(V_VAL, 'v', R.drawable.tile_v));
+        tileBag.add(new Tile(V_VAL, 'v', R.drawable.tile_v_2));
 
         //w tiles
-        tileBag.add(new Tile(W_VAL, 'w', R.drawable.tile_w, false));
-        tileBag.add(new Tile(W_VAL, 'w', R.drawable.tile_w_2, false));
+        tileBag.add(new Tile(W_VAL, 'w', R.drawable.tile_w));
+        tileBag.add(new Tile(W_VAL, 'w', R.drawable.tile_w_2));
 
         //x tile
-        tileBag.add(new Tile(X_VAL, 'x', R.drawable.tile_x, false));
+        tileBag.add(new Tile(X_VAL, 'x', R.drawable.tile_x));
 
         //y tiles
-        tileBag.add(new Tile(Y_VAL, 'y', R.drawable.tile_y, false));
-        tileBag.add(new Tile(Y_VAL, 'y', R.drawable.tile_y_2, false));
+        tileBag.add(new Tile(Y_VAL, 'y', R.drawable.tile_y));
+        tileBag.add(new Tile(Y_VAL, 'y', R.drawable.tile_y_2));
 
         //z tile
-        tileBag.add(new Tile(Z_VAL, 'z', R.drawable.tile_z, false));
+        tileBag.add(new Tile(Z_VAL, 'z', R.drawable.tile_z));
 
     }//makeTileBag
 
@@ -381,11 +474,7 @@ public class ScrabbleGameState {
         while (hand.size() < 7) {
             hand.add(tileBag.get(0));
             tileBag.remove(0);
-            this.shuffleTileBag();
         }
-
-        //TODO Finish adding in conditions?
-
     }//drawTile
 
     @Override
@@ -393,20 +482,32 @@ public class ScrabbleGameState {
 
         String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: "
                 + playerTwoScore + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: "
-                + playerTwoId + "\nTurn: " + turn + "\nTile Bag: " + tileBag
-                + "\nTiles in Player One Hand: " + hand1 + "\nTiles in Player Two Hand: " + hand2
-                + "\nEnough players? " + enoughPlayers + "\nTiles on board: ";
+                + playerTwoId + "\nTurn: " + turn + "\n Enough players? " + enoughPlayers + "\n Game Won? "
+                + gameWon + "\n Tile Bag after shuffling: ";
+
+        for (Tile t: tileBag) {
+            str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
+
+        }
+
+        str = str + "\n Hand 1: ";
+        for (Tile t: hand1) {
+            str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
+        }
+
+        str = str + "\n Hand 2: ";
+        for (Tile t: hand2) {
+            str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
+        }
 
         for (int i = 0; i < 15; i++) {
             //returns after every row, so board prints in a 15 x 15 grid
-            str = str + "\n";
+            str = str + "\n" + i + " ";
 
             for (int j = 0; j < 15; j++) {
                 str = str + board[i][j] + " ";
             }
         }
-
-        //TODO Ensure that this actually prints desired things- also needs commenting.
 
         return str;
     }
@@ -438,8 +539,9 @@ public class ScrabbleGameState {
         if(turnId == turn) {
             if(board[xPosition][yPosition] == null) {
                 board[xPosition][yPosition] = tile;
-                Point tileLocation = new Point(xPosition, yPosition);
-                tileOnBoard.add(tileLocation);
+                tile.setxCoord(xPosition);
+                tile.setyCoord(yPosition);
+                onBoard.add(tile);
                 return true;
             }
             else
@@ -461,10 +563,10 @@ public class ScrabbleGameState {
      */
     public boolean recallTiles(int turnId) {
         if(turnId == turn) {
-            for(Point p: tileOnBoard) {
-                board[p.x][p.y] = null;
+            for(Tile t: onBoard) {
+                board[t.getxCoord()][t.getyCoord()] = null;
             }
-            tileOnBoard.clear();
+            onBoard.clear();
             return true;
         }
         else
@@ -482,14 +584,43 @@ public class ScrabbleGameState {
      */
     public boolean playWord(int turnId) {
         if(turnId == turn) {
-            if(this.checkDictionary(turnId))
-            {
-                int counter = 0;
-                int wordBonusVal = 1;
-                for(Point p: tileOnBoard)
+
+            int counter = 0;
+            int wordBonusVal = 1;
+            for(Tile t: onBoard)
                 {
-                    wordBonusVal *= (wordBonuses[p.x][p.y]);
-                    counter += letterBonuses[p.x][p.y] * board[p.x][p.y].pointVal;
+                    wordBonusVal *= (wordBonuses[t.getxCoord()][t.getyCoord()]);
+                    counter += letterBonuses[t.getxCoord()][t.getyCoord()] * t.getPointVal();
+
+                    //the following if statements take care of letters that have already been played
+                    //(so will not show up in onBoard) but must be added to the player's score
+
+                    //add tile value to points if the space to the left of Tile t isn't empty and
+                    //the Tile in that space isn't already in the list (each tile will almost
+                    //always have at least one neighbor that's already part of the list, thanks to
+                    //the connectedness of words)
+                    if(board[t.getxCoord() - 1][t.getyCoord()] != null &&
+                            onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()]) == false){
+                            counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
+                    }
+
+                    //tile above
+                    if(board[t.getxCoord()][t.getyCoord() + 1] != null &&
+                            onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1]) == false){
+                        counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
+                    }
+
+                    //tile to the right
+                    if(board[t.getxCoord() + 1][t.getyCoord()] != null &&
+                            onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()]) == false){
+                        counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
+                    }
+
+                    //tile below
+                    if(board[t.getxCoord()][t.getyCoord() - 1] != null &&
+                            onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1]) == false){
+                        counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                    }
                 }
 
                 if(turn == 1) {
@@ -502,13 +633,10 @@ public class ScrabbleGameState {
                     turn--;
                     this.drawTile(hand2);
                 }
-                tileOnBoard.clear();
+                onBoard.clear();
                 return true;
-            }
-            else
-            {
-                return false;
-            }
+
+
         }
         else
         {
@@ -602,12 +730,12 @@ public class ScrabbleGameState {
      */
     public boolean selectBlankTileLetter(int turnId, int position) {
         if(turnId == turn){
-            if(turn == 1 && hand1.get(position).pointVal == 0) {
+            if(turn == 1 && hand1.get(position).getPointVal() == 0) {
                 //need to implement more of UI and user code in order to receive selected tile
                 //info
                 //with that info, this would rewrite the tile to display the selected letter
             }
-            if (turn == 2 && hand2.get(position).pointVal == 0)
+            if (turn == 2 && hand2.get(position).getPointVal() == 0)
             {
                 //same as above
             }
