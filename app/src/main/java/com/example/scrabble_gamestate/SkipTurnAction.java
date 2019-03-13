@@ -1,7 +1,7 @@
 package com.example.scrabble_gamestate;
 /**
- *Class that exchanges one tile in the player's hand for another random tile from the remaining
- * tiles in the tileBag when button is pushed.
+ *Changes the current turn to the other player without the current player playing a word when
+ * the skip button is pressed.
  *
  * @author Sydney Wells
  * @author Sarah Bunger
@@ -9,5 +9,5 @@ package com.example.scrabble_gamestate;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class exchangeTileAction {
+public class SkipTurnAction {
 }

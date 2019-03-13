@@ -1,7 +1,6 @@
 package com.example.scrabble_gamestate;
 /**
- *Updates the game state to match the current presentation of the board and checks if the played
- * word is a real word.
+ *Class that quits the game, reverting the local game state to the original game state.
  *
  * @author Sydney Wells
  * @author Sarah Bunger
@@ -9,5 +8,5 @@ package com.example.scrabble_gamestate;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class playWordAction {
+public class QuitGameAction {
 }

@@ -9,5 +9,5 @@ package com.example.scrabble_gamestate;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class selectBlankTileLetterAction {
+public class SelectBlankTileLetterAction {
 }

@@ -1,7 +1,6 @@
 package com.example.scrabble_gamestate;
 /**
- *Places a selected tile from the player's hand and displays it in a selected square of the
- * board, in the player's color.
+ *Recalls all tiles placed by the player in that turn.
  *
  * @author Sydney Wells
  * @author Sarah Bunger
@@ -9,5 +8,5 @@ package com.example.scrabble_gamestate;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class placeTileAction {
+public class RecallTilesAction {
 }
