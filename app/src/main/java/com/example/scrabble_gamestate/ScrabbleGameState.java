@@ -173,7 +173,7 @@ public class ScrabbleGameState {
                 if (board[i][j] == null){
                     board[i][j] = null;
                 }
-                
+
                 else{
                     board[i][j] = new Tile(state.board[i][j]);
                 }
