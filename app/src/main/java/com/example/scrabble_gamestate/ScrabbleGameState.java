@@ -168,7 +168,7 @@ public class ScrabbleGameState {
                  * need to make an if and else statement for when the board is null because it will be at the beginning of the game.
                  */
 
-                if (board[i][j] == null){
+                if (state.board[i][j] == null){
                     board[i][j] = null;
                 }
 
