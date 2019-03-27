@@ -11,17 +11,7 @@ import android.widget.TextView;
 import android.view.View.OnClickListener;
 
 /**
- * A GUI of a counter-player. The GUI displays the current value of the counter,
- * and allows the human player to press the '+' and '-' buttons in order to
- * send moves to the game.
  *
- * Just for fun, the GUI is implemented so that if the player presses either button
- * when the counter-value is zero, the screen flashes briefly, with the flash-color
- * being dependent on whether the player is player 0 or player 1.
- *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
- * @version July 2013
  */
 public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListener {
 

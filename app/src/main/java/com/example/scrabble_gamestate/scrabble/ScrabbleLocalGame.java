@@ -6,21 +6,12 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 import android.util.Log;
 
 /**
- * A class that represents the state of a game. In our counter game, the only
- * relevant piece of information is the value of the game's counter. The
- * CounterState object is therefore very simple.
  *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
- * @version July 2013
  */
 public class ScrabbleLocalGame extends LocalGame {
 
-    // When a counter game is played, any number of players. The first player
-    // is trying to get the counter value to TARGET_MAGNITUDE; the second player,
-    // if present, is trying to get the counter to -TARGET_MAGNITUDE. The
-    // remaining players are neither winners nor losers, but can interfere by
-    // modifying the counter.
+    // When a scrabble game is played. Both players are trying to use up all their tiles and get
+    // most points based on the words they play
     public static final int TARGET_MAGNITUDE = 10;
 
     // the game's state
@@ -30,33 +21,41 @@ public class ScrabbleLocalGame extends LocalGame {
      * can this player move
      *
      * @return
-     * 		true, because all player are always allowed to move at all times,
-     * 		as this is a fully asynchronous game
+     * 		true if the index param is the same as the turnID in the game state and false if not
      */
     @Override
     protected boolean canMove(int playerIdx) {
-        return true;
+        if(playerIdx != gameState.getTurn())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     /**
-     * This ctor should be called when a new counter game is started
+     * This ctor should be called when a new scrabble game is started
      */
     public ScrabbleLocalGame() {
-        // initialize the game state, with the counter value starting at 0
-        this.gameState = new CounterState(0);
+        // initialize the game state, with all default start values
+        this.gameState = new ScrabbleGameState();
     }
 
     /**
-     * The only type of GameAction that should be sent is CounterMoveAction
+     * Makes a move on behalf of a player
+     *
+     * @param action The move that the player has sent to the game
+     * @return Indicates if move was legal or not
      */
     @Override
     protected boolean makeMove(GameAction action) {
-        Log.i("action", action.getClass().toString());
 
-        if (action instanceof CounterMoveAction) {
+        if (action instanceof CheckDictionaryAction) {
 
-            // cast so that we Java knows it's a CounterMoveAction
-            CounterMoveAction cma = (CounterMoveAction)action;
+            // cast so that we Java knows it's a CheckDictionaryAction
+            CheckDictionaryAction cma = (CheckDictionaryAction) action;
 
             // Update the counter values based upon the action
             int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
