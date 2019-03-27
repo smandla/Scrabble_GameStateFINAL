@@ -37,7 +37,7 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/layout1"
+                android:id="@+id/dictionaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -50,7 +50,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/dictionaryButton"
+                        android:id="@+id/imageButton10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -62,7 +62,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout2"
+                android:id="@+id/swapTileButtton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -74,7 +74,7 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/swapTileButtton"
+                        android:id="@+id/imageButton13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -273,7 +273,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileOneButton"
+                    android:id="@+id/imageButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
@@ -289,7 +289,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileTwoButton"
+                    android:id="@+id/imageButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -307,7 +307,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileThreeButton"
+                    android:id="@+id/imageButton4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -324,7 +324,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileFourButton"
+                    android:id="@+id/imageButton5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -341,7 +341,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileFiveButton"
+                    android:id="@+id/imageButton6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -358,7 +358,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileSixButton"
+                    android:id="@+id/imageButton7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -375,7 +375,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/tileSevenButton"
+                    android:id="@+id/imageButton8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -393,7 +393,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/playButton"
+                android:id="@+id/imageButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorAccent"

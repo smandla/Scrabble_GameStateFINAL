@@ -1,6 +1,7 @@
-package com.example.scrabble_gamestate;
+package com.example.scrabble_gamestate.scrabble;
 
-import android.graphics.Point;
+import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
