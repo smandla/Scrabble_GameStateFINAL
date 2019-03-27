@@ -1,17 +1,17 @@
 package com.example.scrabble_gamestate.scrabble;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GameMainActivity;
+import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
+import com.example.scrabble_gamestate.game.config.GameConfig;
+import com.example.scrabble_gamestate.game.config.GamePlayerType;
+
+import java.util.ArrayList;
 
 /**
  *This is the primary activity for the Scrabble game
@@ -24,39 +24,46 @@ import com.example.scrabble_gamestate.game.LocalGame;
  */
 public class ScrabbleMainActivity extends GameMainActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    private static final int PORT_NUMBER = 2234;
 
-        TextView ourScore = findViewById(R.id.playerScore);
-        TextView opponentScore = findViewById(R.id.opponentScore);
+    public GameConfig createDefaultConfig() {
+        // Define the allowed player types
+        ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        ScrabbleController theController = new ScrabbleController(ourScore, opponentScore);
+        // Uno has two player types:  human and computer
+        playerTypes.add(new GamePlayerType("Local Human Player") {
+            public GamePlayer createPlayer(String name) {
+                return new ScrabbleHumanPlayer(name);
+            }
+        });
 
-        ImageButton swapTileButton = findViewById(R.id.swapTileButtton);
-        swapTileButton.setOnClickListener(theController);
+        // dumb computer player
+        playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
+            public GamePlayer createPlayer(String name) {
+                return new ScrabbleDumbComputerPlayer(name);
+            }
+        });
 
-        ImageButton skipButton = findViewById(R.id.passImageButton);
-        skipButton.setOnClickListener(theController);
+        // smart computer player
+        playerTypes.add(new GamePlayerType("Computer Player (smart)") {
+            public GamePlayer createPlayer(String name) {
+                return new ScrabbleSmartComputerPlayer(name);
+            }
+        });
 
-        ImageButton shuffleTileButton = findViewById(R.id.shuffleImageButton);
-        shuffleTileButton.setOnClickListener(theController);
-
-        ImageButton dictionaryButton = findViewById(R.id.dictionaryButton);
-        dictionaryButton.setOnClickListener(theController);
-
-        ImageButton playButton = findViewById(R.id.playButton);
-        playButton.setOnClickListener(theController);
-
-
-
+        // Add the default players
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Pig", PORT_NUMBER);
+        defaultConfig.addPlayer("Human", 0); // player 1: a human player
+        defaultConfig.addPlayer("Dumb AI", 1); // player 2: a computer player
+        defaultConfig.addPlayer("Smart AI", 2); // player 3: a smart computer player
+        return defaultConfig;
     }
 
-    public GameConfig createDefaultConfig(){
-
-    }
-
+    /**
+     * create a local game
+     *
+     * @return    the local game, a scrabble game
+     */
     public LocalGame createLocalGame(){
         return new ScrabbleLocalGame();
     }

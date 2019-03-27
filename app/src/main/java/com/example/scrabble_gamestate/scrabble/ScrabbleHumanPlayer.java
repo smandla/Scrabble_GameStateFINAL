@@ -8,12 +8,11 @@ import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 /**
  *
  */
-public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListener {
+public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     /* instance variables */
 
@@ -25,6 +24,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
 
     // the android activity that we are running
     private GameMainActivity myActivity;
+
+    //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
+    //bool skipped  start it out as false; everytime they skip, check to see if true (if so, forfiet); pop up yes/no
+    //dialog asking if they actually want to forfiet, then send a quitgameaction instead
 
     /**
      * constructor
@@ -42,7 +45,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
      * 		the top object in the GUI's view hierarchy
      */
     public View getTopView() {
-        return myActivity.findViewById(R.id.buttons);
+        return myActivity.findViewById(R.id.top_gui_layout);
     }
 
     /**
@@ -50,45 +53,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
      */
     protected void updateDisplay() {
         // set the text in the appropriate widget
-        counterValueTextView.setText("" + state.getCounter());
+        //counterValueTextView.setText("" + state.getCounter());
     }
-
-    /**
-     * this method gets called when the user clicks the '+' or '-' button. It
-     * creates a new CounterMoveAction to return to the parent activity.
-     *
-     * @param button
-     * 		the button that was clicked
-     */
-    public void onClick(View button) {
-        // if we are not yet connected to a game, ignore
-        if (game == null) return;
-
-        // Construct the action and send it to the game
-        GameAction action = null;
-        if (button.getId() == R.id.dictionaryButton) {
-
-            action = new CheckDictionaryAction(this);
-        }
-        else if (button.getId() == R.id.swapTileButtton) {
-
-            action = new ExchangeTileAction(this);
-        }
-        else if (button.getId() == R.id.shuffleButton) {
-
-            action = new ExchangeTileAction(this);
-        }
-        else if (button.getId() == R.id.swapTileButtton) {
-
-            action = new ExchangeTileAction(this);
-        }
-        else {
-            // something else was pressed: ignore
-            return;
-        }
-
-        game.sendAction(action); // send action to the game
-    }// onClick
 
     /**
      * callback method when we get a message (e.g., from the game)
@@ -98,11 +64,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
      */
     @Override
     public void receiveInfo(GameInfo info) {
-        // ignore the message if it's not a CounterState message
-        if (!(info instanceof CounterState)) return;
+        // ignore the message if it's not a ScrabbleGameState message
+        if (!(info instanceof ScrabbleGameState)) return;
 
         // update our state; then update the display
-        this.state = (CounterState)info;
+        this.state = (ScrabbleGameState) info;
         updateDisplay();
     }
 
@@ -119,17 +85,19 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
         myActivity = activity;
 
         // Load the layout resource for our GUI
-        activity.setContentView(R.layout.counter_human_player);
+        activity.setContentView(R.layout.activity_main);
 
+        //TODO add in the buttons applicable to our game? but if we have a controller class, does
+        // this actually need to happen, or can we get rid of this whole ordeal here?
         // make this object the listener for both the '+' and '-' 'buttons
-        Button plusButton = (Button) activity.findViewById(R.id.plusButton);
+        /*Button plusButton = (Button) activity.findViewById(R.id.plusButton);
         plusButton.setOnClickListener(this);
         Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-        minusButton.setOnClickListener(this);
+        minusButton.setOnClickListener(this);*/
 
         // remember the field that we update to display the counter's value
-        this.counterValueTextView =
-                (TextView) activity.findViewById(R.id.counterValueTextView);
+        /*this.counterValueTextView =
+                (TextView) activity.findViewById(R.id.counterValueTextView);*/
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated

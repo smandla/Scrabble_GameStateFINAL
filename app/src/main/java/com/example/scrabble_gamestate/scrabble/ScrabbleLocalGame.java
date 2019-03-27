@@ -10,10 +10,6 @@ import android.util.Log;
  */
 public class ScrabbleLocalGame extends LocalGame {
 
-    // When a scrabble game is played. Both players are trying to use up all their tiles and get
-    // most points based on the words they play
-    public static final int TARGET_MAGNITUDE = 10;
-
     // the game's state
     private ScrabbleGameState gameState;
 
@@ -54,12 +50,12 @@ public class ScrabbleLocalGame extends LocalGame {
 
         if (action instanceof CheckDictionaryAction) {
 
-            // cast so that we Java knows it's a CheckDictionaryAction
+            // cast so that Java knows it's a CheckDictionaryAction
             CheckDictionaryAction cma = (CheckDictionaryAction) action;
 
             // Update the counter values based upon the action
-            int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-            gameState.setCounter(result);
+            //int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
+            //gameState.setCounter(result);
 
             // denote that this was a legal/successful move
             return true;
@@ -71,13 +67,28 @@ public class ScrabbleLocalGame extends LocalGame {
     }//makeMove
 
     /**
-     * send the updated state to a given player
+     * sends the updated state to the given player and makes a copy of the appropriate hand,
+     * and nulls out all the cards except the top card
+     * in the middle deck, since that's the only one they can "see"
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        // this is a perfect-information game, so we'll make a
-        // complete copy of the state to send to the player
-        p.sendInfo(new CounterState(gameState));
+        // if there is no state to send, ignore
+        if (gameState == null) {
+            return;
+        }
+
+        //TODO implement how to copy without letting players know each others
+        //aka make a tiles that aren't real tiles and fill the opponents hand with as many of those
+        //as they had of real tiles
+
+        // make a copy of the state; null out all cards except for the
+        // top card in the middle deck
+        //SJState stateForPlayer = new SJState(state); // copy of state
+        //stateForPlayer.nullAllButTopOf2(); // put nulls except for visible card
+
+        // send the modified copy of the state to the player
+        //p.sendInfo(stateForPlayer);
 
     }//sendUpdatedSate
 
@@ -92,29 +103,35 @@ public class ScrabbleLocalGame extends LocalGame {
     @Override
     protected String checkIfGameOver() {
 
-        // get the value of the counter
-        int counterVal = this.gameState.getCounter();
+        if(gameState.getHand1().size() > 0 && gameState.getHand2().size() > 0){
+            //both players still have tiles in their hands
+            //TODO figure out way to track # consecutive skips
 
-        if (counterVal >= TARGET_MAGNITUDE) {
-            // counter has reached target magnitude, so return message that
-            // player 0 has won.
-            return playerNames[0]+" has won.";
+            /*if(player1 skipped multiple times in a row){
+                return playerNames[1]+" has won."; //player 1 forfeits
+            }
+            else if(player2 skipped multiple times in a row){
+                return playerNames[0]+" has won."; //player 2 forfeits
+            }
+            else{
+                return null; //nobody has forfeited yet and tiles remain
+            }*/
+            return null; //placeholder
         }
-        else if (counterVal <= -TARGET_MAGNITUDE) {
-            // counter has reached negative of target magnitude; if there
-            // is a second player, return message that this player has won,
-            // otherwise that the first player has lost
-            if (playerNames.length >= 2) {
+        else{
+            //at least one of the players has run out of tiles
+
+            //whichever player has a larger score wins
+            //we also account for the unusual case in which they have the same score
+            if(gameState.getPlayerOneScore() > gameState.getPlayerTwoScore()){
+                return playerNames[0]+" has won.";
+            }
+            else if (gameState.getPlayerOneScore() < gameState.getPlayerTwoScore()){
                 return playerNames[1]+" has won.";
             }
-            else {
-                return playerNames[0]+" has lost.";
+            else{
+                return "Tie!";
             }
-        }
-        else {
-            // game is still between the two limit: return null, as the game
-            // is not yet over
-            return null;
         }
     }
 

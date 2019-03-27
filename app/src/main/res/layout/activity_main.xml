@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:alwaysDrawnWithCache="false"
     android:background="@color/colorAccent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/top_gui_layout">
 
     <LinearLayout
         android:layout_width="match_parent"

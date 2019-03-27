@@ -2,6 +2,7 @@ package com.example.scrabble_gamestate.scrabble;
 
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Tile;
+import com.example.scrabble_gamestate.game.infoMsg.GameState;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ import java.util.Collections;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class ScrabbleGameState {
+public class ScrabbleGameState extends GameState {
 
     //constants: the point value of each tile
     final int A_VAL = 1;
@@ -298,8 +299,9 @@ public class ScrabbleGameState {
     public void makeTileBag() {
 
         //blank tiles
-        tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank));
-        tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank_2));
+        //TODO uncomment after alpha
+        //tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank));
+        //tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank_2));
 
         //a tiles
         tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a));
