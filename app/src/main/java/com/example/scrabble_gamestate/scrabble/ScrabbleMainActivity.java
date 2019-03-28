@@ -1,10 +1,5 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.os.Bundle;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
-import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
@@ -30,7 +25,7 @@ public class ScrabbleMainActivity extends GameMainActivity {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        // Uno has two player types:  human and computer
+        //two player types:  human and computer
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
                 return new ScrabbleHumanPlayer(name);
@@ -52,7 +47,7 @@ public class ScrabbleMainActivity extends GameMainActivity {
         });
 
         // Add the default players
-        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Pig", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 2, 2, "Scrabble", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
         defaultConfig.addPlayer("Dumb AI", 1); // player 2: a computer player
         defaultConfig.addPlayer("Smart AI", 2); // player 3: a smart computer player
