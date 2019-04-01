@@ -275,7 +275,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/tileOneButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorAccent"
@@ -291,7 +291,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/tileTwoButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -309,7 +309,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/tileThreeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -326,7 +326,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/tileFourButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -343,7 +343,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton6"
+                    android:id="@+id/tileFiveButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -360,7 +360,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton7"
+                    android:id="@+id/tileSixButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -377,7 +377,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton8"
+                    android:id="@+id/tileSevenButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -395,7 +395,7 @@
             android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/playButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorAccent"
