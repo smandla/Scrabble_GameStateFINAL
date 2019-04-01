@@ -1,28 +1,27 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class ScrabbleController implements View.OnTouchListener, View.OnClickListener {
-    private ImageButton playButton = null;
-    private ImageButton quitButton = null;
-    private ImageButton skipButton = null;
-    private ImageButton dictionaryButton = null;
-    private ImageButton shuffleButton = null;
-    private ImageButton exchangeButton = null;
-    private TextView ourScore = null;
-    private TextView opponentScore = null;
+import com.example.scrabble_gamestate.R;
+public class ScrabbleController implements View.OnTouchListener, View.OnClickListener, View.OnDragListener {
+
+    private TextView ourScore;
+    private TextView opponentScore;
     private Spinner menu = null;
     private ImageView theirProfile = null;
     private ImageView ourProfile = null;
+    private ScrabbleGameState ourGameState;
+    private View selectedView = null;
 
-    public ScrabbleController(TextView ourPlayerScore, TextView theirPlayerScore ) {
+    public ScrabbleController(TextView ourPlayerScore, TextView theirPlayerScore, ScrabbleGameState theGameState ) {
         ourScore = ourPlayerScore;
         opponentScore = theirPlayerScore;
+        ourGameState = theGameState;
         /*theirProfile = theirProfPic;
         ourProfile = ourProfPic; */
 
@@ -30,15 +29,54 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     @Override
     public void onClick(View button) {
 
+        switch (button.getId()) {
+            case R.id.playButton:
+                ourGameState.playWord(ourGameState.getTurn());
 
+                break;
+
+            case R.id.passImageButton:
+                ourGameState.skipTurn(ourGameState.getTurn());
+                break;
+
+            case R.id.swapTileButtton:
+                ourGameState.exchangeTile(ourGameState.getTurn(),ourGameState.getPositionInHand());
+                break;
+
+            case R.id.shuffleImageButton:
+                ourGameState.shuffleTiles(ourGameState.getTurn());
+                break;
+
+            case R.id.dictionaryButton:
+                ourGameState.checkDictionary(ourGameState.getTurn());
+                break;
+
+            default:
+                break;
+
+        }
     }
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        int xTouch = (int)event.getX();
-        int yTouch = (int)event.getY();
+        @Override
+        public boolean onTouch (View v, MotionEvent event){
+            int xTouch = (int) event.getX();
+            int yTouch = (int) event.getY();
+            if( selectedView != null) {
+                selectedView.setSelected(false);//unselects previously selected view
+            }
+            selectedView = v;//sets view to be selected to new view that has been touched
+            selectedView.setSelected(true);
 
 
+            return true;
+        }
 
-        return true;
-    }
+        @Override
+        public boolean onDrag (View v, DragEvent event){
+            float xTouch = (int) event.getX();
+            float yTouch = (int) event.getY();
+
+
+            return true;
+        }
+
 }

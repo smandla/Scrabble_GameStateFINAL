@@ -88,6 +88,8 @@ public class ScrabbleGameState extends GameState {
     private int playerOneId;
     private int playerTwoId;
 
+    private int positionInHand;
+
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
@@ -290,6 +292,8 @@ public class ScrabbleGameState extends GameState {
     public void setPlayerOneId(boolean enoughP){
         enoughPlayers = enoughP;
     }
+
+    public int getPositionInHand() { return positionInHand;}
     //end of getters and setters
 
     /**

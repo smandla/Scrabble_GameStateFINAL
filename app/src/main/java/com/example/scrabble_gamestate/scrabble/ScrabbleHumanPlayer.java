@@ -10,6 +10,7 @@ import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -57,6 +58,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
      * sets the counter value in the text view
      */
     protected void updateDisplay() {
+
         // set the text in the appropriate widget
         //counterValueTextView.setText("" + state.getCounter());
     }
@@ -92,12 +94,48 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        //TODO add in the buttons applicable to our game? but if we have a controller class, does this actually need to happen, or can we get rid of this whole ordeal here?
-        // make this object the listener for both the '+' and '-' 'buttons
-        /*Button plusButton = (Button) activity.findViewById(R.id.plusButton);
-        plusButton.setOnClickListener(this);
-        Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-        minusButton.setOnClickListener(this);*/
+        TextView ourScore = activity.findViewById(R.id.playerScore);
+        TextView opponentScore = activity.findViewById(R.id.opponentScore);
+
+        ScrabbleController theController = new ScrabbleController(ourScore, opponentScore, state);
+
+        //sets the listeners for the gameplay buttons
+        ImageButton swapTileButton = activity.findViewById(R.id.swapTileButtton);
+        swapTileButton.setOnClickListener(theController);
+
+        ImageButton skipButton = activity.findViewById(R.id.passImageButton);
+        skipButton.setOnClickListener(theController);
+
+        ImageButton shuffleTileButton = activity.findViewById(R.id.shuffleImageButton);
+        shuffleTileButton.setOnClickListener(theController);
+
+        ImageButton dictionaryButton = activity.findViewById(R.id.dictionaryButton);
+        dictionaryButton.setOnClickListener(theController);
+
+        ImageButton playButton = activity.findViewById(R.id.playButton);
+        playButton.setOnClickListener(theController);
+
+        //sets the listeners for the player hand tiles for drag and drop
+        ImageButton tileOneButton = activity.findViewById(R.id.tileOneButton);
+        tileOneButton.setOnDragListener(theController);
+
+        ImageButton tileTwoButton = activity.findViewById(R.id.tileTwoButton);
+        tileTwoButton.setOnDragListener(theController);
+
+        ImageButton tileThreeButton = activity.findViewById(R.id.tileThreeButton);
+        tileThreeButton.setOnDragListener(theController);
+
+        ImageButton tileFourButton = activity.findViewById(R.id.tileFourButton);
+        tileFourButton.setOnDragListener(theController);
+
+        ImageButton tileFiveButton = activity.findViewById(R.id.tileFiveButton);
+        tileFiveButton.setOnDragListener(theController);
+
+        ImageButton tileSixButton = activity.findViewById(R.id.tileSixButton);
+        tileSixButton.setOnDragListener(theController);
+
+        ImageButton tileSevenButton = activity.findViewById(R.id.tileSevenButton);
+        tileSevenButton.setOnDragListener(theController);
 
         // remember the field that we update to display the counter's value
         /*this.counterValueTextView =

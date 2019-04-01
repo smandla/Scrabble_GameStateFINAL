@@ -1,12 +1,16 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GameMainActivity;
-import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
 import com.example.scrabble_gamestate.game.config.GameConfig;
-import com.example.scrabble_gamestate.game.config.GamePlayerType;
-
-import java.util.ArrayList;
 
 /**
  *This is the primary activity for the Scrabble game
@@ -20,6 +24,8 @@ import java.util.ArrayList;
 public class ScrabbleMainActivity extends GameMainActivity {
 
     private static final int PORT_NUMBER = 2234;
+
+
 
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
