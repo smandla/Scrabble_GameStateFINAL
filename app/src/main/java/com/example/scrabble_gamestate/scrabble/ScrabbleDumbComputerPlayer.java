@@ -1,12 +1,16 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.graphics.Paint;
 import android.view.SurfaceView;
 import android.widget.Switch;
 
 import com.example.scrabble_gamestate.game.GameComputerPlayer;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
+import com.example.scrabble_gamestate.game.
 import com.example.scrabble_gamestate.game.util.Tickable;
 import com.example.scrabble_gamestate.game.Tile;
+import com.example.scrabble_gamestate.scrabble.ScrabbleGameState;
+
 
 import java.io.InputStream;
 import java.lang.reflect.Array;
@@ -28,6 +32,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
     boolean foundWord = false;
     // String word = read in line from dumbDictionary.txt
     String word = " ";
+    ScrabbleGameState latestState =  new ScrabbleGameState();
     /**
      *
      * Constructor for objects of class CounterComputerPlayer1
@@ -52,6 +57,14 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
      */
     @Override
     protected void receiveInfo(GameInfo info) {
+        if (info instanceof ScrabbleGameState){
+            this.latestState = (ScrabbleGameState)info;
+        }
+        else {
+            //TODO: should do more here?
+            return;
+        }
+
         //half the time, just skip turn instead of playing a word
         if (Math.random() >= 0.5){
             game.sendAction(new SkipTurnAction(this));
@@ -63,12 +76,14 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         for(int column = 1; column < 14; column++){
             for(int row = 0; row < 15; row++)
             {
-                if(board[row][column] == null && (board[row - 1][column] == null) && (board[row+1][column])){
+                if((latestState.getBoard()[row][column] == null) &&
+                        (latestState.getBoard()[row - 1][column] == null) &&
+                        (latestState.getBoard()[row+1][column] == null)){
                     if(alreadyPlayedLetter != null)
                     {
                         for (Tile t: hand) {
                             if(letters.contains(t.getTileLetter()) == false){
-                                //ADD.() DOES NOT ACCEPT CHAR!!! NEED STRING
+                                //TODO: ADD.() DOES NOT ACCEPT CHAR!!! NEED STRING
                                 letters.add(t.getTileLetter());
                             }
 
@@ -81,6 +96,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                         while(foundWord == false){
                             if(/**TODO: if it's still AI's turn)**/){
                                 //TODO: ask NUXOLL about InputStream
+                                //use scanner & print writer
 
 
 
@@ -104,7 +120,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                                 for(int j = word.length(); j > 0; j++){
                                     for (Tile t: hand) {
                                         //TODO: THIS MAY OR MAY NOT WORK
-                                        if(tileLetter == word.charAt(j) && board[alreadyPlayedX -i][alreadyPlayedY] == null){
+                                        if(tileLetter == word.charAt(j) && latestState.getBoard()[alreadyPlayedX -i][alreadyPlayedY] == null){
                                             placeTile();
                                         }
                                         
