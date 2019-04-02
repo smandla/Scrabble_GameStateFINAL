@@ -62,6 +62,7 @@ public abstract class GameHumanPlayer implements GamePlayer, Tickable {
         // get new handler for this thread
         this.myHandler = new Handler();
     }
+    public int getPlayerNum(){return playerNum;}
 
     /**
      * Returns this object's game timer

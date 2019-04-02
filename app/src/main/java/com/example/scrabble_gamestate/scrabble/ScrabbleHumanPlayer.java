@@ -23,6 +23,25 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     // The TextView the displays the current counter value
     private TextView counterValueTextView;
 
+    private TextView ourScore;
+    private TextView opponentScore;
+
+    private ScrabbleController theController;
+
+    private ImageButton swapTileButton;
+    private ImageButton skipButton;
+    private ImageButton shuffleTileButton;
+    private ImageButton dictionaryButton;
+    private ImageButton playButton;
+
+
+    private ImageButton tileOneButton;
+    private ImageButton tileTwoButton;
+    private ImageButton tileThreeButton;
+    private ImageButton tileFourButton;
+    private ImageButton tileFiveButton;
+    private ImageButton tileSixButton;
+    private ImageButton tileSevenButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
@@ -32,8 +51,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private Board surface;
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
-    //bool skipped  start it out as false; everytime they skip, check to see if true (if so, forfiet); pop up yes/no
-    //dialog asking if they actually want to forfiet, then send a quitgameaction instead
+    //bool skipped  start it out as false; everytime they skip, check to see if true (if so, forfeit); pop up yes/no
+    //dialog asking if they actually want to forfeit, then send a quitgameaction instead
 
     /**
      * constructor
@@ -94,47 +113,47 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        TextView ourScore = activity.findViewById(R.id.playerScore);
-        TextView opponentScore = activity.findViewById(R.id.opponentScore);
+        ourScore = activity.findViewById(R.id.playerScore);
+        opponentScore = activity.findViewById(R.id.opponentScore);
 
-        ScrabbleController theController = new ScrabbleController(ourScore, opponentScore, state);
+        theController = new ScrabbleController(ourScore, opponentScore, state);
 
         //sets the listeners for the gameplay buttons
-        ImageButton swapTileButton = activity.findViewById(R.id.swapTileButtton);
+        swapTileButton = activity.findViewById(R.id.swapTileButtton);
         swapTileButton.setOnClickListener(theController);
 
-        ImageButton skipButton = activity.findViewById(R.id.passImageButton);
+        skipButton = activity.findViewById(R.id.passImageButton);
         skipButton.setOnClickListener(theController);
 
-        ImageButton shuffleTileButton = activity.findViewById(R.id.shuffleImageButton);
+        shuffleTileButton = activity.findViewById(R.id.shuffleImageButton);
         shuffleTileButton.setOnClickListener(theController);
 
-        ImageButton dictionaryButton = activity.findViewById(R.id.dictionaryButton);
+        dictionaryButton = activity.findViewById(R.id.dictionaryButton);
         dictionaryButton.setOnClickListener(theController);
 
-        ImageButton playButton = activity.findViewById(R.id.playButton);
+        playButton = activity.findViewById(R.id.playButton);
         playButton.setOnClickListener(theController);
 
         //sets the listeners for the player hand tiles for drag and drop
-        ImageButton tileOneButton = activity.findViewById(R.id.tileOneButton);
+        tileOneButton = activity.findViewById(R.id.tileOneButton);
         tileOneButton.setOnDragListener(theController);
 
-        ImageButton tileTwoButton = activity.findViewById(R.id.tileTwoButton);
+        tileTwoButton = activity.findViewById(R.id.tileTwoButton);
         tileTwoButton.setOnDragListener(theController);
 
-        ImageButton tileThreeButton = activity.findViewById(R.id.tileThreeButton);
+        tileThreeButton = activity.findViewById(R.id.tileThreeButton);
         tileThreeButton.setOnDragListener(theController);
 
-        ImageButton tileFourButton = activity.findViewById(R.id.tileFourButton);
+        tileFourButton = activity.findViewById(R.id.tileFourButton);
         tileFourButton.setOnDragListener(theController);
 
-        ImageButton tileFiveButton = activity.findViewById(R.id.tileFiveButton);
+        tileFiveButton = activity.findViewById(R.id.tileFiveButton);
         tileFiveButton.setOnDragListener(theController);
 
-        ImageButton tileSixButton = activity.findViewById(R.id.tileSixButton);
+        tileSixButton = activity.findViewById(R.id.tileSixButton);
         tileSixButton.setOnDragListener(theController);
 
-        ImageButton tileSevenButton = activity.findViewById(R.id.tileSevenButton);
+        tileSevenButton = activity.findViewById(R.id.tileSevenButton);
         tileSevenButton.setOnDragListener(theController);
 
         // remember the field that we update to display the counter's value

@@ -155,6 +155,7 @@ public class ScrabbleGameState extends GameState {
         playerTwoId = state.playerTwoId;
 
         turn = state.turn;
+        positionInHand = state.positionInHand;
 
         //remember that this array of tiles might actually contain tiles, not just null values,
         //so we must copy over Tile objects
