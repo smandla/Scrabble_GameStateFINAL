@@ -1,5 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import com.example.scrabble_gamestate.game.Board;
+import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.R;
@@ -39,13 +41,12 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ImageButton tileFiveButton;
     private ImageButton tileSixButton;
     private ImageButton tileSevenButton;
-
-
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
     // the android activity that we are running
     private GameMainActivity myActivity;
+    private Game myGame;
 
     private ScrabbleSurfaceView surface;
 
@@ -125,7 +126,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
 
-        theController = new ScrabbleController(ourScore, opponentScore, state);
+        theController = new ScrabbleController(ourScore, opponentScore, state, myGame );
 
         //sets the listeners for the gameplay buttons
         swapTileButton = activity.findViewById(R.id.swapTileButtton);
