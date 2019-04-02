@@ -43,6 +43,13 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     public void onClick(View button) {
 
         switch (button.getId()) {
+
+            //have a case for each tile button to see if its been clicked
+            //set recentlyClicked instance var to thatt button
+            //then onTouvh handles placing of it?
+
+            //what if make tiles just images? then just onTouch?
+
             case R.id.playButton:
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
@@ -90,11 +97,17 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         public boolean onTouch (View v, MotionEvent event){
             int xTouch = (int) event.getX();
             int yTouch = (int) event.getY();
+
+            //based on location of touch, round to nearest multiple of 62 (cell size) and put tile there
+            //make a new place tile action and send it based on that location
+
             if( selectedView != null) {
                 selectedView.setSelected(false);//unselects previously selected view
             }
             selectedView = v;//sets view to be selected to new view that has been touched
             selectedView.setSelected(true);
+
+
 
 
             return true;
