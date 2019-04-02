@@ -1,40 +1,58 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import com.example.scrabble_gamestate.game.Board;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
+
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 /**
- * A GUI of a counter-player. The GUI displays the current value of the counter,
- * and allows the human player to press the '+' and '-' buttons in order to
- * send moves to the game.
  *
- * Just for fun, the GUI is implemented so that if the player presses either button
- * when the counter-value is zero, the screen flashes briefly, with the flash-color
- * being dependent on whether the player is player 0 or player 1.
- *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
- * @version July 2013
  */
-public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListener {
+public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     /* instance variables */
 
     // The TextView the displays the current counter value
     private TextView counterValueTextView;
 
+    private TextView ourScore;
+    private TextView opponentScore;
+
+    private ScrabbleController theController;
+
+    private ImageButton swapTileButton;
+    private ImageButton skipButton;
+    private ImageButton shuffleTileButton;
+    private ImageButton dictionaryButton;
+    private ImageButton playButton;
+
+
+    private ImageButton tileOneButton;
+    private ImageButton tileTwoButton;
+    private ImageButton tileThreeButton;
+    private ImageButton tileFourButton;
+    private ImageButton tileFiveButton;
+    private ImageButton tileSixButton;
+    private ImageButton tileSevenButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
     // the android activity that we are running
     private GameMainActivity myActivity;
+
+    private Board surface;
+
+    //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
+    //bool skipped  start it out as false; everytime they skip, check to see if true (if so, forfeit); pop up yes/no
+    //dialog asking if they actually want to forfeit, then send a quitgameaction instead
 
     /**
      * constructor
@@ -52,53 +70,17 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
      * 		the top object in the GUI's view hierarchy
      */
     public View getTopView() {
-        return myActivity.findViewById(R.id.buttons);
+        return myActivity.findViewById(R.id.top_gui_layout);
     }
 
     /**
      * sets the counter value in the text view
      */
     protected void updateDisplay() {
+
         // set the text in the appropriate widget
-        counterValueTextView.setText("" + state.getCounter());
+        //counterValueTextView.setText("" + state.getCounter());
     }
-
-    /**
-     * this method gets called when the user clicks the '+' or '-' button. It
-     * creates a new CounterMoveAction to return to the parent activity.
-     *
-     * @param button
-     * 		the button that was clicked
-     */
-    public void onClick(View button) {
-        // if we are not yet connected to a game, ignore
-        if (game == null) return;
-
-        // Construct the action and send it to the game
-        GameAction action = null;
-        if (button.getId() == R.id.dictionaryButton) {
-
-            action = new CheckDictionaryAction(this);
-        }
-        else if (button.getId() == R.id.swapTileButtton) {
-
-            action = new ExchangeTileAction(this);
-        }
-        else if (button.getId() == R.id.shuffleButton) {
-
-            action = new ExchangeTileAction(this);
-        }
-        else if (button.getId() == R.id.swapTileButtton) {
-
-            action = new ExchangeTileAction(this);
-        }
-        else {
-            // something else was pressed: ignore
-            return;
-        }
-
-        game.sendAction(action); // send action to the game
-    }// onClick
 
     /**
      * callback method when we get a message (e.g., from the game)
@@ -108,11 +90,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
      */
     @Override
     public void receiveInfo(GameInfo info) {
-        // ignore the message if it's not a CounterState message
-        if (!(info instanceof CounterState)) return;
+        // ignore the message if it's not a ScrabbleGameState message
+        if (!(info instanceof ScrabbleGameState)) return;
 
         // update our state; then update the display
-        this.state = (CounterState)info;
+        this.state = (ScrabbleGameState) info;
         updateDisplay();
     }
 
@@ -129,17 +111,57 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer implements OnClickListe
         myActivity = activity;
 
         // Load the layout resource for our GUI
-        activity.setContentView(R.layout.counter_human_player);
+        activity.setContentView(R.layout.activity_main);
 
-        // make this object the listener for both the '+' and '-' 'buttons
-        Button plusButton = (Button) activity.findViewById(R.id.plusButton);
-        plusButton.setOnClickListener(this);
-        Button minusButton = (Button) activity.findViewById(R.id.minusButton);
-        minusButton.setOnClickListener(this);
+        ourScore = activity.findViewById(R.id.playerScore);
+        opponentScore = activity.findViewById(R.id.opponentScore);
+
+        theController = new ScrabbleController(ourScore, opponentScore, state);
+
+        //sets the listeners for the gameplay buttons
+        swapTileButton = activity.findViewById(R.id.swapTileButtton);
+        swapTileButton.setOnClickListener(theController);
+
+        skipButton = activity.findViewById(R.id.passImageButton);
+        skipButton.setOnClickListener(theController);
+
+        shuffleTileButton = activity.findViewById(R.id.shuffleImageButton);
+        shuffleTileButton.setOnClickListener(theController);
+
+        dictionaryButton = activity.findViewById(R.id.dictionaryButton);
+        dictionaryButton.setOnClickListener(theController);
+
+        playButton = activity.findViewById(R.id.playButton);
+        playButton.setOnClickListener(theController);
+
+        //sets the listeners for the player hand tiles for drag and drop
+        tileOneButton = activity.findViewById(R.id.tileOneButton);
+        tileOneButton.setOnDragListener(theController);
+
+        tileTwoButton = activity.findViewById(R.id.tileTwoButton);
+        tileTwoButton.setOnDragListener(theController);
+
+        tileThreeButton = activity.findViewById(R.id.tileThreeButton);
+        tileThreeButton.setOnDragListener(theController);
+
+        tileFourButton = activity.findViewById(R.id.tileFourButton);
+        tileFourButton.setOnDragListener(theController);
+
+        tileFiveButton = activity.findViewById(R.id.tileFiveButton);
+        tileFiveButton.setOnDragListener(theController);
+
+        tileSixButton = activity.findViewById(R.id.tileSixButton);
+        tileSixButton.setOnDragListener(theController);
+
+        tileSevenButton = activity.findViewById(R.id.tileSevenButton);
+        tileSevenButton.setOnDragListener(theController);
 
         // remember the field that we update to display the counter's value
-        this.counterValueTextView =
-                (TextView) activity.findViewById(R.id.counterValueTextView);
+        /*this.counterValueTextView =
+                (TextView) activity.findViewById(R.id.counterValueTextView);*/
+
+        surface = myActivity.findViewById(R.id.surfaceView);
+        //setContentView(R.layout.activity_main);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated

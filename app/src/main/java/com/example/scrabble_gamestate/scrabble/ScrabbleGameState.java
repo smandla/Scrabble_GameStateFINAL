@@ -2,6 +2,7 @@ package com.example.scrabble_gamestate.scrabble;
 
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Tile;
+import com.example.scrabble_gamestate.game.infoMsg.GameState;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ import java.util.Collections;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class ScrabbleGameState {
+public class ScrabbleGameState extends GameState {
 
     //constants: the point value of each tile
     final int A_VAL = 1;
@@ -87,6 +88,8 @@ public class ScrabbleGameState {
     private int playerOneId;
     private int playerTwoId;
 
+    private int positionInHand;
+
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
@@ -122,11 +125,7 @@ public class ScrabbleGameState {
         }
 
         makeTileBag();
-        //Leaving out shuffling so that strings for secondInstance & fourthInstance are easily the same
-        //because even with correct deep copying, firstInstance and thirdInstance would be different
-        //due to shuffling
-        //TODO Uncomment after hw4d
-        //shuffleTileBag();
+        shuffleTileBag();
 
         //add seven tiles to each player's hand
         for (int i = 0; i < 7; i++) {
@@ -156,6 +155,7 @@ public class ScrabbleGameState {
         playerTwoId = state.playerTwoId;
 
         turn = state.turn;
+        positionInHand = state.positionInHand;
 
         //remember that this array of tiles might actually contain tiles, not just null values,
         //so we must copy over Tile objects
@@ -293,6 +293,8 @@ public class ScrabbleGameState {
     public void setPlayerOneId(boolean enoughP){
         enoughPlayers = enoughP;
     }
+
+    public int getPositionInHand() { return positionInHand;}
     //end of getters and setters
 
     /**
@@ -302,8 +304,9 @@ public class ScrabbleGameState {
     public void makeTileBag() {
 
         //blank tiles
-        tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank));
-        tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank_2));
+        //TODO uncomment after alpha
+        //tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank));
+        //tileBag.add(new Tile(BLANK_VAL, '-', R.drawable.tile_blank_2));
 
         //a tiles
         tileBag.add(new Tile(A_VAL, 'a', R.drawable.tile_a));
@@ -588,59 +591,55 @@ public class ScrabbleGameState {
 
             int counter = 0;
             int wordBonusVal = 1;
-            for(Tile t: onBoard)
-                {
-                    wordBonusVal *= (wordBonuses[t.getxCoord()][t.getyCoord()]);
-                    counter += letterBonuses[t.getxCoord()][t.getyCoord()] * t.getPointVal();
+            for(Tile t: onBoard) {
+                wordBonusVal *= (wordBonuses[t.getxCoord()][t.getyCoord()]);
+                counter += letterBonuses[t.getxCoord()][t.getyCoord()] * t.getPointVal();
 
-                    //the following if statements take care of letters that have already been played
-                    //(so will not show up in onBoard) but must be added to the player's score
+                //the following if statements take care of letters that have already been played
+                //(so will not show up in onBoard) but must be added to the player's score
 
-                    //add tile value to points if the space to the left of Tile t isn't empty and
-                    //the Tile in that space isn't already in the list (each tile will almost
-                    //always have at least one neighbor that's already part of the list, thanks to
-                    //the connectedness of words)
-                    if(board[t.getxCoord() - 1][t.getyCoord()] != null &&
-                            onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()]) == false){
-                            counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
-                    }
-
-                    //tile above
-                    if(board[t.getxCoord()][t.getyCoord() + 1] != null &&
-                            onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1]) == false){
-                        counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
-                    }
-
-                    //tile to the right
-                    if(board[t.getxCoord() + 1][t.getyCoord()] != null &&
-                            onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()]) == false){
-                        counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
-                    }
-
-                    //tile below
-                    if(board[t.getxCoord()][t.getyCoord() - 1] != null &&
-                            onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1]) == false){
-                        counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
-                    }
+                //add tile value to points if the space to the left of Tile t isn't empty and
+                //the Tile in that space isn't already in the list (each tile will almost
+                //always have at least one neighbor that's already part of the list, thanks to
+                //the connectedness of words)
+                if(board[t.getxCoord() - 1][t.getyCoord()] != null &&
+                        onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()]) == false){
+                    counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
                 }
 
-                if(turn == 1) {
-                    playerOneScore += (counter * wordBonusVal);
-                    turn++;
-                    this.drawTile(hand1);
+                //tile above
+                if(board[t.getxCoord()][t.getyCoord() + 1] != null &&
+                        onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1]) == false){
+                    counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
                 }
-                else {
-                    playerTwoScore += (counter * wordBonusVal);
-                    turn--;
-                    this.drawTile(hand2);
+
+                //tile to the right
+                if(board[t.getxCoord() + 1][t.getyCoord()] != null &&
+                        onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()]) == false){
+                    counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
                 }
-                onBoard.clear();
-                return true;
 
+                //tile below
+                if(board[t.getxCoord()][t.getyCoord() - 1] != null &&
+                        onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1]) == false){
+                    counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                }
+            }
 
+            if(turn == 1) {
+                playerOneScore += (counter * wordBonusVal);
+                turn++;
+                this.drawTile(hand1);
+            }
+            else {
+                playerTwoScore += (counter * wordBonusVal);
+                turn--;
+                this.drawTile(hand2);
+            }
+            onBoard.clear();
+            return true;
         }
-        else
-        {
+        else{
             return false;
         }
 
@@ -657,8 +656,7 @@ public class ScrabbleGameState {
             if(turn == 1) {
                 turn++;
             }
-            else
-            {
+            else {
                 turn--;
             }
             this.recallTiles(turnId);
@@ -683,8 +681,7 @@ public class ScrabbleGameState {
             if(turn == 1) {
                 Collections.shuffle(hand1);
             }
-            else
-            {
+            else {
                 Collections.shuffle(hand2);
             }
             return true;

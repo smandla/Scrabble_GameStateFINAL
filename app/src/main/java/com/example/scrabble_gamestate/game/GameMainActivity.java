@@ -53,8 +53,8 @@ public abstract class GameMainActivity extends Activity implements
 
     // A reference to the object representing the game itself. This is the
     // object that knows the rules of the game. This variable is initialized in
-    // launchGame.
-    private Game game = null;
+    // launchGame. sydney made this protected so we could access it- not sure if it's an okay thing
+    protected Game game = null;
 
     // an array containing references to all the players that are playing the game
     private GamePlayer[] players = null;
@@ -137,9 +137,10 @@ public abstract class GameMainActivity extends Activity implements
      * onCreate
      *
      * "main" for the game framework
+     * sydney made this protected bc it seems to be necessary? this might not be right, sorry
      */
     @Override
-    public final void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize the layout
