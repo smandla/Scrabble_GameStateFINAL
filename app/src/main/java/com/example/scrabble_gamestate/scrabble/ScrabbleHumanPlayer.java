@@ -1,16 +1,15 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import com.example.scrabble_gamestate.game.Board;
-import com.example.scrabble_gamestate.game.Game;
-import com.example.scrabble_gamestate.game.GameHumanPlayer;
-import com.example.scrabble_gamestate.game.GameMainActivity;
-import com.example.scrabble_gamestate.R;
-import com.example.scrabble_gamestate.game.Tile;
-import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
-
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.Game;
+import com.example.scrabble_gamestate.game.GameHumanPlayer;
+import com.example.scrabble_gamestate.game.GameMainActivity;
+import com.example.scrabble_gamestate.game.Tile;
+import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 
 /**
  *
