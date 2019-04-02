@@ -132,7 +132,7 @@
                 android:paddingLeft="150dp"
                 android:paddingTop="45dp">
 
-                <com.example.scrabble_gamestate.game.Board
+                <com.example.scrabble_gamestate.scrabble.ScrabbleSurfaceView
                     android:id="@+id/surfaceView"
                     android:layout_width="660dp"
                     android:layout_height="660dp" />
