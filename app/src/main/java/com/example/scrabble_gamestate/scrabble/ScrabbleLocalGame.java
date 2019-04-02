@@ -81,7 +81,7 @@ public class ScrabbleLocalGame extends LocalGame {
     protected void sendUpdatedStateTo(GamePlayer p) {
         // if there is no state to send, ignore
         if (gameState == null) {
-            return;
+            gameState = new ScrabbleGameState();
         }
 
         //TODO implement how to copy without letting players know each others

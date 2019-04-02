@@ -35,6 +35,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         ourProfile = ourProfPic; */
 
     }
+
+    public void setUpdatedState(ScrabbleGameState state) {
+        ourGameState = state;
+    }
     @Override
     public void onClick(View button) {
 

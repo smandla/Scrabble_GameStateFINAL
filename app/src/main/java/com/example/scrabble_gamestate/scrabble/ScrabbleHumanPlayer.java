@@ -104,6 +104,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         // update our state; then update the display
         this.state = (ScrabbleGameState) info;
+        theController.setUpdatedState(this.state);
         updateDisplay();
     }
 
@@ -121,6 +122,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
+
+        if (state != null) {
+            receiveInfo(state);
+        }
 
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
@@ -174,9 +179,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-        //if (state != null) {
+        if (state != null) {
             receiveInfo(state);
-        //}
+        }
     }
 
 }// class CounterHumanPlayer

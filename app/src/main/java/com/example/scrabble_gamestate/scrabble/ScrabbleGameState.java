@@ -565,7 +565,7 @@ public class ScrabbleGameState extends GameState {
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean recallTiles(int turnId) {
-        if(turnId == turn) {
+        if(turnId == turn && onBoard != null) {
             for(Tile t: onBoard) {
                 board[t.getxCoord()][t.getyCoord()] = null;
             }
