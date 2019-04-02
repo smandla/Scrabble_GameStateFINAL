@@ -91,10 +91,11 @@ public class ScrabbleLocalGame extends LocalGame {
         // make a copy of the state; null out all cards except for the
         // top card in the middle deck
         ScrabbleGameState stateForPlayer = new ScrabbleGameState(gameState); // copy of state
-        stateForPlayer.preventCheating(); // put nulls except for visible card
+        //TODO readd this method
+        //stateForPlayer.preventCheating(); // put nulls except for visible card
 
         // send the modified copy of the state to the player
-        //p.sendInfo(stateForPlayer);
+        p.sendInfo(stateForPlayer);
 
     }//sendUpdatedSate
 
