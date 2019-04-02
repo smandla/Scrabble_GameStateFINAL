@@ -128,10 +128,9 @@ public class ScrabbleGameState extends GameState {
         shuffleTileBag();
 
         //add seven tiles to each player's hand
-        for (int i = 0; i < 7; i++) {
-            drawTile(hand1);
-            drawTile(hand2);
-        }
+        drawTile(hand1);
+        drawTile(hand2);
+
 
         onBoard = new ArrayList<Tile>(7);
 

@@ -1,15 +1,12 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import com.example.scrabble_gamestate.game.Board;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.R;
-import com.example.scrabble_gamestate.game.actionMsg.GameAction;
+import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 
-import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -42,13 +39,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ImageButton tileFiveButton;
     private ImageButton tileSixButton;
     private ImageButton tileSevenButton;
+
+
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
     // the android activity that we are running
     private GameMainActivity myActivity;
 
-    private Board surface;
+    private ScrabbleSurfaceView surface;
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
     //bool skipped  start it out as false; everytime they skip, check to see if true (if so, forfeit); pop up yes/no
@@ -80,6 +79,16 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         // set the text in the appropriate widget
         //counterValueTextView.setText("" + state.getCounter());
+
+        ImageButton[] buttons = {tileOneButton, tileTwoButton, tileThreeButton, tileFourButton,
+                tileFiveButton, tileSixButton, tileSevenButton};
+
+        //TODO after alpha, need to deal with the possibility that human isn't player one
+        for (Tile t: state.getHand1()) {
+            int androidId = t.getAndroidId();
+            int index = state.getHand1().indexOf(t);
+            buttons[index].setImageResource(androidId);
+        }
     }
 
     /**
@@ -161,13 +170,13 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 (TextView) activity.findViewById(R.id.counterValueTextView);*/
 
         surface = myActivity.findViewById(R.id.surfaceView);
-        //setContentView(R.layout.activity_main);
+        //activity.setContentView(R.layout.activity_main);
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-        if (state != null) {
+        //if (state != null) {
             receiveInfo(state);
-        }
+        //}
     }
 
 }// class CounterHumanPlayer

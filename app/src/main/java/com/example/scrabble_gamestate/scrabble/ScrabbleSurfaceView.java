@@ -1,4 +1,4 @@
-package com.example.scrabble_gamestate.game;
+package com.example.scrabble_gamestate.scrabble;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,32 +20,32 @@ import java.util.ArrayList;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class Board extends SurfaceView {
+public class ScrabbleSurfaceView extends SurfaceView {
 
     private static final int TILE_WIDTH_AND_HEIGHT = 62; //each tile or cell is 62x62 dp
     private static final int BOARD_SIZE = 15; //board is a 15x15 grid
 
     /**
-     * Constructor for Board objects.
+     * Constructor
      */
-    public Board(Context context) {
+    public ScrabbleSurfaceView(Context context) {
 
         super(context);
         init();
     }
 
     /**
-     * Constructor for Board objects.
+     * Constructor
      */
-    public Board(Context context, AttributeSet attrs) {
+    public ScrabbleSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
     /**
-     * Constructor for Board objects.
+     * Constructor
      */
-    public Board(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ScrabbleSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -57,8 +57,6 @@ public class Board extends SurfaceView {
     private void init() {
 
         setWillNotDraw(false);
-
-        //picture = new ArrayList<Bitmap>();
     }
 
     /**
@@ -193,6 +191,6 @@ public class Board extends SurfaceView {
         canvas.drawBitmap(tripleWordCell,7*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
         canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
 
-    }
+    } //onDraw
 }
 

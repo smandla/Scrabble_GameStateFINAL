@@ -25,7 +25,6 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         ourScore = ourPlayerScore;
         opponentScore = theirPlayerScore;
         ourGameState = theGameState;
-
         /*theirProfile = theirProfPic;
         ourProfile = ourProfPic; */
 
@@ -98,7 +97,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             switch(action) {
                 case DragEvent.ACTION_DRAG_STARTED:
                 {
-                    
+
                 }
                 case DragEvent.ACTION_DRAG_ENTERED:
                 {

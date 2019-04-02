@@ -55,6 +55,11 @@ public class Tile {
     }
 
     //getters and setters
+    public int getAndroidId(){
+        return androidId;
+    }
+    //will not change point value, so no setter
+
     public int getPointVal(){
         return pointVal;
     }

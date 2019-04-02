@@ -51,8 +51,9 @@ public class ScrabbleLocalGame extends LocalGame {
         if (action instanceof CheckDictionaryAction) {
 
             // cast so that Java knows it's a CheckDictionaryAction
-            CheckDictionaryAction cma = (CheckDictionaryAction) action;
+            CheckDictionaryAction cda = (CheckDictionaryAction) action;
 
+            //TODO after alpha
             // Update the counter values based upon the action
             //int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
             //gameState.setCounter(result);
@@ -60,10 +61,15 @@ public class ScrabbleLocalGame extends LocalGame {
             // denote that this was a legal/successful move
             return true;
         }
-        else {
-            // denote that this was an illegal move
+        else if(action instanceof ExchangeTileAction){
+            //TODO after alpha
             return false;
         }
+        else if(action instanceof PlaceTileAction){
+            //TODO for alpha!!!
+        }
+        //else if
+        return true; //placeholder
     }//makeMove
 
     /**
@@ -84,8 +90,8 @@ public class ScrabbleLocalGame extends LocalGame {
 
         // make a copy of the state; null out all cards except for the
         // top card in the middle deck
-        //SJState stateForPlayer = new SJState(state); // copy of state
-        //stateForPlayer.nullAllButTopOf2(); // put nulls except for visible card
+        ScrabbleGameState stateForPlayer = new ScrabbleGameState(gameState); // copy of state
+        stateForPlayer.preventCheating(); // put nulls except for visible card
 
         // send the modified copy of the state to the player
         //p.sendInfo(stateForPlayer);
@@ -105,7 +111,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
         if(gameState.getHand1().size() > 0 && gameState.getHand2().size() > 0){
             //both players still have tiles in their hands
-            //TODO figure out way to track # consecutive skips
+            //TODO figure out way to track # consecutive skips (for after alpha)
 
             /*if(player1 skipped multiple times in a row){
                 return playerNames[1]+" has won."; //player 1 forfeits
@@ -122,7 +128,6 @@ public class ScrabbleLocalGame extends LocalGame {
             //at least one of the players has run out of tiles
 
             //whichever player has a larger score wins
-            //we also account for the unusual case in which they have the same score
             if(gameState.getPlayerOneScore() > gameState.getPlayerTwoScore()){
                 return playerNames[0]+" has won.";
             }
@@ -130,6 +135,7 @@ public class ScrabbleLocalGame extends LocalGame {
                 return playerNames[1]+" has won.";
             }
             else{
+                //account for the unusual case in which they have the same score
                 return "Tie!";
             }
         }

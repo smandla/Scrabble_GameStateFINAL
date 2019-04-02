@@ -6,6 +6,9 @@ import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
 import com.example.scrabble_gamestate.game.config.GameConfig;
+import com.example.scrabble_gamestate.game.config.GamePlayerType;
+
+import java.util.ArrayList;
 
 import com.example.scrabble_gamestate.game.config.GamePlayerType;
 
