@@ -8,9 +8,11 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 
-public class ScrabbleController implements View.OnTouchListener, View.OnClickListener, View.OnDragListener {
+public class ScrabbleController implements View.OnTouchListener, View.OnClickListener,
+        View.OnDragListener {
 
     private TextView ourScore;
     private TextView opponentScore;
@@ -20,11 +22,14 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     private ScrabbleGameState ourGameState;
     private View selectedView = null;
     private GameHumanPlayer ourPlayer = null;
+    private Game ourGame = null;
 
-    public ScrabbleController(TextView ourPlayerScore, TextView theirPlayerScore, ScrabbleGameState theGameState ) {
+    public ScrabbleController(TextView ourPlayerScore, TextView theirPlayerScore,
+                              ScrabbleGameState theGameState, Game theGame ) {
         ourScore = ourPlayerScore;
         opponentScore = theirPlayerScore;
         ourGameState = theGameState;
+        ourGame = theGame;
 
         /*theirProfile = theirProfPic;
         ourProfile = ourProfPic; */
@@ -35,6 +40,8 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
         switch (button.getId()) {
             case R.id.playButton:
+                PlayWordAction playAction = new PlayWordAction(ourPlayer);
+                ourGame.sendAction(playAction);
                 ourGameState.playWord(ourGameState.getTurn());
                 if(ourPlayer.getPlayerNum() == 0) {
                     this.ourScore.setText("" + ourGameState.getPlayerOneScore());
@@ -53,7 +60,8 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
             case R.id.swapTileButtton:
                 if(selectedView.isSelected() == true) {
-                    ourGameState.exchangeTile(ourGameState.getTurn(), ourGameState.getPositionInHand());
+                    ourGameState.exchangeTile(ourGameState.getTurn(),
+                            ourGameState.getPositionInHand());
                     break;
                 }
                 else
@@ -98,7 +106,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             switch(action) {
                 case DragEvent.ACTION_DRAG_STARTED:
                 {
-                    
+
                 }
                 case DragEvent.ACTION_DRAG_ENTERED:
                 {
@@ -128,6 +136,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             }
 
 
+            return true;
+        }
+        public boolean onLongClick(View v, MotionEvent event)
+        {
             return true;
         }
 
