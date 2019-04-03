@@ -94,7 +94,7 @@ public class ScrabbleGameState extends GameState {
     private int playerOneId;
     private int playerTwoId;
 
-    private int positionInHand;
+    private int positionInHand;//the index of a tile in a hand
 
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
@@ -112,7 +112,7 @@ public class ScrabbleGameState extends GameState {
     private boolean enoughPlayers; //because of quit functionality, must make sure there's at least
     // 2 players
 
-    private HashSet<String> dictionary = new HashSet<>();
+    private HashSet<String> dictionary = new HashSet<>();//the basic dictionary for playWord
 
     /**
      * Constructor for objects of class ScrabbleGameState
@@ -194,18 +194,28 @@ public class ScrabbleGameState extends GameState {
 
         enoughPlayers = state.enoughPlayers;
     }
-
+    /**
+     * loads the dictionary file in
+     *
+     * @param cxt the context from the activity from the scrabble human player
+     */
     public void loadDictionary( Context cxt )
     {
-        InputStream is = cxt.getResources().openRawResource(R.raw.dictionary);
+        InputStream is = cxt.getResources().openRawResource(R.raw.dictionary);//opens raw text file
         Scanner isScan = new Scanner(is);
-        while(isScan.hasNext())
+        while(isScan.hasNext())//scans each line into the hashSet
         {
             String word = isScan.nextLine().trim();
             dictionary.add(word);
         }
         isScan.close();
     }
+    /**
+     * creates a copy of the board
+     *
+     * @param state the one true state of the game
+     * @param board the current board object
+     */
     private static void copyBoard(ScrabbleGameState state, Tile[][] board) {
         //remember that this array of tiles might actually contain tiles, not just null values,
         //so we must copy over Tile objects
@@ -615,6 +625,7 @@ public class ScrabbleGameState extends GameState {
             Vector<String> wordsPlayed = new Vector<>();
             Tile[][] tempBoard = new Tile[15][15];
             this.copyBoard(this, tempBoard);
+            //iterates thru the onBoard array and adds all of them to the new board array
             for( Tile t: onBoard)
             {
                 if(tempBoard[t.getxCoord()][t.getyCoord()] != null)
@@ -669,11 +680,12 @@ public class ScrabbleGameState extends GameState {
             }
             for(String s: wordsPlayed)
             {
-                if(dictionary.contains(s) == false)
+                if(dictionary.contains(s) == false)//if its not a word, dont do it
                 {
                     return false;
                 }
-            }
+            }//note:Sydney's boyfriend Andrew helped with some of the array logic here,
+            // and also we went to Kearney's office hours
 
 
 

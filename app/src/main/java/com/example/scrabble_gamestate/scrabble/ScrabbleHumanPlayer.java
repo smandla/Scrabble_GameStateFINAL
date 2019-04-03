@@ -45,6 +45,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     // the android activity that we are running
     private GameMainActivity myActivity;
+    //the surfaceView we're drawing on
     private ScrabbleSurfaceView surface;
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
@@ -67,8 +68,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
      */
     @Override
     protected void initAfterReady() {
-        surface.setGame(game);
+        surface.setGame(game);//tells the surface what game we're playing
     }
+    //note: we went into Kearney's office hours to get help with the logic of this function
 
     /**
      * Returns the GUI's top view object
@@ -90,7 +92,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         ImageButton[] buttons = {tileOneButton, tileTwoButton, tileThreeButton, tileFourButton,
                 tileFiveButton, tileSixButton, tileSevenButton};
-
+        //updates the image reaources in the hand to match the value in the tile array
         //TODO after alpha, need to deal with the possibility that human isn't player one
         for (Tile t: state.getHand1()) {
             int androidId = t.getAndroidId();
@@ -117,13 +119,14 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // update our state; then update the display
         this.state = (ScrabbleGameState) info;
 
-        theController.setUpdatedState(this.state);
+        theController.setUpdatedState(this.state);//makes sure the state isnt null
+        // (in theory, at least)
         updateDisplay();
 
-        surface.setState((ScrabbleGameState) info);
-        surface.invalidate();
+        surface.setState((ScrabbleGameState) info);//makes sure the state isnt null
+        surface.invalidate();//updates the gui view
 
-    }
+    }//note: we used Meredith's Uno game from last semester as an example and reference
 
     /**
      * callback method--our game has been chosen/rechosen to be the GUI,
@@ -140,13 +143,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        surface = myActivity.findViewById(R.id.surfaceView);
+        surface = myActivity.findViewById(R.id.surfaceView);//tells the surface what activity to
+        // look for
 
         if (state != null) {
             receiveInfo(state);
         }
 
-        state.loadDictionary( myActivity.getApplicationContext());
+        state.loadDictionary( myActivity.getApplicationContext());//gives the dictionary method
+        // context
 
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
@@ -169,7 +174,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         playButton = activity.findViewById(R.id.playButton);
         playButton.setOnClickListener(theController);
 
-        //sets the listeners for the player hand tiles for drag and drop
+        //sets the listeners for the player hand tiles for onClick
         tileOneButton = activity.findViewById(R.id.tileOneButton);
         tileOneButton.setOnClickListener(theController);
 

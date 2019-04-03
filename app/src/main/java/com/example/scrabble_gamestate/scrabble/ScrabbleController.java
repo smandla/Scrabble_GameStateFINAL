@@ -50,8 +50,8 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         switch (button.getId()) {
 
             //have a case for each tile button to see if its been clicked
-            //set recentlyClicked instance var to thatt button
-            //then onTouvh handles placing of it?
+            //set selectedView instance var to thatt button
+            //then onTouch handles placing of it?
             case R.id.tileOneButton:
                 selectedView = button;
                 break;
@@ -80,6 +80,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 selectedView = button;
                 break;
 
+                //the next cases check if its a certain action type and then send that action
             case R.id.playButton:
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
@@ -227,9 +228,6 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
             return true;
         }*/
-        public boolean onLongClick(View v, MotionEvent event)
-        {
-            return true;
-        }
+
 
 }

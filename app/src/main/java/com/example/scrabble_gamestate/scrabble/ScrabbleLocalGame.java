@@ -44,7 +44,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
 
     /**
-     * Makes a move on behalf of a player
+     * Makes a move on behalf of a player, calls the boolean method from ScrabbleGameState
      *
      * @param action The move that the player has sent to the game
      * @return Indicates if move was legal or not
