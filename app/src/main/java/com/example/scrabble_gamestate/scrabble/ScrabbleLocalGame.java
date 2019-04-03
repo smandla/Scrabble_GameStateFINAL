@@ -87,10 +87,12 @@ public class ScrabbleLocalGame extends LocalGame {
         }
 
         else if(action instanceof PlaceTileAction){
+            gameState.placeTile(gameState.getTurn(), );
             gameState.placeTile(gameState.getTurn(), gameState.); //TODO
         }
         //else if
         return true; //placeholder
+        //TODO make recall tiles button and method
     }//makeMove
 
     /**

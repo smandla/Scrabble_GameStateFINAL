@@ -6,6 +6,8 @@ import com.example.scrabble_gamestate.game.infoMsg.GameState;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Vector;
 
 /**
  *The State of the game. Includes values for all tiles, the tile bag, and each square on the board.
@@ -155,31 +157,7 @@ public class ScrabbleGameState extends GameState {
 
         turn = state.turn;
         positionInHand = state.positionInHand;
-
-        //remember that this array of tiles might actually contain tiles, not just null values,
-        //so we must copy over Tile objects
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                //using Tile copy constructor to duplicate orig tile obj
-                // and prevent pointing to same obj
-                //also, remember that the Tile copy constructor deals with copying over the Tile's
-                //primitive parameters
-
-
-                /**
-                 * need to make an if and else statement for when the board is null because it will be at the beginning of the game.
-                 */
-
-                if (state.board[i][j] == null){
-                    board[i][j] = null;
-                }
-
-                else{
-                    board[i][j] = new Tile(state.board[i][j]);
-                }
-
-            }
-        }
+        copyBoard(state, board);
 
         //making a Tile copy of each Tile in The One True tileBag, then adding it to a copy tileBag
         //don't need to actually make/shuffle a new tilebag,
@@ -208,6 +186,33 @@ public class ScrabbleGameState extends GameState {
         gameWon = state.gameWon;
 
         enoughPlayers = state.enoughPlayers;
+    }
+
+    private static void copyBoard(ScrabbleGameState state, Tile[][] board) {
+        //remember that this array of tiles might actually contain tiles, not just null values,
+        //so we must copy over Tile objects
+        for (int i = 0; i < 15; i++) {
+            for (int j = 0; j < 15; j++) {
+                //using Tile copy constructor to duplicate orig tile obj
+                // and prevent pointing to same obj
+                //also, remember that the Tile copy constructor deals with copying over the Tile's
+                //primitive parameters
+
+
+                /**
+                 * need to make an if and else statement for when the board is null because it will be at the beginning of the game.
+                 */
+
+                if (state.board[i][j] == null){
+                    board[i][j] = null;
+                }
+
+                else{
+                    board[i][j] = new Tile(state.board[i][j]);
+                }
+
+            }
+        }
     }
 
 
@@ -587,6 +592,19 @@ public class ScrabbleGameState extends GameState {
      */
     public boolean playWord(int turnId) {
         if(turnId == turn && onBoard != null) {
+
+            HashSet<String> wordsPlayed = new HashSet<>();
+            Tile[][] tempBoard = new Tile[15][15];
+            this.copyBoard(this, tempBoard);
+            for( Tile t: onBoard)
+            {
+                if(tempBoard[t.getxCoord()][t.getyCoord()] != null)
+                {
+                    return false;
+                }
+                tempBoard[t.getxCoord()][t.getyCoord()] = t;
+            }
+            //go thru onBoard and f
 
             int counter = 0;
             int wordBonusVal = 1;
