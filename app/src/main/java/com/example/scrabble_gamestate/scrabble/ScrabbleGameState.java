@@ -1,14 +1,18 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Vector;
-
 /**
  *The State of the game. Includes values for all tiles, the tile bag, and each square on the board.
  *
@@ -105,7 +109,10 @@ public class ScrabbleGameState extends GameState {
 
     private boolean gameWon;
 
-    private boolean enoughPlayers; //because of quit functionality, must make sure there's at least 2 players
+    private boolean enoughPlayers; //because of quit functionality, must make sure there's at least
+    // 2 players
+
+    private HashSet<String> dictionary = new HashSet<>();
 
     /**
      * Constructor for objects of class ScrabbleGameState
@@ -188,6 +195,17 @@ public class ScrabbleGameState extends GameState {
         enoughPlayers = state.enoughPlayers;
     }
 
+    public void loadDictionary( Context cxt )
+    {
+        InputStream is = cxt.getResources().openRawResource(R.raw.dictionary);
+        Scanner isScan = new Scanner(is);
+        while(isScan.hasNext())
+        {
+            String word = isScan.nextLine().trim();
+            dictionary.add(word);
+        }
+        isScan.close();
+    }
     private static void copyBoard(ScrabbleGameState state, Tile[][] board) {
         //remember that this array of tiles might actually contain tiles, not just null values,
         //so we must copy over Tile objects
@@ -200,7 +218,8 @@ public class ScrabbleGameState extends GameState {
 
 
                 /**
-                 * need to make an if and else statement for when the board is null because it will be at the beginning of the game.
+                 * need to make an if and else statement for when the board is null because it will
+                 * be at the beginning of the game.
                  */
 
                 if (state.board[i][j] == null){
@@ -490,8 +509,8 @@ public class ScrabbleGameState extends GameState {
 
         String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: "
                 + playerTwoScore + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: "
-                + playerTwoId + "\nTurn: " + turn + "\n Enough players? " + enoughPlayers + "\n Game Won? "
-                + gameWon + "\n Tile Bag after shuffling: ";
+                + playerTwoId + "\nTurn: " + turn + "\n Enough players? " + enoughPlayers + "\n " +
+                "Game Won? " + gameWon + "\n Tile Bag after shuffling: ";
 
         for (Tile t: tileBag) {
             str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
@@ -581,7 +600,7 @@ public class ScrabbleGameState extends GameState {
         {
             return false;
         }
-    }
+    }//end recallTiles
 
     /**
      * Method that checks if it's the player's turn, and if so, resets the game state to match the
@@ -593,7 +612,7 @@ public class ScrabbleGameState extends GameState {
     public boolean playWord(int turnId) {
         if(turnId == turn && onBoard != null) {
 
-            HashSet<String> wordsPlayed = new HashSet<>();
+            Vector<String> wordsPlayed = new Vector<>();
             Tile[][] tempBoard = new Tile[15][15];
             this.copyBoard(this, tempBoard);
             for( Tile t: onBoard)
@@ -604,7 +623,59 @@ public class ScrabbleGameState extends GameState {
                 }
                 tempBoard[t.getxCoord()][t.getyCoord()] = t;
             }
-            //go thru onBoard and f
+            for(int row = 0; row < 15; row++)//Scan each row for horizontal words
+            {
+                String wordToCheck="";	//Start with empty word
+                for(int position = 0; position < 15; position++)
+                {
+                    if(tempBoard[position][row] != null)//If we got a letter
+                    {
+                        wordToCheck+=tempBoard[position][row];	//Add it to the current word
+                    }
+                    else
+                    {
+                        if (wordToCheck.length()>1)	//Ignore empty word, single letter
+                            wordsPlayed.add(wordToCheck);
+                        wordToCheck="";	//Clear wordToCheck for next time
+
+                    }
+
+                }
+                if (wordToCheck.length()>1)	//One more time in case we're at the
+                    // rightmost edge
+                    wordsPlayed.add(wordToCheck);
+            }
+            for(int col = 0; col < 15; col++)//Scan each row for horizontal words
+            {
+                String wordToCheck="";	//Start with empty word
+                for(int position = 0; position < 15; position++)
+                {
+                    if(tempBoard[col][position] != null)//If we got a letter
+                    {
+                        wordToCheck+=tempBoard[col][position];	//Add it to the current word
+                    }
+                    else
+                    {
+                        if (wordToCheck.length()>1)	//Ignore empty word, single letter
+                            wordsPlayed.add(wordToCheck);
+                        wordToCheck="";	//Clear wordToCheck for next time
+
+                    }
+
+                }
+                if (wordToCheck.length()>1)	//One more time in case we're at the
+                    // bottom-most edge
+                    wordsPlayed.add(wordToCheck);
+            }
+            for(String s: wordsPlayed)
+            {
+                if(dictionary.contains(s) == false)
+                {
+                    return false;
+                }
+            }
+
+
 
             int counter = 0;
             int wordBonusVal = 1;
@@ -660,7 +731,7 @@ public class ScrabbleGameState extends GameState {
             return false;
         }
 
-    }
+    }//end playWord
 
     /**
      * Method that checks if it's the player's turn, and if so, calls the SkipTurnAction class,

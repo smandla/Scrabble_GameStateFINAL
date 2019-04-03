@@ -2,6 +2,7 @@ package com.example.scrabble_gamestate.scrabble;
 
 import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
+import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 import android.util.Log;
 
@@ -12,7 +13,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
     // the game's state
     private ScrabbleGameState gameState;
-
+    private Tile selectedTile;
 
     /**
      * This actor should be called when a new scrabble game is started
@@ -89,6 +90,8 @@ public class ScrabbleLocalGame extends LocalGame {
         else if(action instanceof PlaceTileAction){
             gameState.placeTile(gameState.getTurn(), ((PlaceTileAction) action).getX(),
                     ((PlaceTileAction) action).getY(), ((PlaceTileAction) action).getTile());
+            return true;
+
         }
         //else if
         return true; //placeholder

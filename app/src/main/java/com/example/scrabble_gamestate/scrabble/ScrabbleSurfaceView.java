@@ -8,8 +8,12 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.Game;
+import com.example.scrabble_gamestate.game.Tile;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *This is the primary activity for the Scrabble game
@@ -24,13 +28,17 @@ public class ScrabbleSurfaceView extends SurfaceView {
 
     public static final int TILE_WIDTH_AND_HEIGHT = 62; //each tile or cell is 62x62 dp
     public static final int BOARD_SIZE = 15; //board is a 15x15 grid
-
+    private ScrabbleGameState ourState = new ScrabbleGameState();
+    private Tile[][] aBoard;
+    private Bitmap[] tileLetters = new Bitmap[26];
+    private Game ourGame;
     /**
      * Constructor
      */
     public ScrabbleSurfaceView(Context context) {
 
         super(context);
+        setState(ourState);
         init();
     }
 
@@ -55,7 +63,20 @@ public class ScrabbleSurfaceView extends SurfaceView {
      * A helper method
      */
     private void init() {
-
+        int[] idToAndroidId= {R.drawable.tile_a, R.drawable.tile_b, R.drawable.tile_c,
+                R.drawable.tile_d, R.drawable.tile_e, R.drawable.tile_f, R.drawable.tile_g,
+                R.drawable.tile_h, R.drawable.tile_i, R.drawable.tile_j, R.drawable.tile_k,
+                R.drawable.tile_l, R.drawable.tile_m, R.drawable.tile_n, R.drawable.tile_o,
+                R.drawable.tile_p, R.drawable.tile_q, R.drawable.tile_r, R.drawable.tile_s,
+                R.drawable.tile_t, R.drawable.tile_u, R.drawable.tile_v, R.drawable.tile_w,
+                R.drawable.tile_x, R.drawable.tile_y, R.drawable.tile_z};
+        for(int i = 0; i < 26; i++)
+        {
+            Bitmap tileLettersCellOrig = BitmapFactory.decodeResource(getResources(),
+                    idToAndroidId[i]);
+              tileLetters[i] = Bitmap.createScaledBitmap(tileLettersCellOrig, TILE_WIDTH_AND_HEIGHT,
+                    TILE_WIDTH_AND_HEIGHT, false);
+        }
         setWillNotDraw(false);
     }
 
@@ -66,6 +87,7 @@ public class ScrabbleSurfaceView extends SurfaceView {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(0xFFFFFF00);
+
 
         //make and resize the images for cells without bonuses
         Bitmap noBonusCellOrig = BitmapFactory.decodeResource(getResources(), R.drawable.nobonus);
@@ -191,6 +213,32 @@ public class ScrabbleSurfaceView extends SurfaceView {
         canvas.drawBitmap(tripleWordCell,7*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
         canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
 
+        aBoard = ourState.getBoard();
+        for(int x = 0; x <15; x++ )
+        {
+            for( int y = 0; y < 15; y++)
+            {
+                if(aBoard[x][y] == null)
+                {
+                    //do nothing
+                }
+                else
+                {
+                    int indexIntoArray = aBoard[x][y].getTileLetter()-'A';
+                    canvas.drawBitmap( tileLetters[indexIntoArray],
+                            x*TILE_WIDTH_AND_HEIGHT,y*TILE_WIDTH_AND_HEIGHT,null);
+                }
+            }
+        }
+
     } //onDraw
+    public void setState(ScrabbleGameState state)
+    {
+        this.ourState = state;
+    }
+    public void setGame(Game g)
+    {
+        this.ourGame = g;
+    }
 }
 

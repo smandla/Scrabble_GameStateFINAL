@@ -48,7 +48,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ScrabbleSurfaceView surface;
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
-    //bool skipped  start it out as false; everytime they skip, check to see if true (if so, forfeit); pop up yes/no
+    //bool skipped  start it out as false; everytime they skip, check to see if true (if so,
+    // forfeit); pop up yes/no
     //dialog asking if they actually want to forfeit, then send a quitgameaction instead
 
     /**
@@ -66,7 +67,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
      */
     @Override
     protected void initAfterReady() {
-        theController.setGame(game);
+        surface.setGame(game);
     }
 
     /**
@@ -108,11 +109,20 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a ScrabbleGameState message
         if (!(info instanceof ScrabbleGameState)) return;
+        else if( surface == null)
+        {
+            return;
+        }
 
         // update our state; then update the display
         this.state = (ScrabbleGameState) info;
+
         theController.setUpdatedState(this.state);
         updateDisplay();
+
+        surface.setState((ScrabbleGameState) info);
+        surface.invalidate();
+
     }
 
     /**
@@ -130,9 +140,13 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
+        surface = myActivity.findViewById(R.id.surfaceView);
+
         if (state != null) {
             receiveInfo(state);
         }
+
+        state.loadDictionary( myActivity.getApplicationContext());
 
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
@@ -187,9 +201,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         // if we have a game state, "simulate" that we have just received
         // the state from the game so that the GUI values are updated
-        if (state != null) {
-            receiveInfo(state);
-        }
+//        if (state != null) {
+//            receiveInfo(state);
+//        }
     }
 
 }// class CounterHumanPlayer
