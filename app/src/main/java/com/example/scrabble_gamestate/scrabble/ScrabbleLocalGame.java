@@ -84,7 +84,7 @@ public class ScrabbleLocalGame extends LocalGame {
         }
 
         else if(action instanceof PlaceTileAction){
-            gameState.placeTile(gameState.getTurn(), gameState.);
+            gameState.placeTile(gameState.getTurn(), gameState.); //TODO
         }
         //else if
         return true; //placeholder

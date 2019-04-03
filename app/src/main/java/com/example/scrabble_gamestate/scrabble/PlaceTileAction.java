@@ -1,6 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
 import com.example.scrabble_gamestate.game.GamePlayer;
+import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 
 /**
@@ -14,12 +15,22 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
  * @version February 2019
  */
 public class PlaceTileAction extends GameAction {
+
+    int x;
+    int y;
+    Tile tile;
+
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public PlaceTileAction(GamePlayer player) {
+    public PlaceTileAction(GamePlayer player, int xLoc, int yLoc, Tile t) {
+
         super(player);
+
+        x = xLoc;
+        y = yLoc;
+        tile = t;
     }
 }

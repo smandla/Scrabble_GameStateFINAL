@@ -22,8 +22,8 @@ import java.util.ArrayList;
  */
 public class ScrabbleSurfaceView extends SurfaceView {
 
-    private static final int TILE_WIDTH_AND_HEIGHT = 62; //each tile or cell is 62x62 dp
-    private static final int BOARD_SIZE = 15; //board is a 15x15 grid
+    public static final int TILE_WIDTH_AND_HEIGHT = 62; //each tile or cell is 62x62 dp
+    public static final int BOARD_SIZE = 15; //board is a 15x15 grid
 
     /**
      * Constructor

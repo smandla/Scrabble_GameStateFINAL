@@ -11,6 +11,7 @@ import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.GameMainActivity;
+import com.example.scrabble_gamestate.game.Tile;
 
 public class ScrabbleController implements View.OnTouchListener, View.OnClickListener
 {
@@ -42,6 +43,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     public void setUpdatedState(ScrabbleGameState state) {
         ourGameState = state;
     }
+
     @Override
     public void onClick(View button) {
 
@@ -50,13 +52,30 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //have a case for each tile button to see if its been clicked
             //set recentlyClicked instance var to thatt button
             //then onTouvh handles placing of it?
+            case R.id.tileOneButton:
+                selectedView = button;
 
-            //what if make tiles just images? then just onTouch?
+            case R.id.tileTwoButton:
+                selectedView = button;
+
+            case R.id.tileThreeButton:
+                selectedView = button;
+
+            case R.id.tileFourButton:
+                selectedView = button;
+
+            case R.id.tileFiveButton:
+                selectedView = button;
+
+            case R.id.tileSixButton:
+                selectedView = button;
+
+            case R.id.tileSevenButton:
+                selectedView = button;
 
             case R.id.playButton:
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
-                //ourGameState.playWord(ourGameState.getTurn());
                 if(ourPlayer.getPlayerNum() == 0) {
                     this.ourScore.setText("" + ourGameState.getPlayerOneScore());
                     this.opponentScore.setText("" + ourGameState.getPlayerTwoScore());
@@ -71,13 +90,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             case R.id.passImageButton:
                 SkipTurnAction skipAction = new SkipTurnAction(ourPlayer);
                 ourGame.sendAction(skipAction);
-                //ourGameState.skipTurn(ourGameState.getTurn());
                 break;
 
             case R.id.swapTileButtton:
                 if(selectedView.isSelected() == true) {
-                    //ourGameState.exchangeTile(ourGameState.getTurn(),
-                            //ourGameState.getPositionInHand());
                     ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer);
                     ourGame.sendAction(swapTile);
                     break;
@@ -90,13 +106,11 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             case R.id.shuffleImageButton:
                 ShuffleTileAction shuffleAction = new ShuffleTileAction(ourPlayer);
                 ourGame.sendAction(shuffleAction);
-                //ourGameState.shuffleTiles(ourGameState.getTurn());
                 break;
 
             case R.id.dictionaryButton:
                 CheckDictionaryAction dictionaryAction = new CheckDictionaryAction(ourPlayer);
                 ourGame.sendAction(dictionaryAction);
-                //ourGameState.checkDictionary(ourGameState.getTurn());
                 break;
 
             default:
@@ -109,22 +123,43 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             int xTouch = (int) event.getX();
             int yTouch = (int) event.getY();
 
+
+            if(selectedView == null){
+                return true;
+            }
+
+            //figuring out which tile to place
+            Tile t;
+            switch (selectedView.getId()) {
+
+                case R.id.tileOneButton:
+                    t = ourGameState.getHand1().get(1);
+
+                case R.id.tileTwoButton:
+                    t = ourGameState.getHand1().get(2);
+
+                case R.id.tileThreeButton:
+                    t = ourGameState.getHand1().get(3);
+
+                case R.id.tileFourButton:
+                    t = ourGameState.getHand1().get(4);
+
+                case R.id.tileFiveButton:
+                    t = ourGameState.getHand1().get(5);
+
+                case R.id.tileSixButton:
+                    t = ourGameState.getHand1().get(6);
+
+                case R.id.tileSevenButton:
+                    t = ourGameState.getHand1().get(7);
+            }
+
             //based on location of touch, round to nearest multiple of 62 (cell size) and put tile there
             //make a new place tile action and send it based on that location
+            //or just divide by 62
 
-            if( selectedView != null) {
-                selectedView.setSelected(false);//unselects previously selected view
-            }
-            selectedView = v;//sets view to be selected to new view that has been touched
-            selectedView.setSelected(true);
-
-            switch (v.getId())
-            {
-                case  R.id.tileOneButton:
-
-
-
-
+            //figuring out where tile should be placed
+            xTouch = xTouch/TILE_WIDTH_;
 
             return true;
         }
