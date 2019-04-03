@@ -54,24 +54,31 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //then onTouvh handles placing of it?
             case R.id.tileOneButton:
                 selectedView = button;
+                break;
 
             case R.id.tileTwoButton:
                 selectedView = button;
+                break;
 
             case R.id.tileThreeButton:
                 selectedView = button;
+                break;
 
             case R.id.tileFourButton:
                 selectedView = button;
+                break;
 
             case R.id.tileFiveButton:
                 selectedView = button;
+                break;
 
             case R.id.tileSixButton:
                 selectedView = button;
+                break;
 
             case R.id.tileSevenButton:
                 selectedView = button;
+                break;
 
             case R.id.playButton:
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
@@ -129,29 +136,39 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             }
 
             //figuring out which tile to place
-            Tile t;
+            Tile t = null;
             switch (selectedView.getId()) {
 
                 case R.id.tileOneButton:
-                    t = ourGameState.getHand1().get(1);
+                    t = ourGameState.getHand1().get(0);
+                    break;
 
                 case R.id.tileTwoButton:
-                    t = ourGameState.getHand1().get(2);
+                    t = ourGameState.getHand1().get(1);
+                    break;
 
                 case R.id.tileThreeButton:
-                    t = ourGameState.getHand1().get(3);
+                    t = ourGameState.getHand1().get(2);
+                    break;
 
                 case R.id.tileFourButton:
-                    t = ourGameState.getHand1().get(4);
+                    t = ourGameState.getHand1().get(3);
+                    break;
 
                 case R.id.tileFiveButton:
-                    t = ourGameState.getHand1().get(5);
+                    t = ourGameState.getHand1().get(4);
+                    break;
 
                 case R.id.tileSixButton:
-                    t = ourGameState.getHand1().get(6);
+                    t = ourGameState.getHand1().get(5);
+                    break;
 
                 case R.id.tileSevenButton:
-                    t = ourGameState.getHand1().get(7);
+                    t = ourGameState.getHand1().get(6);
+                    break;
+
+                default:
+                    break;
             }
 
             //based on location of touch, round to nearest multiple of 62 (cell size) and put tile there
@@ -159,7 +176,11 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //or just divide by 62
 
             //figuring out where tile should be placed
-            xTouch = xTouch/TILE_WIDTH_;
+            xTouch = xTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
+            yTouch = yTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
+
+            PlaceTileAction placeTileAction = new PlaceTileAction(ourPlayer, xTouch, yTouch, t);
+            ourGame.sendAction(placeTileAction);
 
             return true;
         }

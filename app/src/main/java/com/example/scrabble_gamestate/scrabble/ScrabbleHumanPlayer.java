@@ -45,8 +45,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     // the android activity that we are running
     private GameMainActivity myActivity;
-    private Game myGame;
-
     private ScrabbleSurfaceView surface;
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
@@ -130,7 +128,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
 
-        theController = new ScrabbleController(ourScore, opponentScore, state, myGame, this );
+        theController = new ScrabbleController(ourScore, opponentScore, state, game, this );
 
         //sets the listeners for the gameplay buttons
         swapTileButton = activity.findViewById(R.id.swapTileButtton);

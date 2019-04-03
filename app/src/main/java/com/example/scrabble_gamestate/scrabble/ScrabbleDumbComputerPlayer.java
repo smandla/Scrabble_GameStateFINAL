@@ -48,7 +48,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
         // start the timer, ticking 20 times per second
         getTimer().setInterval(50);
-        getTimer().start()
+        getTimer().start();
     }
 
 
@@ -72,72 +72,72 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
             return;
         }
 
-        //the other half of the time, play a word
-        //TODO: implement algorithm
-        for (int column = 1; column < 14; column++) {
-            for (int row = 0; row < 15; row++) {
-                if ((latestState.getBoard()[row][column] == null) &&
-                        (latestState.getBoard()[row - 1][column] == null) &&
-                        (latestState.getBoard()[row + 1][column] == null)) {
-                    if (alreadyPlayedLetter != null) {
-                        for (Tile t : latestState.getHand2() ) {
-                            if (!letters.contains(t.getTileLetter())) {
-
-                                letters.add(t.getTileLetter());
-                            }
-
-                        }
-                        /**
-                         *  TODO: implement switch statement for DumbAI
-                         * use a switch statement to determine which line number constant to use
-                         *             (example: if additionalLetter = = ‘a’ use line number constant for A)
-                         */
-
-
-                        /**while(foundWord == false){
-                         if(TODO: if it's still AI's turn)){
-                         TODO: ask NUXOLL about InputStream
-                         use scanner & print writer
-                         }**/
-
-                    }
-                    for (int i = 0; i < word.length(); i++) {
-                        String sub = word.substring(i);
-                        int numFound = 0;
-                        for (Character s : letters) {
-                            if ((sub.equals(s)) && !(s.equals(alreadyPlayedLetter))) {
-                                numFound++;
-                            }
-
-                        }
-
-                        if (numFound > word.length() - 1) {
-                            foundWord = true;
-                            int alreadyPlayedX = alreadyPlayedTile.getxCoord();
-                            int alreadyPlayedY = alreadyPlayedTile.getyCoord();
-
-                            for (int j = word.length(); j > 0; j++) {
-                                for (Tile t : latestState.getHand2()) {
-                                    //TODO: THIS MAY OR MAY NOT WORK
-                                    if ((t.getTileLetter() == word.charAt(j)) &&
-                                            latestState.getBoard()[alreadyPlayedX - j][alreadyPlayedY] == null) {
-                                        
-                                    }
-
-                                }
-                                ScrabbleGameState.playWord(turnID);
-                            }
-                        }
-                    }
-                }
-            }
-            //TODO: fix this
-            if (latestState.getBoard()[row][column] != null && latestState.getBoard()[row - 1][column] == null && latestState.getBoard()[row + 1][column] == null) {
-                additionalLetter = //value of Tile in row;
-                        alreadyPlayed = //Tile in row;
-            }
-
-        }
+//        //the other half of the time, play a word
+//        //TODO: implement algorithm
+//        for (int column = 1; column < 14; column++) {
+//            for (int row = 0; row < 15; row++) {
+//                if ((latestState.getBoard()[row][column] == null) &&
+//                        (latestState.getBoard()[row - 1][column] == null) &&
+//                        (latestState.getBoard()[row + 1][column] == null)) {
+//                    if (alreadyPlayedLetter != null) {
+//                        for (Tile t : latestState.getHand2() ) {
+//                            if (!letters.contains(t.getTileLetter())) {
+//
+//                                letters.add(t.getTileLetter());
+//                            }
+//
+//                        }
+//                        /**
+//                         *  TODO: implement switch statement for DumbAI
+//                         * use a switch statement to determine which line number constant to use
+//                         *             (example: if additionalLetter = = ‘a’ use line number constant for A)
+//                         */
+//
+//
+//                        /**while(foundWord == false){
+//                         if(TODO: if it's still AI's turn)){
+//                         TODO: ask NUXOLL about InputStream
+//                         use scanner & print writer
+//                         }**/
+//
+//                    }
+//                    for (int i = 0; i < word.length(); i++) {
+//                        String sub = word.substring(i);
+//                        int numFound = 0;
+//                        for (Character s : letters) {
+//                            if ((sub.equals(s)) && !(s.equals(alreadyPlayedLetter))) {
+//                                numFound++;
+//                            }
+//
+//                        }
+//
+//                        if (numFound > word.length() - 1) {
+//                            foundWord = true;
+//                            int alreadyPlayedX = alreadyPlayedTile.getxCoord();
+//                            int alreadyPlayedY = alreadyPlayedTile.getyCoord();
+//
+//                            for (int j = word.length(); j > 0; j++) {
+//                                for (Tile t : latestState.getHand2()) {
+//                                    //TODO: THIS MAY OR MAY NOT WORK
+//                                    if ((t.getTileLetter() == word.charAt(j)) &&
+//                                            latestState.getBoard()[alreadyPlayedX - j][alreadyPlayedY] == null) {
+//
+//                                    }
+//
+//                                }
+//                                ScrabbleGameState.playWord(turnID);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            //TODO: fix this
+//            if (latestState.getBoard()[row][column] != null && latestState.getBoard()[row - 1][column] == null && latestState.getBoard()[row + 1][column] == null) {
+//                additionalLetter = //value of Tile in row;
+//                        alreadyPlayed = //Tile in row;
+//            }
+//
+//        }
     }
 /**
  * TODO: ALL DIS

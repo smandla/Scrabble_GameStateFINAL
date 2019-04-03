@@ -33,4 +33,19 @@ public class PlaceTileAction extends GameAction {
         y = yLoc;
         tile = t;
     }
+
+    //getters and setters
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public Tile getTile(){
+        return tile;
+    }
+
+
 }
