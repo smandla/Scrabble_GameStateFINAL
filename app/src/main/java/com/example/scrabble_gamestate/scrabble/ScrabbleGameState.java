@@ -586,7 +586,7 @@ public class ScrabbleGameState extends GameState {
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean playWord(int turnId) {
-        if(turnId == turn) {
+        if(turnId == turn && onBoard != null) {
 
             int counter = 0;
             int wordBonusVal = 1;

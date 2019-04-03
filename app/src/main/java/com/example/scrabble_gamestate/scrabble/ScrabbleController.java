@@ -10,9 +10,10 @@ import android.widget.ImageView;
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
+import com.example.scrabble_gamestate.game.GameMainActivity;
 
-public class ScrabbleController implements View.OnTouchListener, View.OnClickListener,
-        View.OnDragListener {
+public class ScrabbleController implements View.OnTouchListener, View.OnClickListener
+{
 
     private TextView ourScore;
     private TextView opponentScore;
@@ -22,14 +23,16 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     private ScrabbleGameState ourGameState;
     private View selectedView = null;
     private GameHumanPlayer ourPlayer = null;
-    private Game ourGame = null;
+    private Game ourGame;
 
-    public ScrabbleController(TextView ourPlayerScore, TextView theirPlayerScore,
-                              ScrabbleGameState theGameState, Game theGame ) {
+    public ScrabbleController(TextView ourPlayerScore,TextView theirPlayerScore,
+                              ScrabbleGameState theGameState,
+                              Game theGame, GameHumanPlayer aPlayer ) {
         ourScore = ourPlayerScore;
         opponentScore = theirPlayerScore;
         ourGameState = theGameState;
         ourGame = theGame;
+        ourPlayer = aPlayer;
 
         /*theirProfile = theirProfPic;
         ourProfile = ourProfPic; */
@@ -53,7 +56,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             case R.id.playButton:
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
-                ourGameState.playWord(ourGameState.getTurn());
+                //ourGameState.playWord(ourGameState.getTurn());
                 if(ourPlayer.getPlayerNum() == 0) {
                     this.ourScore.setText("" + ourGameState.getPlayerOneScore());
                     this.opponentScore.setText("" + ourGameState.getPlayerTwoScore());
@@ -66,13 +69,17 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 break;
 
             case R.id.passImageButton:
-                ourGameState.skipTurn(ourGameState.getTurn());
+                SkipTurnAction skipAction = new SkipTurnAction(ourPlayer);
+                ourGame.sendAction(skipAction);
+                //ourGameState.skipTurn(ourGameState.getTurn());
                 break;
 
             case R.id.swapTileButtton:
                 if(selectedView.isSelected() == true) {
-                    ourGameState.exchangeTile(ourGameState.getTurn(),
-                            ourGameState.getPositionInHand());
+                    //ourGameState.exchangeTile(ourGameState.getTurn(),
+                            //ourGameState.getPositionInHand());
+                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer);
+                    ourGame.sendAction(swapTile);
                     break;
                 }
                 else
@@ -81,11 +88,15 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 }
 
             case R.id.shuffleImageButton:
-                ourGameState.shuffleTiles(ourGameState.getTurn());
+                ShuffleTileAction shuffleAction = new ShuffleTileAction(ourPlayer);
+                ourGame.sendAction(shuffleAction);
+                //ourGameState.shuffleTiles(ourGameState.getTurn());
                 break;
 
             case R.id.dictionaryButton:
-                ourGameState.checkDictionary(ourGameState.getTurn());
+                CheckDictionaryAction dictionaryAction = new CheckDictionaryAction(ourPlayer);
+                ourGame.sendAction(dictionaryAction);
+                //ourGameState.checkDictionary(ourGameState.getTurn());
                 break;
 
             default:
@@ -107,13 +118,18 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             selectedView = v;//sets view to be selected to new view that has been touched
             selectedView.setSelected(true);
 
+            switch (v.getId())
+            {
+                case  R.id.tileOneButton:
+
+
 
 
 
             return true;
         }
 
-        @Override
+       /* @Override
         public boolean onDrag (View v, DragEvent event){
             float xTouch = (int) event.getX();
             float yTouch = (int) event.getY();
@@ -154,7 +170,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
 
             return true;
-        }
+        }*/
         public boolean onLongClick(View v, MotionEvent event)
         {
             return true;

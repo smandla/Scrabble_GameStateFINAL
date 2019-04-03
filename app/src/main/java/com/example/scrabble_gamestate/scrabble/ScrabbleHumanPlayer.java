@@ -130,7 +130,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
 
-        theController = new ScrabbleController(ourScore, opponentScore, state, myGame );
+        theController = new ScrabbleController(ourScore, opponentScore, state, myGame, this );
 
         //sets the listeners for the gameplay buttons
         swapTileButton = activity.findViewById(R.id.swapTileButtton);
@@ -150,31 +150,32 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         //sets the listeners for the player hand tiles for drag and drop
         tileOneButton = activity.findViewById(R.id.tileOneButton);
-        tileOneButton.setOnDragListener(theController);
+        tileOneButton.setOnClickListener(theController);
 
         tileTwoButton = activity.findViewById(R.id.tileTwoButton);
-        tileTwoButton.setOnDragListener(theController);
+        tileTwoButton.setOnClickListener(theController);
 
         tileThreeButton = activity.findViewById(R.id.tileThreeButton);
-        tileThreeButton.setOnDragListener(theController);
+        tileThreeButton.setOnClickListener(theController);
 
         tileFourButton = activity.findViewById(R.id.tileFourButton);
-        tileFourButton.setOnDragListener(theController);
+        tileFourButton.setOnClickListener(theController);
 
         tileFiveButton = activity.findViewById(R.id.tileFiveButton);
-        tileFiveButton.setOnDragListener(theController);
+        tileFiveButton.setOnClickListener(theController);
 
         tileSixButton = activity.findViewById(R.id.tileSixButton);
-        tileSixButton.setOnDragListener(theController);
+        tileSixButton.setOnClickListener(theController);
 
         tileSevenButton = activity.findViewById(R.id.tileSevenButton);
-        tileSevenButton.setOnDragListener(theController);
+        tileSevenButton.setOnClickListener(theController);
 
         // remember the field that we update to display the counter's value
         /*this.counterValueTextView =
                 (TextView) activity.findViewById(R.id.counterValueTextView);*/
 
         surface = myActivity.findViewById(R.id.surfaceView);
+        surface.setOnTouchListener(theController);
         //activity.setContentView(R.layout.activity_main);
 
         // if we have a game state, "simulate" that we have just received
