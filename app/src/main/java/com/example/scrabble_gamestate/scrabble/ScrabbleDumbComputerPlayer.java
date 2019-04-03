@@ -9,6 +9,7 @@ import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 import com.example.scrabble_gamestate.game.util.Tickable;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.scrabble.ScrabbleGameState;
+import com.example.scrabble_gamestate.scrabble.ScrabbleLocalGame;
 
 
 import java.io.InputStream;
@@ -26,10 +27,11 @@ import java.util.ArrayList;
  */
 public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
 
-        ArrayList<String> letters;
+        ArrayList<Character> letters;
     String alreadyPlayedLetter = null;
     Tile alreadyPlayedTile = null;
     boolean foundWord = false;
+    int player2 = playerNum;
 
     // String word = read in line from dumbDictionary.txt
     String word = " ";
@@ -79,7 +81,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                         (latestState.getBoard()[row + 1][column] == null)) {
                     if (alreadyPlayedLetter != null) {
                         for (Tile t : latestState.getHand2() ) {
-                            if (letters.contains(t.getTileLetter()) == false) {
+                            if (!letters.contains(t.getTileLetter())) {
 
                                 letters.add(t.getTileLetter());
                             }
@@ -90,6 +92,8 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                          * use a switch statement to determine which line number constant to use
                          *             (example: if additionalLetter = = ‘a’ use line number constant for A)
                          */
+
+
                         /**while(foundWord == false){
                          if(TODO: if it's still AI's turn)){
                          TODO: ask NUXOLL about InputStream
@@ -100,12 +104,13 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                     for (int i = 0; i < word.length(); i++) {
                         String sub = word.substring(i);
                         int numFound = 0;
-                        for (String s : letters) {
-                            if ((sub.equals(s) == true) && (s.equals(alreadyPlayedLetter)) == false) {
+                        for (Character s : letters) {
+                            if ((sub.equals(s)) && !(s.equals(alreadyPlayedLetter))) {
                                 numFound++;
                             }
 
                         }
+
                         if (numFound > word.length() - 1) {
                             foundWord = true;
                             int alreadyPlayedX = alreadyPlayedTile.getxCoord();
@@ -114,12 +119,13 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                             for (int j = word.length(); j > 0; j++) {
                                 for (Tile t : latestState.getHand2()) {
                                     //TODO: THIS MAY OR MAY NOT WORK
-                                    if ((tileLetter == word.charAt(j)) && latestState.getBoard()[alreadyPlayedX - i][alreadyPlayedY] == null) {
-                                        placeTile();
+                                    if ((t.getTileLetter() == word.charAt(j)) &&
+                                            latestState.getBoard()[alreadyPlayedX - j][alreadyPlayedY] == null) {
+                                        
                                     }
 
                                 }
-                                playWord(AI 's turnID)
+                                ScrabbleGameState.playWord(turnID);
                             }
                         }
                     }

@@ -13,31 +13,34 @@ public class ScrabbleLocalGame extends LocalGame {
     // the game's state
     private ScrabbleGameState gameState;
 
+
+    /**
+     * This actor should be called when a new scrabble game is started
+     */
+    public ScrabbleLocalGame() {
+        // initialize the game state, with all default start values
+        this.gameState = new ScrabbleGameState();
+    }
     /**
      * can this player move
      *
      * @return
      * 		true if the index param is the same as the turnID in the game state and false if not
      */
+
     @Override
-    protected boolean canMove(int playerIdx) {
-        if(playerIdx != gameState.getTurn())
-        {
-            return false;
-        }
-        else
+    public boolean canMove(int playerIdx) {
+        if(gameState.getTurn() == playerIdx)
         {
             return true;
         }
+        else
+        {
+            return false;
+        }
     }
 
-    /**
-     * This ctor should be called when a new scrabble game is started
-     */
-    public ScrabbleLocalGame() {
-        // initialize the game state, with all default start values
-        this.gameState = new ScrabbleGameState();
-    }
+
 
     /**
      * Makes a move on behalf of a player
