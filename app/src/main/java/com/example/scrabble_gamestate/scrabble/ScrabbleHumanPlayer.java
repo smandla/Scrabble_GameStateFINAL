@@ -48,6 +48,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     //the surfaceView we're drawing on
     private ScrabbleSurfaceView surface;
 
+    ScrabbleGameState latestState = new ScrabbleGameState();
+
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
     //bool skipped  start it out as false; everytime they skip, check to see if true (if so,
     // forfeit); pop up yes/no
@@ -110,9 +112,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     @Override
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a ScrabbleGameState message
-        if (!(info instanceof ScrabbleGameState)) return;
+        /**if (!(info instanceof ScrabbleGameState)) return;
         else if( surface == null)
         {
+            return;
+        }*/
+        if (info instanceof ScrabbleGameState) {
+            this.latestState = (ScrabbleGameState) info;
+        } else {
+            //TODO: should do more here?
             return;
         }
 
