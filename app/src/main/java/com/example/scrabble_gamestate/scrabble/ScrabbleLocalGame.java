@@ -52,6 +52,7 @@ public class ScrabbleLocalGame extends LocalGame {
 
             // cast so that Java knows it's a CheckDictionaryAction
             CheckDictionaryAction cda = (CheckDictionaryAction) action;
+            gameState.checkDictionary(gameState.getTurn());
 
             //TODO after alpha
             // Update the counter values based upon the action
@@ -62,11 +63,28 @@ public class ScrabbleLocalGame extends LocalGame {
             return true;
         }
         else if(action instanceof ExchangeTileAction){
+            gameState.exchangeTile(gameState.getTurn(), gameState.getPositionInHand());
             //TODO after alpha
             return false;
         }
+        else if( action instanceof PlayWordAction)
+        {
+            gameState.playWord(gameState.getTurn());
+            return true;
+        }
+        else if( action instanceof ShuffleTileAction)
+        {
+            gameState.shuffleTiles(gameState.getTurn());
+            return false;
+        }
+        else if( action instanceof SkipTurnAction)
+        {
+            gameState.skipTurn(gameState.getTurn());
+            return true;
+        }
+
         else if(action instanceof PlaceTileAction){
-            //TODO for alpha!!!
+            gameState.placeTile(gameState.getTurn(), gameState.);
         }
         //else if
         return true; //placeholder
