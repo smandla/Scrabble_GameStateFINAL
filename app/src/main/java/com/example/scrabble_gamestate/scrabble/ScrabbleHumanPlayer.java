@@ -96,6 +96,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 tileFiveButton, tileSixButton, tileSevenButton};
         //updates the image reaources in the hand to match the value in the tile array
         //TODO after alpha, need to deal with the possibility that human isn't player one
+        //make each image button look like the tiles in the human player's hand
         for (Tile t: state.getHand1()) {
             int androidId = t.getAndroidId();
             int index = state.getHand1().indexOf(t);
@@ -127,11 +128,12 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // update our state; then update the display
         this.state = (ScrabbleGameState) info;
 
-        theController.setUpdatedState(this.state);//makes sure the state isnt null
+        theController.setUpdatedState(this.state);//makes sure the state isn't null
         // (in theory, at least)
+        theController.setGame(this.game);
         updateDisplay();
 
-        surface.setState((ScrabbleGameState) info);//makes sure the state isnt null
+        surface.setState((ScrabbleGameState) info);//makes sure the state isn't null
         surface.invalidate();//updates the gui view
 
     }//note: we used Meredith's Uno game from last semester as an example and reference
@@ -158,7 +160,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
             receiveInfo(state);
         }
 
-        state.loadDictionary( myActivity.getApplicationContext());//gives the dictionary method
+        //                                                                                                                                   TODO uncomment after other fixes
+        //state.loadDictionary( myActivity.getApplicationContext());//gives the dictionary method
         // context
 
         ourScore = activity.findViewById(R.id.playerScore);

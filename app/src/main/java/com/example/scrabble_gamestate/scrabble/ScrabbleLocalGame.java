@@ -4,7 +4,6 @@ import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.actionMsg.GameAction;
-import android.util.Log;
 
 /**
  *
@@ -155,10 +154,10 @@ public class ScrabbleLocalGame extends LocalGame {
             //at least one of the players has run out of tiles
 
             //whichever player has a larger score wins
-            if(gameState.getPlayerOneScore() > gameState.getPlayerTwoScore()){
+            if(gameState.getPlayerZeroScore() > gameState.getPlayerOneScore()){
                 return playerNames[0]+" has won.";
             }
-            else if (gameState.getPlayerOneScore() < gameState.getPlayerTwoScore()){
+            else if (gameState.getPlayerZeroScore() < gameState.getPlayerOneScore()){
                 return playerNames[1]+" has won.";
             }
             else{

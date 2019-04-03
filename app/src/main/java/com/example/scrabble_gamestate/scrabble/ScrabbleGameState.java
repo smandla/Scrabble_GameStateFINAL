@@ -1,7 +1,6 @@
 package com.example.scrabble_gamestate.scrabble;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Tile;
@@ -88,23 +87,23 @@ public class ScrabbleGameState extends GameState {
                                     {3,1,1,1,1,1,1,3,1,1,1,1,1,1,3}};
 
     //instance variable
+    private int playerZeroScore;
     private int playerOneScore;
-    private int playerTwoScore;
 
+    private int playerZeroId;
     private int playerOneId;
-    private int playerTwoId;
 
     private int positionInHand;//the index of a tile in a hand
 
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
-    private ArrayList<Tile> hand1 = new ArrayList<Tile>(7);
-    private ArrayList<Tile> hand2 = new ArrayList<Tile>(7);
+    private ArrayList<Tile> hand1 = new ArrayList<Tile>(7); //should be hand0
+    private ArrayList<Tile> hand2 = new ArrayList<Tile>(7); //should be hand1
     //shows the location of any tile placed on the board during one turn
     private ArrayList<Tile> onBoard;
 
     private Tile[][] board = new Tile[15][15];
 
-    //indicates which players turn it is; 1 for player 1, 2 for player 2, etc.
+    //indicates which players turn it is
     private int turn;
 
     private boolean gameWon;
@@ -118,11 +117,11 @@ public class ScrabbleGameState extends GameState {
      * Constructor for objects of class ScrabbleGameState
      */
     public ScrabbleGameState() {
+        playerZeroScore = 0;
         playerOneScore = 0;
-        playerTwoScore = 0;
 
+        playerZeroId = 0;
         playerOneId = 1;
-        playerTwoId = 2;
 
         turn = 1;
 
@@ -156,11 +155,11 @@ public class ScrabbleGameState extends GameState {
      * @param state The one true state of the game, to be copied
      */
     public ScrabbleGameState(ScrabbleGameState state) {
+        playerZeroScore = state.playerZeroScore;
         playerOneScore = state.playerOneScore;
-        playerTwoScore = state.playerTwoScore;
 
+        playerZeroId = state.playerZeroId;
         playerOneId = state.playerOneId;
-        playerTwoId = state.playerTwoId;
 
         turn = state.turn;
         positionInHand = state.positionInHand;
@@ -246,6 +245,14 @@ public class ScrabbleGameState extends GameState {
 
 
     //getters and setters
+    public int getPlayerZeroScore(){
+        return playerZeroScore;
+    }
+
+    public void setPlayerZeroScore(int score){
+        playerZeroScore = score;
+    }
+
     public int getPlayerOneScore(){
         return playerOneScore;
     }
@@ -254,12 +261,12 @@ public class ScrabbleGameState extends GameState {
         playerOneScore = score;
     }
 
-    public int getPlayerTwoScore(){
-        return playerTwoScore;
+    public int getPlayerZeroId(){
+        return playerZeroId;
     }
 
-    public void setPlayerTwoScore(int score){
-        playerTwoScore = score;
+    public void setPlayerZeroId(int id){
+        playerZeroId = id;
     }
 
     public int getPlayerOneId(){
@@ -268,14 +275,6 @@ public class ScrabbleGameState extends GameState {
 
     public void setPlayerOneId(int id){
         playerOneId = id;
-    }
-
-    public int getPlayerTwoId(){
-        return playerTwoId;
-    }
-
-    public void setPlayerTwoId(int id){
-        playerTwoId = id;
     }
 
     public ArrayList<Tile> getTileBag(){
@@ -517,9 +516,9 @@ public class ScrabbleGameState extends GameState {
     @Override
     public String toString() {
 
-        String str = "Player One's Score: " + playerOneScore + "\nPlayer Two's Score: "
-                + playerTwoScore + "\nPlayer One's ID: " + playerOneId + "\nPlayer Two's ID: "
-                + playerTwoId + "\nTurn: " + turn + "\n Enough players? " + enoughPlayers + "\n " +
+        String str = "Player One's Score: " + playerZeroScore + "\nPlayer Two's Score: "
+                + playerOneScore + "\nPlayer One's ID: " + playerZeroId + "\nPlayer Two's ID: "
+                + playerOneId + "\nTurn: " + turn + "\n Enough players? " + enoughPlayers + "\n " +
                 "Game Won? " + gameWon + "\n Tile Bag after shuffling: ";
 
         for (Tile t: tileBag) {
@@ -727,12 +726,12 @@ public class ScrabbleGameState extends GameState {
             }
 
             if(turn == 1) {
-                playerOneScore += (counter * wordBonusVal);
+                playerZeroScore += (counter * wordBonusVal);
                 turn++;
                 this.drawTile(hand1);
             }
             else {
-                playerTwoScore += (counter * wordBonusVal);
+                playerOneScore += (counter * wordBonusVal);
                 turn--;
                 this.drawTile(hand2);
             }

@@ -67,10 +67,10 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         }
 
         //half the time, just skip turn instead of playing a word
-        if (Math.random() >= 0.5) {
-            game.sendAction(new SkipTurnAction(this));
-            return;
-        }
+//        if (Math.random() >= 0.5) {
+//            game.sendAction(new SkipTurnAction(this));
+//            return;
+//        }
 
 //        //the other half of the time, play a word
 //        //TODO: implement algorithm

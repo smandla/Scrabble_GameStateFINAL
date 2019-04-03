@@ -1,6 +1,5 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Spinner;
@@ -10,7 +9,6 @@ import android.widget.ImageView;
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
-import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.Tile;
 
 public class ScrabbleController implements View.OnTouchListener, View.OnClickListener
@@ -44,8 +42,16 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         ourGameState = state;
     }
 
+    public void setGame(Game local) {
+        ourGame = local;
+    }
+
     @Override
     public void onClick(View button) {
+
+        if(ourGameState == null || ourGame == null){
+            return;
+        }
 
         switch (button.getId()) {
 
@@ -85,13 +91,13 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
                 if(ourPlayer.getPlayerNum() == 0) {
-                    this.ourScore.setText("" + ourGameState.getPlayerOneScore());
-                    this.opponentScore.setText("" + ourGameState.getPlayerTwoScore());
+                    this.ourScore.setText("" + ourGameState.getPlayerZeroScore());
+                    this.opponentScore.setText("" + ourGameState.getPlayerOneScore());
                 }
                 else
                 {
-                    this.ourScore.setText("" + ourGameState.getPlayerTwoScore());
-                    this.opponentScore.setText("" + ourGameState.getPlayerOneScore());
+                    this.ourScore.setText("" + ourGameState.getPlayerOneScore());
+                    this.opponentScore.setText("" + ourGameState.getPlayerZeroScore());
                 }
                 break;
 
@@ -128,6 +134,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     }
         @Override
         public boolean onTouch (View v, MotionEvent event){
+            if(ourGameState == null || ourGame == null){
+                return true;
+            }
+
             int xTouch = (int) event.getX();
             int yTouch = (int) event.getY();
 
@@ -172,11 +182,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                     break;
             }
 
-            //based on location of touch, round to nearest multiple of 62 (cell size) and put tile there
-            //make a new place tile action and send it based on that location
-            //or just divide by 62
-
-            //figuring out where tile should be placed
+            //based on location of touch, round to nearest multiple of cell size and put tile there
             xTouch = xTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
             yTouch = yTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
 
