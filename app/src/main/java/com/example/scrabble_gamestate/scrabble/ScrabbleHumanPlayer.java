@@ -61,6 +61,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     }
 
     /**
+     * perform any initialization that needs to be done after the player
+     * knows what their game-position and opponents' names are.
+     */
+    @Override
+    protected void initAfterReady() {
+        theController.setGame(game);
+    }
+
+    /**
      * Returns the GUI's top view object
      *
      * @return
