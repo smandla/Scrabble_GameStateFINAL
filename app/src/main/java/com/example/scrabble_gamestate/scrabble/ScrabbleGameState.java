@@ -1,6 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
 import android.content.Context;
+import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.Tile;
@@ -89,6 +90,7 @@ public class ScrabbleGameState extends GameState {
     //instance variable
     private int playerZeroScore;
     private int playerOneScore;
+    private TextView whosTurn;
 
     private int playerZeroId;
     private int playerOneId;

@@ -1,6 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     private TextView ourScore;
     private TextView opponentScore;
+    private TextView playerTurn;
 
     private ScrabbleController theController;
 
@@ -40,8 +42,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ImageButton tileFiveButton;
     private ImageButton tileSixButton;
     private ImageButton tileSevenButton;
+
+    private Button recallButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
+
 
     // the android activity that we are running
     private GameMainActivity myActivity;
@@ -166,8 +171,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
+        playerTurn = activity.findViewById(R.id.whosTurn);
 
-        theController = new ScrabbleController(ourScore, opponentScore, state, game, this );
+        theController = new ScrabbleController(ourScore, opponentScore, playerTurn , state, game, this );
 
         //sets the listeners for the gameplay buttons
         swapTileButton = activity.findViewById(R.id.swapTileButtton);
@@ -206,6 +212,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         tileSevenButton = activity.findViewById(R.id.tileSevenButton);
         tileSevenButton.setOnClickListener(theController);
+
+        recallButton = activity.findViewById(R.id.recallTiles);
+        recallButton.setOnClickListener(theController);
 
         // remember the field that we update to display the counter's value
         /*this.counterValueTextView =

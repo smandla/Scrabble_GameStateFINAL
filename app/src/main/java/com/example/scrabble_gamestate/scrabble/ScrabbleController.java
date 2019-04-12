@@ -17,6 +17,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
     private TextView ourScore;
     private TextView opponentScore;
+    private TextView playerTurn;
     private Spinner menu = null;
     private ImageView theirProfile = null;
     private ImageView ourProfile = null;
@@ -26,10 +27,12 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     private Game ourGame;
 
     public ScrabbleController(TextView ourPlayerScore,TextView theirPlayerScore,
+                              TextView whichPlayerTurn,
                               ScrabbleGameState theGameState,
                               Game theGame, GameHumanPlayer aPlayer ) {
         ourScore = ourPlayerScore;
         opponentScore = theirPlayerScore;
+        playerTurn = whichPlayerTurn;
         ourGameState = theGameState;
         ourGame = theGame;
         ourPlayer = aPlayer;
@@ -109,12 +112,24 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 if(ourPlayer.getPlayerNum() == 0) {
                     this.ourScore.setText("" + ourGameState.getPlayerZeroScore());
                     this.opponentScore.setText("" + ourGameState.getPlayerOneScore());
+                    this.playerTurn.setText("It is player 1's turn");
                 }
                 else
                 {
                     this.ourScore.setText("" + ourGameState.getPlayerOneScore());
                     this.opponentScore.setText("" + ourGameState.getPlayerZeroScore());
+                    this.playerTurn.setText("It is player 2's turn");
                 }
+                break;
+
+            case R.id.recallTiles:
+                Log.i("controller", "recall tiles button touched");
+                //for(tile t on board)
+                //{
+                //  t = tempTile;
+                //  hand.add(tempTile);
+                //}
+                //clear board
                 break;
 
             case R.id.passImageButton:
