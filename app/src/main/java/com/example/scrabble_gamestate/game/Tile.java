@@ -87,4 +87,18 @@ public class Tile {
         yCoord = y;
     }
 
+    @Override
+    public boolean equals(Object obj){
+
+        Tile comparisonTile = (Tile) obj;
+        if(comparisonTile.tileLetter == this.tileLetter && comparisonTile.xCoord == this.xCoord &&
+                comparisonTile.yCoord == this.yCoord) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 }

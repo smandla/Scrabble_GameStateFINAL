@@ -571,6 +571,19 @@ public class ScrabbleGameState extends GameState {
                 tile.setxCoord(xPosition);
                 tile.setyCoord(yPosition);
                 onBoard.add(tile);
+
+                //look through player's hand for a Tile that matches tile (parameter), using equals
+                //if the two match, remove that one from the hand
+                Tile removeMe = null;
+                for (Tile t: hand1) {
+                    if(t.getTileLetter() == tile.getTileLetter()){
+                        removeMe = t;
+                    }
+                }
+                if(removeMe != null) {
+                    hand1.remove(removeMe);
+                }
+
                 return true;
             }
             else
