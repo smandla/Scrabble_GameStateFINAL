@@ -764,12 +764,12 @@ public class ScrabbleGameState extends GameState {
     public boolean skipTurn(int turnId) {
         if(turnId == turn){
             if(turn == 1) {
-                turn++;
-            }
-            else {
                 turn--;
             }
-            this.recallTiles(turnId);
+            else {
+                turn++;
+            }
+            //this.recallTiles(turnId);
             return true;
         }
         else {

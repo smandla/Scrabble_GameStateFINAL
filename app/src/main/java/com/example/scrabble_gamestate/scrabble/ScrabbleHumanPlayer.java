@@ -33,6 +33,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private TextView ourScore;
     private TextView opponentScore;
     private TextView playerTurn;
+    private TextView tileBag;
 
     private ScrabbleController theController;
 
@@ -102,9 +103,19 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
      * displays the current player's hand to that player
      */
     protected void updateDisplay() {
+        //updates the gui to match the current turn and score
+        if(state.getTurn() == 0) {
+            this.playerTurn.setText("It is player 1's turn");
+        }
+        else
+        {
+            this.playerTurn.setText("It is player 2's turn");
+        }
 
-        // set the text in the appropriate widget
-        //counterValueTextView.setText("" + state.getCounter());
+        this.ourScore.setText("" + state.getPlayerZeroScore());
+        this.opponentScore.setText("" + state.getPlayerOneScore());
+        //updates gui to show current size of tile bag
+        this.tileBag.setText("" + state.getTileBag().size());
 
         ImageButton[] buttons = {tileOneButton, tileTwoButton, tileThreeButton, tileFourButton,
                 tileFiveButton, tileSixButton, tileSevenButton};
@@ -142,18 +153,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     @Override
     public void receiveInfo(GameInfo info) {
         // ignore the message if it's not a ScrabbleGameState message
-        /**if (!(info instanceof ScrabbleGameState)) return;
+        if (!(info instanceof ScrabbleGameState)) {return;}
         else if( surface == null)
         {
             return;
-        }*/
-        if (info instanceof ScrabbleGameState) {
-            this.latestState = (ScrabbleGameState) info;
-        } else {
-            //TODO: should do more here?
-            return;
         }
-
         // update our state; then update the display
         this.state = (ScrabbleGameState) info;
 
@@ -192,6 +196,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
         playerTurn = activity.findViewById(R.id.whosTurn);
+        tileBag = activity.findViewById(R.id.tilesRemainingText);
 
         theController = new ScrabbleController(ourScore, opponentScore, playerTurn , state, game, this );
 

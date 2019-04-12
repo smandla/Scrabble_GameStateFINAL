@@ -140,17 +140,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
-                if(ourPlayer.getPlayerNum() == 0) {
-                    this.ourScore.setText("" + ourGameState.getPlayerZeroScore());
-                    this.opponentScore.setText("" + ourGameState.getPlayerOneScore());
-                    this.playerTurn.setText("It is player 1's turn");
-                }
-                else
-                {
-                    this.ourScore.setText("" + ourGameState.getPlayerOneScore());
-                    this.opponentScore.setText("" + ourGameState.getPlayerZeroScore());
-                    this.playerTurn.setText("It is player 2's turn");
-                }
+
                 break;
 
             case R.id.recallTiles:

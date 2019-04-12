@@ -6,6 +6,7 @@ import android.widget.Switch;
 
 import com.example.scrabble_gamestate.game.GameComputerPlayer;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
+import com.example.scrabble_gamestate.game.infoMsg.NotYourTurnInfo;
 import com.example.scrabble_gamestate.game.util.Tickable;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.scrabble.ScrabbleGameState;
@@ -35,7 +36,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
     // String word = read in line from dumbDictionary.txt
     String word = " ";
-    ScrabbleGameState latestState = new ScrabbleGameState();
+    ScrabbleGameState latestState;
 
     /**
      * Constructor for objects of class CounterComputerPlayer1
@@ -59,12 +60,24 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
      */
     @Override
     protected void receiveInfo(GameInfo info) {
-        if (info instanceof ScrabbleGameState) {
-            this.latestState = (ScrabbleGameState) info;
-        } else {
-            //TODO: should do more here?
+        if (!(info instanceof ScrabbleGameState)) {
+            return;
+
+        }
+        if(info instanceof NotYourTurnInfo){
             return;
         }
+        else {
+            //TODO: should do more here?
+
+            this.latestState = (ScrabbleGameState) info;
+            if(latestState.getTurn()==this.playerNum) {
+                SkipTurnAction skip = new SkipTurnAction(this);
+                game.sendAction(skip);//skips so we can test if we can play multiple words
+            }
+        }
+
+
 
         //half the time, just skip turn instead of playing a word
 //        if (Math.random() >= 0.5) {
