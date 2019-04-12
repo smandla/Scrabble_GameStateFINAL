@@ -315,6 +315,11 @@ public class ScrabbleGameState extends GameState {
     }
 
     public int getPositionInHand() { return positionInHand;}
+
+    public void setDictionary( HashSet<String> sentDict)
+    {
+        dictionary = sentDict;
+    }
     //end of getters and setters
 
     /**

@@ -1,6 +1,8 @@
 package com.example.scrabble_gamestate.scrabble;
 
 
+import android.content.Context;
+
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.GamePlayer;
