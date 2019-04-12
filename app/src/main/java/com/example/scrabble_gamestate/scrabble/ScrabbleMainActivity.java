@@ -1,6 +1,8 @@
 package com.example.scrabble_gamestate.scrabble;
 
 
+import android.content.Context;
+
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.GamePlayer;
@@ -8,11 +10,14 @@ import com.example.scrabble_gamestate.game.LocalGame;
 import com.example.scrabble_gamestate.game.config.GameConfig;
 import com.example.scrabble_gamestate.game.config.GamePlayerType;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.example.scrabble_gamestate.game.config.GamePlayerType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Scanner;
 
 /**
  *This is the primary activity for the Scrabble game
@@ -63,12 +68,32 @@ public class ScrabbleMainActivity extends GameMainActivity {
     }
 
     /**
+     * loads the dictionary file in
+     *
+     */
+    public HashSet<String> loadDictionary()
+    {
+        HashSet<String> dictionary = new HashSet<String>();
+        InputStream is = this.getResources().openRawResource(R.raw.dictionary);//opens raw text file
+        Scanner isScan = new Scanner(is);
+        while(isScan.hasNext())//scans each line into the hashSet
+        {
+            String word = isScan.nextLine().trim();
+            dictionary.add(word);
+        }
+        isScan.close();
+        return dictionary;
+    }
+
+    /**
      * create a local game
      *
      * @return    the local game, a scrabble game
      */
     public LocalGame createLocalGame(){
-        return new ScrabbleLocalGame();
+        ScrabbleLocalGame ourGame = new ScrabbleLocalGame();
+        ourGame.setDictionary(this.loadDictionary());
+        return ourGame;
     }
 
 }

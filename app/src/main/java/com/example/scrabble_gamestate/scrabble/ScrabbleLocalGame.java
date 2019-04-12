@@ -5,6 +5,8 @@ import com.example.scrabble_gamestate.game.LocalGame;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 
+import java.util.HashSet;
+
 /**
  *
  */
@@ -38,6 +40,10 @@ public class ScrabbleLocalGame extends LocalGame {
         {
             return false;
         }
+    }
+
+    public void setDictionary(HashSet<String> sentDict){
+        gameState.setDictionary(sentDict);
     }
 
 

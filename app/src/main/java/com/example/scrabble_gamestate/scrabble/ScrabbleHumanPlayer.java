@@ -107,6 +107,21 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
             int index = state.getHand1().indexOf(t);
             buttons[index].setImageResource(androidId);
         }
+
+        //for each button...
+        for(int i = 0; i < 7; i++){
+            //if i is less than the length of hand,
+            int handLength = state.getHand1().size();
+            if(i < handLength){
+                //find the corresponding thing in the hand and set the button to that
+                Tile correspondingTile = state.getHand1().get(i);
+                int androidId = correspondingTile.getAndroidId();
+                buttons[i].setImageResource(androidId);
+            }
+            else{
+                buttons[i].setImageResource(R.drawable.empty_spot_in_hand_indicator);
+            }
+        }
     }
 
     /**
