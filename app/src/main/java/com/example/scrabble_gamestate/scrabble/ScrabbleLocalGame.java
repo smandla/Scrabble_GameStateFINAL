@@ -8,7 +8,7 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 import java.util.HashSet;
 
 /**
- *
+ *TODO add class header and finish comments here
  */
 public class ScrabbleLocalGame extends LocalGame {
 

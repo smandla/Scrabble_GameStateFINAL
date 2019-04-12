@@ -13,7 +13,15 @@ import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 
 /**
+ *This is the human player for the Scrabble Game. It makes sure the current player gets the info
+ * that they need to see, and updates the GUI for that player in accordance with the actions the
+ * human player takes.
  *
+ *  @author Sydney Wells
+ *  @author Sarah Bunger
+ *  @author Kavya Mandla
+ *  @author Meredith Marcinko
+ *  @version February 2019
  */
 public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
@@ -28,13 +36,14 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     private ScrabbleController theController;
 
+    //buttons for various actions
     private ImageButton swapTileButton;
     private ImageButton skipButton;
     private ImageButton shuffleTileButton;
     private ImageButton dictionaryButton;
     private ImageButton playButton;
 
-
+    //buttons that make up a player's hand
     private ImageButton tileOneButton;
     private ImageButton tileTwoButton;
     private ImageButton tileThreeButton;
@@ -90,7 +99,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     }
 
     /**
-     * sets the counter value in the text view
+     * displays the current player's hand to that player
      */
     protected void updateDisplay() {
 
@@ -99,7 +108,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         ImageButton[] buttons = {tileOneButton, tileTwoButton, tileThreeButton, tileFourButton,
                 tileFiveButton, tileSixButton, tileSevenButton};
-        //updates the image reaources in the hand to match the value in the tile array
+        //updates the image resources in the hand to match the value in the tile array
         //TODO after alpha, need to deal with the possibility that human isn't player one
         //make each image button look like the tiles in the human player's hand
         for (Tile t: state.getHand1()) {
@@ -180,10 +189,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
             receiveInfo(state);
         }
 
-        //                                                                                                                                   TODO uncomment after other fixes
-        //state.loadDictionary( myActivity.getApplicationContext());//gives the dictionary method
-        // context
-
         ourScore = activity.findViewById(R.id.playerScore);
         opponentScore = activity.findViewById(R.id.opponentScore);
         playerTurn = activity.findViewById(R.id.whosTurn);
@@ -246,6 +251,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 //        }
     }
 
-}// class CounterHumanPlayer
+}// class ScrabbleHumanPlayer
 
 

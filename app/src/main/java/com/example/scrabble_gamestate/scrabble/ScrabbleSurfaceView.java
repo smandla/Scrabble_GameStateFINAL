@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- *This is the primary activity for the Scrabble game
+ *This is the surface on which we draw the board and words
  *
  * @author Sydney Wells
  * @author Sarah Bunger
@@ -123,6 +123,8 @@ public class ScrabbleSurfaceView extends SurfaceView {
                 canvas.drawBitmap(noBonusCell,x,y,null);
             }
         }
+
+        //note: left is the column, and top is the row!!!
 
         //adding in double letter bonuses
         canvas.drawBitmap(doubleLetterCell,3*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,
@@ -248,6 +250,7 @@ public class ScrabbleSurfaceView extends SurfaceView {
         }//note: we used Sydney's boyfriend Andrew for help with some of the array logic here
 
     } //onDraw
+
     public void setState(ScrabbleGameState state)//setter for game state
     {
         this.ourState = state;

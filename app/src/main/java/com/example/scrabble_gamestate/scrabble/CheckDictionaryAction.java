@@ -2,7 +2,7 @@ package com.example.scrabble_gamestate.scrabble;
 
 import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.actionMsg.GameAction;
-
+//TODO add class header
 public class CheckDictionaryAction extends GameAction {
     /**
      * constructor for GameAction
