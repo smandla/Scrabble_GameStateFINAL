@@ -71,7 +71,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
             //TODO: should do more here?
 
             this.latestState = (ScrabbleGameState) info;
-            if(latestState.getTurn()==this.playerNum) {
+            if(latestState.getTurn()==this.playerNum) {//when using skipturn, use this form, just add "&& Math.random() >=.5" to if statement
                 SkipTurnAction skip = new SkipTurnAction(this);
                 game.sendAction(skip);//skips so we can test if we can play multiple words
             }
