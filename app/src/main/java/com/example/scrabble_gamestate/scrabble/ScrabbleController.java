@@ -145,12 +145,9 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
             case R.id.recallTiles:
                 Log.i("controller", "recall tiles button touched");
-                //for(tile t on board)
-                //{
-                //  t = tempTile;
-                //  hand.add(tempTile);
-                //}
-                //clear board
+
+                RecallTilesAction recall = new RecallTilesAction(ourPlayer);
+                ourGame.sendAction(recall);
                 break;
 
             case R.id.passImageButton:

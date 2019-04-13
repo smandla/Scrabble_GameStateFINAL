@@ -84,7 +84,7 @@ public class ScrabbleLocalGame extends LocalGame {
         else if( action instanceof ShuffleTileAction)
         {
             gameState.shuffleTiles(gameState.getTurn());
-            return false;
+            return true;
         }
         else if( action instanceof SkipTurnAction)
         {
@@ -97,6 +97,11 @@ public class ScrabbleLocalGame extends LocalGame {
                     ((PlaceTileAction) action).getY(), ((PlaceTileAction) action).getTile());
             return true;
 
+        }
+        else if( action instanceof RecallTilesAction)
+        {
+            gameState.recallTiles(gameState.getTurn());
+            return true;
         }
         //else if
         return true; //placeholder

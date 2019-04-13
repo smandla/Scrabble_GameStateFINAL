@@ -609,6 +609,7 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn && onBoard != null) {
             for(Tile t: onBoard) {
                 board[t.getxCoord()][t.getyCoord()] = null;
+                hand1.add(t);
             }
             onBoard.clear();
             return true;
@@ -788,7 +789,7 @@ public class ScrabbleGameState extends GameState {
 
         if(turnId == turn){
             this.recallTiles(turnId);
-            if(turn == 1) {
+            if(turn == 0) {
                 Collections.shuffle(hand1);
             }
             else {
