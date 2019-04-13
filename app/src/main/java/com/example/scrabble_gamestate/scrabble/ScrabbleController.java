@@ -38,6 +38,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     private View selectedView = null;
     private GameHumanPlayer ourPlayer = null;
     private Game ourGame;
+
     /**
      * constructor
      * @param ourPlayerScore
@@ -68,6 +69,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         ourProfile = ourProfPic; */
 
     }//ScrabbleController
+
     //setter for the game state
     public void setUpdatedState(ScrabbleGameState state) {
         ourGameState = state;
@@ -76,6 +78,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
     public void setGame(Game local) {
         ourGame = local;
     }//setter for the game
+
     /**
      * OnClick method that sets a view as selected or sends an action associated with a button
      * @param button
@@ -90,53 +93,49 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
         switch (button.getId()) {
 
-            //have a case for each tile button to see if its been clicked
-            //set selectedView instance var to that button
-            //then onTouch handles placing of it
+            //determine if any of the tiles have been touched
             case R.id.tileOneButton:
+
+//                if(selectedView.getId() == R.id.swapTileButtton){
+//                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 0);
+//                    ourGame.sendAction(swapTile);
+//                }
+
                 selectedView = button;
-                Log.i("controller", "tile one touched");
                 break;
 
             case R.id.tileTwoButton:
-                selectedView = button;
-                Log.i("controller", "tile two touched");
 
+                selectedView = button;
                 break;
 
             case R.id.tileThreeButton:
-                selectedView = button;
-                Log.i("controller", "tile three touched");
 
+                selectedView = button;
                 break;
 
             case R.id.tileFourButton:
-                selectedView = button;
-                Log.i("controller", "tile four touched");
 
+                selectedView = button;
                 break;
 
             case R.id.tileFiveButton:
-                selectedView = button;
-                Log.i("controller", "tile five touched");
 
+                selectedView = button;
                 break;
 
             case R.id.tileSixButton:
-                selectedView = button;
-                Log.i("controller", "tile six touched");
 
+                selectedView = button;
                 break;
 
             case R.id.tileSevenButton:
-                selectedView = button;
-                Log.i("controller", "tile seven touched");
 
+                selectedView = button;
                 break;
 
-                //the next cases check if its a certain action type and then send that action
+            //the next cases check if its a certain action type and then send that action
             case R.id.playButton:
-                Log.i("controller", "play button touched");
 
                 PlayWordAction playAction = new PlayWordAction(ourPlayer);
                 ourGame.sendAction(playAction);
@@ -144,41 +143,31 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 break;
 
             case R.id.recallTiles:
-                Log.i("controller", "recall tiles button touched");
 
                 RecallTilesAction recall = new RecallTilesAction(ourPlayer);
                 ourGame.sendAction(recall);
                 break;
 
             case R.id.passImageButton:
-                Log.i("controller", "skip button touched");
 
                 SkipTurnAction skipAction = new SkipTurnAction(ourPlayer);
                 ourGame.sendAction(skipAction);
                 break;
 
             case R.id.swapTileButtton:
-                Log.i("controller", "swap button touched");
 
-                if(selectedView.isSelected() == true) {
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer);
-                    ourGame.sendAction(swapTile);
-                    break;
-                }
-                else
-                {
-                    break;
-                }
+                selectedView = button;
+
+                break;
+
 
             case R.id.shuffleImageButton:
-                Log.i("controller", "shuffle button touched");
 
                 ShuffleTileAction shuffleAction = new ShuffleTileAction(ourPlayer);
                 ourGame.sendAction(shuffleAction);
                 break;
 
             case R.id.dictionaryButton:
-                Log.i("controller", "dictionary button touched");
 
                 CheckDictionaryAction dictionaryAction = new CheckDictionaryAction(ourPlayer);
                 ourGame.sendAction(dictionaryAction);
@@ -189,121 +178,76 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
         }
     }//OnClick
-        /**
-        * constructor
-        * @param v
-        * 		the view which has been touched
-        * @param event
-        *      the motionEvent that occurs when you touch a view
-        */
-        @Override
-        public boolean onTouch (View v, MotionEvent event){
-            //if nothing's there, return
-            if(ourGameState == null || ourGame == null){
-                return true;
-            }
-            //finds out where is being touched
-            int xTouch = (int) event.getX();
-            int yTouch = (int) event.getY();
 
+    /**
+     * constructor
+     * @param v
+     * 		the view which has been touched
+     * @param event
+     *      the motionEvent that occurs when you touch a view
+     */
+    @Override
+    public boolean onTouch (View v, MotionEvent event){
+        //if nothing's there, return
+        if(ourGameState == null || ourGame == null){
+            return true;
+        }
+        //finds out where is being touched
+        int xTouch = (int) event.getX();
+        int yTouch = (int) event.getY();
             //if we havent already touched a hand tile, return
-            if(selectedView == null || v == null){
-                return true;
-            }
+        if(selectedView == null || v == null){
+            return true;
+        }
 
             Log.i("controller", "surface view " + v);
 
-            //figuring out which tile to place
-            Tile t = null;
-            switch (selectedView.getId()) {
+        //figuring out which tile to place
+        Tile t = null;
+        switch (selectedView.getId()) {
 
-                //must say getHand1
-                case R.id.tileOneButton:
-                    t = ourGameState.getHand1().get(0);
-                    break;
+            //must say getHand1
+            case R.id.tileOneButton:
+                t = ourGameState.getHand1().get(0);
+                break;
 
-                case R.id.tileTwoButton:
-                    t = ourGameState.getHand1().get(1);
-                    break;
+            case R.id.tileTwoButton:
+                t = ourGameState.getHand1().get(1);
+                break;
 
-                case R.id.tileThreeButton:
-                    t = ourGameState.getHand1().get(2);
-                    break;
+            case R.id.tileThreeButton:
+                t = ourGameState.getHand1().get(2);
+                break;
 
-                case R.id.tileFourButton:
-                    t = ourGameState.getHand1().get(3);
-                    break;
+            case R.id.tileFourButton:
+                t = ourGameState.getHand1().get(3);
+                break;
 
-                case R.id.tileFiveButton:
-                    t = ourGameState.getHand1().get(4);
-                    break;
+            case R.id.tileFiveButton:
+                t = ourGameState.getHand1().get(4);
+                break;
 
-                case R.id.tileSixButton:
-                    t = ourGameState.getHand1().get(5);
-                    break;
+            case R.id.tileSixButton:
+                t = ourGameState.getHand1().get(5);
+                break;
 
                 case R.id.tileSevenButton:
                     t = ourGameState.getHand1().get(6);
                     break;
 
-                default:
-                    break;
-            }
+            default:
+                break;
+        }
 
-            //based on location of touch, round to nearest multiple of cell size and put tile there
-            xTouch = xTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
-            yTouch = yTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
+        //based on location of touch, round to nearest multiple of cell size and put tile there
+        xTouch = xTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
+        yTouch = yTouch/ScrabbleSurfaceView.TILE_WIDTH_AND_HEIGHT;
 
-            //tell the game we want to place a tile
-            PlaceTileAction placeTileAction = new PlaceTileAction(ourPlayer, xTouch, yTouch, t);
-            ourGame.sendAction(placeTileAction);
+        //tell the game we want to place a tile
+        PlaceTileAction placeTileAction = new PlaceTileAction(ourPlayer, xTouch, yTouch, t);
+        ourGame.sendAction(placeTileAction);
 
-            this.selectedView = null;//resets selected tile button
-            return true;
-        }//OnTouch
-
-       /* @Override
-        public boolean onDrag (View v, DragEvent event){
-            float xTouch = (int) event.getX();
-            float yTouch = (int) event.getY();
-
-            int action = event.getAction();
-
-            switch(action) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                {
-
-                }
-                case DragEvent.ACTION_DRAG_ENTERED:
-                {
-
-                }
-                case DragEvent.ACTION_DRAG_LOCATION:
-                {
-
-                }
-                case DragEvent.ACTION_DROP:
-                {
-
-                }
-                case DragEvent.ACTION_DRAG_EXITED:
-                {
-
-                }
-                case DragEvent.ACTION_DRAG_ENDED:
-                {
-
-                }
-                default:
-                {
-                    break;
-                }
-
-            }
-
-
-            return true;
-        }*/
-
-
+        this.selectedView = null;//resets selected tile button
+        return true;
+    }//OnTouch
 }

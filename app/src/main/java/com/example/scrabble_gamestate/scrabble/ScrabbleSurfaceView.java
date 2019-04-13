@@ -158,76 +158,124 @@ public class ScrabbleSurfaceView extends SurfaceView {
         canvas.drawBitmap(doubleLetterCell,11*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,
                 null);
 
-        canvas.drawBitmap(doubleLetterCell,2*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,6*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,8*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,12*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleLetterCell,2*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,6*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,8*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,12*TILE_WIDTH_AND_HEIGHT,8*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleLetterCell,0*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,7*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,14*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleLetterCell,0*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,7*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,14*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleLetterCell,6*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,8*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleLetterCell,6*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,8*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleLetterCell,3*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleLetterCell,11*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleLetterCell,3*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleLetterCell,11*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,
+                null);
 
         //adding in double word bonuses
-        canvas.drawBitmap(doubleWordCell,1*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,13*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,1*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,13*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,2*TILE_WIDTH_AND_HEIGHT,2*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,12*TILE_WIDTH_AND_HEIGHT,2*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,2*TILE_WIDTH_AND_HEIGHT,2*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,12*TILE_WIDTH_AND_HEIGHT,2*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,3*TILE_WIDTH_AND_HEIGHT,3*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,11*TILE_WIDTH_AND_HEIGHT,3*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,3*TILE_WIDTH_AND_HEIGHT,3*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,11*TILE_WIDTH_AND_HEIGHT,3*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,4*TILE_WIDTH_AND_HEIGHT,4*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,10*TILE_WIDTH_AND_HEIGHT,4*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,4*TILE_WIDTH_AND_HEIGHT,4*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,10*TILE_WIDTH_AND_HEIGHT,4*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,7*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,7*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,4*TILE_WIDTH_AND_HEIGHT,10*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,9*TILE_WIDTH_AND_HEIGHT,10*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,4*TILE_WIDTH_AND_HEIGHT,10*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,10*TILE_WIDTH_AND_HEIGHT,10*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,3*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,11*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,3*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,11*TILE_WIDTH_AND_HEIGHT,11*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,2*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,12*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,2*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,12*TILE_WIDTH_AND_HEIGHT,12*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(doubleWordCell,1*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(doubleWordCell,13*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(doubleWordCell,1*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(doubleWordCell,13*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,
+                null);
 
         //adding in triple letter bonuses
-        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,1*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(tripleLetterCell,1*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,13*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleLetterCell,1*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,13*TILE_WIDTH_AND_HEIGHT,5*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(tripleLetterCell,1*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,13*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleLetterCell,1*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,13*TILE_WIDTH_AND_HEIGHT,9*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleLetterCell,5*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleLetterCell,9*TILE_WIDTH_AND_HEIGHT,13*TILE_WIDTH_AND_HEIGHT,
+                null);
 
         //adding in triple word bonuses
-        canvas.drawBitmap(tripleWordCell,0*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleWordCell,7*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleWordCell,0*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleWordCell,7*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,0*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(tripleWordCell,0*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleWordCell,0*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,7*TILE_WIDTH_AND_HEIGHT,
+                null);
 
-        canvas.drawBitmap(tripleWordCell,0*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleWordCell,7*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
-        canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,null);
+        canvas.drawBitmap(tripleWordCell,0*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleWordCell,7*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,
+                null);
+        canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,
+                null);
 
         aBoard = ourState.getBoard();//gets the board from the current game state
         for(int x = 0; x <15; x++ )//checks thru all x coords in board

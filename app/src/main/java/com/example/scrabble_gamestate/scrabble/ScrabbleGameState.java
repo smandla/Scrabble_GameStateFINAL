@@ -322,6 +322,10 @@ public class ScrabbleGameState extends GameState {
     {
         dictionary = sentDict;
     }
+
+    public HashSet<String> getDictionary(){
+        return dictionary;
+    }
     //end of getters and setters
 
     /**
@@ -812,7 +816,7 @@ public class ScrabbleGameState extends GameState {
     public boolean exchangeTile(int turnId, int position) {
         if(turnId == turn){
             this.recallTiles(turnId);
-            if(turn == 1) {
+            if(turn == 0) {
                 tileBag.add(hand1.get(position));
                 hand1.remove(position);
                 this.drawTile(hand1);
@@ -839,12 +843,12 @@ public class ScrabbleGameState extends GameState {
      */
     public boolean selectBlankTileLetter(int turnId, int position) {
         if(turnId == turn){
-            if(turn == 1 && hand1.get(position).getPointVal() == 0) {
+            if(turn == 0 && hand1.get(position).getPointVal() == 0) {
                 //need to implement more of UI and user code in order to receive selected tile
                 //info
                 //with that info, this would rewrite the tile to display the selected letter
             }
-            if (turn == 2 && hand2.get(position).getPointVal() == 0)
+            if (turn == 1 && hand2.get(position).getPointVal() == 0)
             {
                 //same as above
             }

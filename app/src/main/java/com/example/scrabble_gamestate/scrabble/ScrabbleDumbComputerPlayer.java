@@ -1,6 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.widget.Switch;
 
@@ -16,6 +17,8 @@ import com.example.scrabble_gamestate.scrabble.ScrabbleLocalGame;
 import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * A computer-version of a counter-player.  Since this is such a simple game,
@@ -28,7 +31,7 @@ import java.util.ArrayList;
  */
 public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
 
-        ArrayList<Character> letters;
+    ArrayList<Character> letters;
     String alreadyPlayedLetter = null;
     Tile alreadyPlayedTile = null;
     boolean foundWord = false;
@@ -48,8 +51,8 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         super(name);
 
         // start the timer, ticking 20 times per second
-        getTimer().setInterval(50);
-        getTimer().start();
+        //getTimer().setInterval(50);
+        //getTimer().start();
     }
 
 
@@ -67,97 +70,138 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         if(info instanceof NotYourTurnInfo){
             return;
         }
-        else {
-            //TODO: should do more here?
+//        else {
+//
+           this.latestState = (ScrabbleGameState) info;
+//            if(latestState.getTurn()==this.playerNum) {//when using skipturn, use this form, just add "&& Math.random() >=.5" to if statement
+//                SkipTurnAction skip = new SkipTurnAction(this);
+//                game.sendAction(skip);//skips so we can test if we can play multiple words
+//            }
+//        }
 
-            this.latestState = (ScrabbleGameState) info;
-            if(latestState.getTurn()==this.playerNum) {//when using skipturn, use this form, just add "&& Math.random() >=.5" to if statement
-                SkipTurnAction skip = new SkipTurnAction(this);
-                game.sendAction(skip);//skips so we can test if we can play multiple words
+
+        findLocation();
+
+    }
+
+    public void findLocation(){
+
+        Tile alreadyPlayedLetter = null;
+        int wordLength = 0; //not counting already played tile
+
+        //iterate through board, starting with second col from left
+        for(int col = 1; col < 14; col++){
+            for (int row = 0; row < 15; row++) {
+
+
+                if(latestState.getBoard()[row][col] != null){
+                    alreadyPlayedLetter = latestState.getBoard()[row][col];
+
+                    //check through subsequent rows to see how long of a word we can make
+                    int offset = 1;
+                    while(row + offset < 14 && latestState.getBoard()[row + offset][col] == null){//TODO check left right below null
+                        wordLength++;
+                        offset++; //keep incrementing so we don't keep checking the same thing
+                    }
+
+                    String potentialWord = determineWord(wordLength, alreadyPlayedLetter);
+
+                    if(potentialWord != null && alreadyPlayedLetter != null){
+                        computerPlaceTiles(potentialWord, alreadyPlayedLetter);
+                        return;
+                    }
+                    else{
+                        SkipTurnAction skip = new SkipTurnAction(this);
+                        game.sendAction(skip);
+                    }
+                }
+
+
+            }
+        }
+        return;
+    }
+
+    public String determineWord(int length, Tile alreadyPlayed){
+        HashSet<String> dictionary = latestState.getDictionary();
+
+        Iterator<String> itr = dictionary.iterator();
+
+        String testWord;
+        boolean inHand;
+        boolean legalWord;
+
+        while(itr.hasNext()){
+            testWord = itr.next();
+
+            legalWord = true;
+
+            //make sure that the first letters match
+            if(testWord.length() <= length + 1 && testWord.length() > 0){
+                Log.i("dumbAI", testWord);
+                Log.i("tile",Character.toString(alreadyPlayed.getTileLetter()));
+                if(testWord.charAt(0) == alreadyPlayed.getTileLetter()){
+
+                    //start at the second letter of the word, since the first is already played
+                    for(int i = 1; i < testWord.length(); i++){
+
+                        ArrayList<Tile> computerHand = latestState.getHand2();
+
+                        inHand = false;
+                        //iterate through hand, looking to see if that tile's letter matches the current letter in the string
+                        for (Tile t: computerHand) {
+                            if(testWord.charAt(i) == t.getTileLetter()){
+                                inHand = true;
+
+                            }
+                        }
+
+                        //can't find letter, so can't make work
+                        if(inHand == false){
+                            legalWord = false;
+                        }
+                    }
+                }
+                else{
+                    legalWord = false;
+                }
+            }
+            else{
+                legalWord = false;
+            }
+            //found a word
+            if(legalWord == true){
+                return testWord;
             }
         }
 
+        return null;
 
-
-        //half the time, just skip turn instead of playing a word
-//        if (Math.random() >= 0.5) {
-//            game.sendAction(new SkipTurnAction(this));
-//            return;
-//        }
-
-//        //the other half of the time, play a word
-//        //TODO: implement algorithm
-//        for (int column = 1; column < 14; column++) {
-//            for (int row = 0; row < 15; row++) {
-//                if ((latestState.getBoard()[row][column] == null) &&
-//                        (latestState.getBoard()[row - 1][column] == null) &&
-//                        (latestState.getBoard()[row + 1][column] == null)) {
-//                    if (alreadyPlayedLetter != null) {
-//                        for (Tile t : latestState.getHand2() ) {
-//                            if (!letters.contains(t.getTileLetter())) {
-//
-//                                letters.add(t.getTileLetter());
-//                            }
-//
-//                        }
-//                        /**
-//                         *  TODO: implement switch statement for DumbAI
-//                         * use a switch statement to determine which line number constant to use
-//                         *             (example: if additionalLetter = = ‘a’ use line number constant for A)
-//                         */
-//
-//
-//                        /**while(foundWord == false){
-//                         if(TODO: if it's still AI's turn)){
-//                         TODO: ask NUXOLL about InputStream
-//                         use scanner & print writer
-//                         }**/
-//
-//                    }
-//                    for (int i = 0; i < word.length(); i++) {
-//                        String sub = word.substring(i);
-//                        int numFound = 0;
-//                        for (Character s : letters) {
-//                            if ((sub.equals(s)) && !(s.equals(alreadyPlayedLetter))) {
-//                                numFound++;
-//                            }
-//
-//                        }
-//
-//                        if (numFound > word.length() - 1) {
-//                            foundWord = true;
-//                            int alreadyPlayedX = alreadyPlayedTile.getxCoord();
-//                            int alreadyPlayedY = alreadyPlayedTile.getyCoord();
-//
-//                            for (int j = word.length(); j > 0; j++) {
-//                                for (Tile t : latestState.getHand2()) {
-//                                    //TODO: THIS MAY OR MAY NOT WORK
-//                                    if ((t.getTileLetter() == word.charAt(j)) &&
-//                                            latestState.getBoard()[alreadyPlayedX - j][alreadyPlayedY] == null) {
-//
-//                                    }
-//
-//                                }
-//                                ScrabbleGameState.playWord(turnID);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//            //TODO: fix this
-//            if (latestState.getBoard()[row][column] != null && latestState.getBoard()[row - 1][column] == null && latestState.getBoard()[row + 1][column] == null) {
-//                additionalLetter = //value of Tile in row;
-//                        alreadyPlayed = //Tile in row;
-//            }
-//
-//        }
     }
-/**
- * TODO: ALL DIS
-* if we went through the entire board and didn't find a place to play the word still,
- * the AI will have to skip its turn
- * if(foundWord == false)// * use skipTurn() method
- */
+
+    public void computerPlaceTiles(String toPlay, Tile alreadyPlayedTile){
+
+
+        //for each letter in toPlay, look for that letter in the computer's hand
+        //place that word in location of alreadyPlayedTile
+        for(int i = 1; i < toPlay.length(); i++){
+
+            ArrayList<Tile> computerHand = latestState.getHand2();
+
+            //iterate through hand, looking to see if that tile's letter matches the current letter in the string
+            for (Tile t: computerHand) {
+                if(toPlay.charAt(i) == t.getTileLetter()){
+                    PlaceTileAction placeTileAction = new PlaceTileAction(this,
+                            alreadyPlayedTile.getxCoord(), alreadyPlayedTile.getyCoord() + i, t);
+                    game.sendAction(placeTileAction);
+                }
+            }
+        }
+
+        //play the word
+        PlayWordAction play = new PlayWordAction(this);
+        game.sendAction(play);
+    }
 }
 
 

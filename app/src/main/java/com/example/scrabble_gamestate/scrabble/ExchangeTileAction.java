@@ -14,12 +14,17 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
  * @version February 2019
  */
 public class ExchangeTileAction extends GameAction {
+
+    private int pos; //position in hand of tile to be swapped
+
     /**
      * constructor for GameAction
      *
      * @param player the player who created the action
      */
-    public ExchangeTileAction(GamePlayer player) {
+    public ExchangeTileAction(GamePlayer player, int position) {
+
         super(player);
+        pos = position;
     }
 }
