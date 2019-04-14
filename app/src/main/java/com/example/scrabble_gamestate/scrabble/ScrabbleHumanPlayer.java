@@ -112,6 +112,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
             this.playerTurn.setText("It is player 2's turn");
         }
 
+
         this.ourScore.setText("" + state.getPlayerZeroScore());
         this.opponentScore.setText("" + state.getPlayerOneScore());
         //updates gui to show current size of tile bag
@@ -158,6 +159,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         {
             return;
         }
+
         // update our state; then update the display
         this.state = (ScrabbleGameState) info;
 

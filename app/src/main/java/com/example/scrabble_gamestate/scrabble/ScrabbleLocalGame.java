@@ -15,6 +15,7 @@ public class ScrabbleLocalGame extends LocalGame {
     // the game's state
     private ScrabbleGameState gameState;
     private Tile selectedTile;
+    private int turnId;
 
     /**
      * This actor should be called when a new scrabble game is started
@@ -96,7 +97,6 @@ public class ScrabbleLocalGame extends LocalGame {
             gameState.placeTile(gameState.getTurn(), ((PlaceTileAction) action).getX(),
                     ((PlaceTileAction) action).getY(), ((PlaceTileAction) action).getTile());
             return true;
-
         }
         else if( action instanceof RecallTilesAction)
         {
@@ -127,13 +127,33 @@ public class ScrabbleLocalGame extends LocalGame {
         // make a copy of the state; null out all cards except for the
         // top card in the middle deck
         ScrabbleGameState stateForPlayer = new ScrabbleGameState(gameState); // copy of state
-        //TODO readd this method
+        //TODO read this method
         //stateForPlayer.preventCheating(); // put nulls except for visible card
 
         // send the modified copy of the state to the player
         p.sendInfo(stateForPlayer);
 
     }//sendUpdatedSate
+
+    /**
+     * Check if the word is valid. Return a string that tells
+     * the player that their word is invalid. If the word is valid,
+     * return null
+     *
+     * @return
+     * 		a message that tells the player if the word is invalid, or null if the
+     * 		word is valid
+     */
+
+    protected String checkifValid() {
+
+        if(gameState.playWord(turnId) != true) {
+            return "Your word is not a word.";
+        }
+        else {
+             return null;
+        }
+    }
 
     /**
      * Check if the game is over. It is over, return a string that tells
