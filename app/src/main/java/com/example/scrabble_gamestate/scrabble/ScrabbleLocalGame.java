@@ -8,8 +8,17 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
 import java.util.HashSet;
 
 /**
- *TODO add class header and finish comments here
+ * Class is the Local Game of the Scrabble Game.
+ * All the information that is being played at the moment
+ * will be passed through here.
+ *
+ * @author Sydney Wells
+ * @author Sarah Bunger
+ * @author Kavva Mandla
+ * @author Meredith Marcinko
+ * @version February 2019
  */
+
 public class ScrabbleLocalGame extends LocalGame {
 
     // the game's state

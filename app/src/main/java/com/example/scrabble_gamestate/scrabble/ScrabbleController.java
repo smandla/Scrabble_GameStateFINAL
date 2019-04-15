@@ -12,14 +12,16 @@ import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.Tile;
 /**
- *Controller for the Scrabble Game.
+ * This is the Controller class which has eventhandling
+ * methods for buttons and other touch events on the GUI
  *
- *  @author Sydney Wells
- *  @author Sarah Bunger
- *  @author Kavya Mandla
- *  @author Meredith Marcinko
- *  @version February 2019
+ * @author Sydney Wells
+ * @author Sarah Bunger
+ * @author Kavva Mandla
+ * @author Meredith Marcinko
+ * @version February 2019
  */
+
 public class ScrabbleController implements View.OnTouchListener, View.OnClickListener
 {
 
