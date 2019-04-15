@@ -84,7 +84,7 @@ public class ScrabbleLocalGame extends LocalGame {
         else if(action instanceof ExchangeTileAction){
             gameState.exchangeTile(gameState.getTurn(), gameState.getPositionInHand());
             //TODO after alpha
-            return false;
+            return true;
         }
         else if( action instanceof PlayWordAction)
         {
