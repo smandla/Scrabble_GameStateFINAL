@@ -12,13 +12,14 @@ import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.Tile;
 /**
- *Controller for the Scrabble Game.
+ * This is the Controller class which has eventhandling
+ * methods for buttons and other touch events on the GUI
  *
- *  @author Sydney Wells
- *  @author Sarah Bunger
- *  @author Kavya Mandla
- *  @author Meredith Marcinko
- *  @version February 2019
+ * @author Sydney Wells
+ * @author Sarah Bunger
+ * @author Kavva Mandla
+ * @author Meredith Marcinko
+ * @version February 2019
  */
 public class ScrabbleController implements View.OnTouchListener, View.OnClickListener
 {
@@ -96,70 +97,42 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //determine if any of the tiles have been touched
             case R.id.tileOneButton:
 
-                /*if(selectedView.getId() == R.id.swapTileButtton){
+                if(selectedView.getId() == R.id.swapTileButtton){
                     ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 0);
                     ourGame.sendAction(swapTile);
-                }*/
+                }
 
                 selectedView = button;
                 break;
 
             case R.id.tileTwoButton:
 
-                /*if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 1);
-                    ourGame.sendAction(swapTile);
-                }
-*/
+
                 selectedView = button;
                 break;
 
             case R.id.tileThreeButton:
-
-               /* if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 2);
-                    ourGame.sendAction(swapTile);
-                }*/
 
                 selectedView = button;
                 break;
 
             case R.id.tileFourButton:
 
-                /*if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 3);
-                    ourGame.sendAction(swapTile);
-                }*/
-
                 selectedView = button;
                 break;
 
             case R.id.tileFiveButton:
 
-                /*if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 4);
-                    ourGame.sendAction(swapTile);
-                }*/
 
                 selectedView = button;
                 break;
 
             case R.id.tileSixButton:
 
-                /*if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 5);
-                    ourGame.sendAction(swapTile);
-                }*/
-
                 selectedView = button;
                 break;
 
             case R.id.tileSevenButton:
-
-                /*if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 6);
-                    ourGame.sendAction(swapTile);
-                }*/
 
                 selectedView = button;
                 break;
