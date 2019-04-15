@@ -51,14 +51,6 @@
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/dictionaryButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/colorAccent"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/scrabdiction" />
                 </LinearLayout>
 
             </LinearLayout>

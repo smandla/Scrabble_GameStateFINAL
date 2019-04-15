@@ -27,8 +27,7 @@ import java.util.Iterator;
  *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version September 2013
- */
+ * @version September 2013*/
 public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
 
     ArrayList<Character> letters;
@@ -41,11 +40,12 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
     String word = " ";
     ScrabbleGameState latestState;
 
-    /**
+/**
      * Constructor for objects of class CounterComputerPlayer1
      *
-     * @param name the player's name
-     */
+     * @param name the player's name*/
+
+
     public ScrabbleDumbComputerPlayer(String name) {
         // invoke superclass constructor
         super(name);
@@ -56,11 +56,12 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
     }
 
 
-    /**
+/**
      * callback method--game's state has changed
      *
      * @param info the information (presumably containing the game's state)
      */
+
     @Override
     protected void receiveInfo(GameInfo info) {
         if (!(info instanceof ScrabbleGameState)) {

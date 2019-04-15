@@ -58,23 +58,8 @@ public class ScrabbleLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
 
-        if (action instanceof CheckDictionaryAction) {
-
-            // cast so that Java knows it's a CheckDictionaryAction
-            CheckDictionaryAction cda = (CheckDictionaryAction) action;
-            gameState.checkDictionary(gameState.getTurn());
-
-            //TODO after alpha
-            // Update the counter values based upon the action
-            //int result = gameState.getCounter() + (cma.isPlus() ? 1 : -1);
-            //gameState.setCounter(result);
-
-            // denote that this was a legal/successful move
-            return true;
-        }
-        else if(action instanceof ExchangeTileAction){
-            gameState.exchangeTile(gameState.getTurn(), gameState.getPositionInHand());
-            //TODO after alpha
+        if(action instanceof ExchangeTileAction){
+            gameState.exchangeTile(gameState.getTurn(), ((ExchangeTileAction) action).getPos());
             return true;
         }
         else if( action instanceof PlayWordAction)

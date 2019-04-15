@@ -41,7 +41,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ImageButton swapTileButton;
     private ImageButton skipButton;
     private ImageButton shuffleTileButton;
-    private ImageButton dictionaryButton;
     private ImageButton playButton;
 
     //buttons that make up a player's hand
@@ -211,9 +210,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         shuffleTileButton = activity.findViewById(R.id.shuffleImageButton);
         shuffleTileButton.setOnClickListener(theController);
-
-        dictionaryButton = activity.findViewById(R.id.dictionaryButton);
-        dictionaryButton.setOnClickListener(theController);
 
         playButton = activity.findViewById(R.id.playButton);
         playButton.setOnClickListener(theController);
