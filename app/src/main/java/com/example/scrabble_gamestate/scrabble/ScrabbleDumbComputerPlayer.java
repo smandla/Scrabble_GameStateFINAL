@@ -78,13 +78,13 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
             if(latestState.getTurn()==this.playerNum) {
 
                 //skip turn half the time
-                /**if(Math.random() >= .5) {
+                if(Math.random() >= .5) {
                     SkipTurnAction skip = new SkipTurnAction(this);
                     game.sendAction(skip);//skips so we can test if we can play multiple words
                 }
-                else {*/
+                else {
                     findLocation();
-                //}
+                }
 
 
             }
