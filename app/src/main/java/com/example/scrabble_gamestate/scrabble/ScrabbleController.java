@@ -97,10 +97,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //determine if any of the tiles have been touched
             case R.id.tileOneButton:
 
-                if(selectedView.getId() == R.id.swapTileButtton){
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer, 0);
-                    ourGame.sendAction(swapTile);
-                }
+
 
                 selectedView = button;
                 break;
