@@ -2,6 +2,7 @@ package com.example.scrabble_gamestate.scrabble;
 
 import android.graphics.Paint;
 import android.util.Log;
+import android.util.Pair;
 import android.view.SurfaceView;
 import android.widget.Switch;
 
@@ -73,16 +74,19 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 //        else {
 //
            this.latestState = (ScrabbleGameState) info;
-            if(latestState.getTurn()==this.playerNum) {//when using skipturn, use this form, just add "&& Math.random() >=.5" to if statement
-//                SkipTurnAction skip = new SkipTurnAction(this);
-//                game.sendAction(skip);//skips so we can test if we can play multiple words
-                findLocation();
+            if(latestState.getTurn()==this.playerNum) {
+
+                //skip turn half the time
+                /**if(Math.random() >= .5) {
+                    SkipTurnAction skip = new SkipTurnAction(this);
+                    game.sendAction(skip);//skips so we can test if we can play multiple words
+                }
+                else {*/
+                    findLocation();
+                //}
 
 
             }
-//        }
-
-
 
     }
 
@@ -90,6 +94,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
         Tile alreadyPlayedLetter = null;
         int wordLength = 0; //not counting already played tile
+        String potentialWord;
 
         //iterate through board, starting with second col from left
         for(int col = 1; col < 14; col++){
@@ -114,23 +119,24 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                         offset++; //keep incrementing so we don't keep checking the same thing
                     }
 
-                    String potentialWord = determineWord(wordLength, alreadyPlayedLetter);
-
+                    potentialWord = determineWord(wordLength, alreadyPlayedLetter);
 
                     if(potentialWord != null && alreadyPlayedLetter != null){
                         computerPlaceTiles(potentialWord, alreadyPlayedLetter);
                         return;
                     }
                     else{
-                        SkipTurnAction skip = new SkipTurnAction(this);
-                        game.sendAction(skip);
+                        break;
                     }
+
                 }
 
 
             }
         }
-        return;
+
+        SkipTurnAction skip = new SkipTurnAction(this);
+        game.sendAction(skip);
     }
 
     public String determineWord(int length, Tile alreadyPlayed){
@@ -159,7 +165,8 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                         ArrayList<Tile> computerHand = latestState.getHand2();
 
                         inHand = false;
-                        //iterate through hand, looking to see if that tile's letter matches the current letter in the string
+                        //iterate through hand, looking to see if that tile's letter matches the
+                        //current letter in the string
                         for (Tile t: computerHand) {
                             if(testWord.charAt(i) == t.getTileLetter()){
                                 inHand = true;
@@ -199,7 +206,8 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
             ArrayList<Tile> computerHand = latestState.getHand2();
 
-            //iterate through hand, looking to see if that tile's letter matches the current letter in the string
+            //iterate through hand, looking to see if that tile's letter matches the current letter
+            //in the string
             for (Tile t: computerHand) {
                 if(toPlay.charAt(i) == t.getTileLetter()){
                     PlaceTileAction placeTileAction = new PlaceTileAction(this,
