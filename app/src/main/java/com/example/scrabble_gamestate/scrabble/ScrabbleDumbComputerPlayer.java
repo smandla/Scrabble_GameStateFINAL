@@ -2,6 +2,7 @@ package com.example.scrabble_gamestate.scrabble;
 
 import android.graphics.Paint;
 import android.util.Log;
+import android.util.Pair;
 import android.view.SurfaceView;
 import android.widget.Switch;
 
@@ -27,9 +28,8 @@ import java.util.Iterator;
  *
  * @author Steven R. Vegdahl
  * @author Andrew M. Nuxoll
- * @version September 2013
- */
-public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
+ * @version September 2013*/
+public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
 
     ArrayList<Character> letters;
     String alreadyPlayedLetter = null;
@@ -41,11 +41,12 @@ public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements T
     String word = " ";
     ScrabbleGameState latestState;
 
-    /**
+/**
      * Constructor for objects of class CounterComputerPlayer1
      *
-     * @param name the player's name
-     */
+     * @param name the player's name*/
+
+
     public ScrabbleDumbComputerPlayer(String name) {
         // invoke superclass constructor
         super(name);
@@ -56,11 +57,12 @@ public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements T
     }
 
 
-    /**
+/**
      * callback method--game's state has changed
      *
      * @param info the information (presumably containing the game's state)
      */
+
     @Override
     protected void receiveInfo(GameInfo info) {
         if (!(info instanceof ScrabbleGameState)) {
@@ -85,8 +87,9 @@ public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements T
 //        }
 
 
+            }
 
-    }
+
 
 
     /**
@@ -97,6 +100,7 @@ public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements T
 
         Tile alreadyPlayedLetter = null;
         int wordLength = 0; //not counting already played tile
+        String potentialWord;
 
         //iterate through board, starting with second col from left
         for(int col = 1; col < 14; col++){
@@ -121,23 +125,24 @@ public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements T
                         offset++; //keep incrementing so we don't keep checking the same thing
                     }
 
-                    String potentialWord = determineWord(wordLength, alreadyPlayedLetter);
-
+                    potentialWord = determineWord(wordLength, alreadyPlayedLetter);
 
                     if(potentialWord != null && alreadyPlayedLetter != null){
                         computerPlaceTiles(potentialWord, alreadyPlayedLetter);
                         return;
                     }
                     else{
-                        SkipTurnAction skip = new SkipTurnAction(this);
-                        game.sendAction(skip);
+                        break;
                     }
+
                 }
 
 
             }
         }
-        return;
+
+        SkipTurnAction skip = new SkipTurnAction(this);
+        game.sendAction(skip);
     }
 
     /**
@@ -179,8 +184,7 @@ public class  ScrabbleDumbComputerPlayer extends GameComputerPlayer implements T
                         ArrayList<Tile> computerHand = latestState.getHand2();
 
                         inHand = false;
-                        //iterate through hand
-                        // looking to see if that tile's letter matches the current letter in string
+                        //iterate through hand, looking to see if that tile's letter matches the current letter in the string
                         for (Tile t: computerHand) {
                             if(testWord.charAt(i) == t.getTileLetter()){
                                 inHand = true;

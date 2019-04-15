@@ -867,18 +867,4 @@ public class ScrabbleGameState extends GameState {
         }
     }
 
-    /**method that checks if it is the player's turn, then cross-references the current turn's
-     * already placed tiles with the dictionary to check if they spell a valid word.
-     *
-     * @param turnId the id of the player whose turn it is currently
-     */
-    public boolean checkDictionary(int turnId) {
-        if(turnId == turn){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
 }

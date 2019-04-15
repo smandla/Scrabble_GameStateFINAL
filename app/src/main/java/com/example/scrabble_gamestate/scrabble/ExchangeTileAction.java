@@ -27,4 +27,8 @@ public class ExchangeTileAction extends GameAction {
         super(player);
         pos = position;
     }
+    //getter for position
+    public int getPos() {
+        return pos;
+    }
 }
