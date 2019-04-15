@@ -73,14 +73,16 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 //        else {
 //
            this.latestState = (ScrabbleGameState) info;
-//            if(latestState.getTurn()==this.playerNum) {//when using skipturn, use this form, just add "&& Math.random() >=.5" to if statement
+            if(latestState.getTurn()==this.playerNum) {//when using skipturn, use this form, just add "&& Math.random() >=.5" to if statement
 //                SkipTurnAction skip = new SkipTurnAction(this);
 //                game.sendAction(skip);//skips so we can test if we can play multiple words
-//            }
+                findLocation();
+
+
+            }
 //        }
 
 
-        findLocation();
 
     }
 
@@ -94,17 +96,26 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
             for (int row = 0; row < 15; row++) {
 
 
-                if(latestState.getBoard()[row][col] != null){
-                    alreadyPlayedLetter = latestState.getBoard()[row][col];
+                if(latestState.getBoard()[col][row] != null){
+                    alreadyPlayedLetter = latestState.getBoard()[col][row];
 
                     //check through subsequent rows to see how long of a word we can make
                     int offset = 1;
-                    while(row + offset < 14 && latestState.getBoard()[row + offset][col] == null){//TODO check left right below null
+
+                    if(latestState.getBoard()[col][row -1] != null){
+                        continue;
+                    }
+
+                    while(row + offset < 14 && latestState.getBoard()[col][row + offset] == null &&
+                            latestState.getBoard()[col - 1][row + offset] == null &&
+                            latestState.getBoard()[col + 1][row + offset] == null &&
+                            latestState.getBoard()[col][(row + offset) + 1] == null){
                         wordLength++;
                         offset++; //keep incrementing so we don't keep checking the same thing
                     }
 
                     String potentialWord = determineWord(wordLength, alreadyPlayedLetter);
+
 
                     if(potentialWord != null && alreadyPlayedLetter != null){
                         computerPlaceTiles(potentialWord, alreadyPlayedLetter);
@@ -194,6 +205,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                     PlaceTileAction placeTileAction = new PlaceTileAction(this,
                             alreadyPlayedTile.getxCoord(), alreadyPlayedTile.getyCoord() + i, t);
                     game.sendAction(placeTileAction);
+                    break;
                 }
             }
         }

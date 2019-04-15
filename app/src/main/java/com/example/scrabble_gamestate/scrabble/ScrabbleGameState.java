@@ -581,13 +581,21 @@ public class ScrabbleGameState extends GameState {
                 //look through player's hand for a Tile that matches tile (parameter), using equals
                 //if the two match, remove that one from the hand
                 Tile removeMe = null;
-                for (Tile t: hand1) {
+
+                ArrayList<Tile> currentHand;
+                if(turn == 0){
+                    currentHand = hand1;
+                }
+                else{
+                    currentHand = hand2;
+                }
+                for (Tile t: currentHand) {
                     if(t.getTileLetter() == tile.getTileLetter()){
                         removeMe = t;
                     }
                 }
                 if(removeMe != null) {
-                    hand1.remove(removeMe);
+                    currentHand.remove(removeMe);
                 }
 
                 return true;
