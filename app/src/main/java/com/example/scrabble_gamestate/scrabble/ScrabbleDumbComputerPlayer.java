@@ -76,26 +76,21 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 //
            this.latestState = (ScrabbleGameState) info;
             if(latestState.getTurn()==this.playerNum) {
-                //when using skipturn, use this form
-                // just add "&& Math.random() >=.5" to if statement
-//                SkipTurnAction skip = new SkipTurnAction(this);
-//                game.sendAction(skip);//skips so we can test if we can play multiple words
-                findLocation();
+
+                //skip turn half the time
+                if(Math.random() >= .5) {
+                    SkipTurnAction skip = new SkipTurnAction(this);
+                    game.sendAction(skip);//skips so we can test if we can play multiple words
+                }
+                else {
+                    findLocation();
+                }
 
 
             }
-//        }
 
+    }
 
-            }
-
-
-
-
-    /**
-     * findLocation of the word that was played
-     * takes no parameters
-     */
     public void findLocation(){
 
         Tile alreadyPlayedLetter = null;
@@ -145,22 +140,9 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         game.sendAction(skip);
     }
 
-    /**
-     * determines what word to play and if the word is playable
-     * @param length length of the test word
-     * @param alreadyPlayed word that was previously played
-     */
     public String determineWord(int length, Tile alreadyPlayed){
         HashSet<String> dictionary = latestState.getDictionary();
 
-        /**
-         External Citation
-         Date:     12 April 2019
-         Problem:  Did not know how to implement how to iterate through the dictionary file
-         Resource:
-         https://www.geeksforgeeks.org/how-to-use-iterator-in-java/
-         Solution: I used the syntax from this post.
-         */
         Iterator<String> itr = dictionary.iterator();
 
         String testWord;
@@ -184,7 +166,8 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                         ArrayList<Tile> computerHand = latestState.getHand2();
 
                         inHand = false;
-                        //iterate through hand, looking to see if that tile's letter matches the current letter in the string
+                        //iterate through hand, looking to see if that tile's letter matches the
+                        //current letter in the string
                         for (Tile t: computerHand) {
                             if(testWord.charAt(i) == t.getTileLetter()){
                                 inHand = true;
@@ -214,11 +197,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         return null;
 
     }
-    /**
-     * computerPlaceTiles allows the computer to play word
-     * @param toPlay tiles in hand
-     * @param alreadyPlayedTile places word on board based on location
-     */
+
     public void computerPlaceTiles(String toPlay, Tile alreadyPlayedTile){
 
 
@@ -228,13 +207,12 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
             ArrayList<Tile> computerHand = latestState.getHand2();
 
-            //iterate through hand
-            //looking to see if that tile's letter matches the current letter in the string
+            //iterate through hand, looking to see if that tile's letter matches the current letter
+            //in the string
             for (Tile t: computerHand) {
                 if(toPlay.charAt(i) == t.getTileLetter()){
                     PlaceTileAction placeTileAction = new PlaceTileAction(this,
-                            alreadyPlayedTile.getxCoord(),
-                            alreadyPlayedTile.getyCoord() + i, t);
+                            alreadyPlayedTile.getxCoord(), alreadyPlayedTile.getyCoord() + i, t);
                     game.sendAction(placeTileAction);
                     break;
                 }
