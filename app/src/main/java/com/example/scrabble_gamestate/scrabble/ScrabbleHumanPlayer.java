@@ -35,6 +35,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private TextView playerTurn;
     private TextView tileBag;
 
+    //private ScrabbleRules scrabbleRulesButton;
+
     private ScrabbleController theController;
 
     //buttons for various actions
@@ -53,6 +55,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ImageButton tileSevenButton;
 
     private Button recallButton;
+    private Button quitGame;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
@@ -165,6 +168,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         theController.setUpdatedState(this.state);//makes sure the state isn't null
         // (in theory, at least)
         theController.setGame(this.game);
+       // scrabbleRulesButton.setGame(this.game);
+
+
+
         updateDisplay();
 
         surface.setState((ScrabbleGameState) info);//makes sure the state isn't null
@@ -238,6 +245,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         recallButton = activity.findViewById(R.id.recallTiles);
         recallButton.setOnClickListener(theController);
+
+        quitGame = activity.findViewById(R.id.QuitGame);
+        quitGame.setOnClickListener(theController);
 
         // remember the field that we update to display the counter's value
         /*this.counterValueTextView =

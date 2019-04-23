@@ -97,6 +97,16 @@ public class ScrabbleLocalGame extends LocalGame {
             gameState.recallTiles(gameState.getTurn());
             return true;
         }
+        else if( action instanceof QuitGameAction)
+        {
+            gameState.quitGame();
+            return true;
+        }
+        else if( action instanceof RulesAction)
+        {
+            gameState.rulesOfGame();
+            return true;
+        }
         //else if
         return true; //placeholder
         //TODO make recall tiles button and method

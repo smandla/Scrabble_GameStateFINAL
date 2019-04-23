@@ -552,13 +552,21 @@ public class ScrabbleGameState extends GameState {
      * after pushing quit button.
      */
     public boolean quitGame() {
-
+        System.exit(0);
         //appropriately updating game state
-        enoughPlayers = false;
+        //enoughPlayers = false;
 
         return true; //should always remain true, because you should be able to quit whenever
 
     }
+
+    /**
+     * Method that shows player rules of the game.
+     */
+    public boolean rulesOfGame(){
+        return true;
+    }
+
 
     /**
      * Method that checks if it's your turn and the selected location is a valid point on the board
