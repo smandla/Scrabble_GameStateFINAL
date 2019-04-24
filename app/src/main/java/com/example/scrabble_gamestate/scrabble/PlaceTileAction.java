@@ -21,9 +21,12 @@ public class PlaceTileAction extends GameAction {
     Tile tile;
 
     /**
-     * constructor for GameAction
+     * constructor
      *
      * @param player the player who created the action
+     * @param xLoc  the x location to place the tile
+     * @param yLoc  the y location to place the tile
+     * @param t the tile to be placed
      */
     public PlaceTileAction(GamePlayer player, int xLoc, int yLoc, Tile t) {
 

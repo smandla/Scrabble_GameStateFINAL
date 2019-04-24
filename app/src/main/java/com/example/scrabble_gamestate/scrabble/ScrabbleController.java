@@ -1,10 +1,8 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -42,18 +40,12 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
     /**
      * constructor
-     * @param ourPlayerScore
-     * 		the score for our player
-     * @param theirPlayerScore
-     *
-     * @param whichPlayerTurn
-     *
-     * @param theGameState
-     *      the state of the current game
-     * @param theGame
-     *      the current game being played
-     * @param  aPlayer
-     *      the human player we want to send stuff to
+     * @param ourPlayerScore  the score for our player
+     * @param theirPlayerScore  the opponent's score
+     * @param whichPlayerTurn  the text view indicating whose turn it is
+     * @param theGameState  the state of the current game
+     * @param theGame  the current game being played
+     * @param  aPlayer the human player we want to send stuff to
      */
     public ScrabbleController(TextView ourPlayerScore,TextView theirPlayerScore,
                               TextView whichPlayerTurn,
@@ -65,9 +57,6 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         ourGameState = theGameState;
         ourGame = theGame;
         ourPlayer = aPlayer;
-
-        /*theirProfile = theirProfPic;
-        ourProfile = ourProfPic; */
 
     }//ScrabbleController
 
@@ -82,8 +71,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
     /**
      * OnClick method that sets a view as selected or sends an action associated with a button
-     * @param button
-     * 		the button the player has pressed
+     *
+     * @param button  the button the player has pressed
+     *
+     * @return true to indicate we handled the event
      */
     @Override
     public void onClick(View button) {
@@ -168,22 +159,15 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 ourGame.sendAction(shuffleAction);
                 break;
 
-            case R.id.dictionaryButton:
-
-                CheckDictionaryAction dictionaryAction = new CheckDictionaryAction(ourPlayer);
-                ourGame.sendAction(dictionaryAction);
-                break;
-
             case R.id.QuitGame:
                 QuitGameAction quitGameAction = new QuitGameAction(ourPlayer);
                 ourGame.sendAction(quitGameAction);
                 break;
+
             case R.id.rulesOfGames:
                 RulesAction rulesAction = new RulesAction(ourPlayer);
                 ourGame.sendAction(rulesAction);
                  break;
-
-
 
             default:
                 break;
@@ -193,10 +177,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
     /**
      * constructor
-     * @param v
-     * 		the view which has been touched
-     * @param event
-     *      the motionEvent that occurs when you touch a view
+     * @param v  the view which has been touched
+     * @param event  the motionEvent that occurs when you touch a view
+     *
+     * @return true to indicate that we handled the event
      */
     @Override
     public boolean onTouch (View v, MotionEvent event){
@@ -207,12 +191,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         //finds out where is being touched
         int xTouch = (int) event.getX();
         int yTouch = (int) event.getY();
-            //if we havent already touched a hand tile, return
+            //if we haven't already touched a hand tile, return
         if(selectedView == null || v == null){
             return true;
         }
-
-            Log.i("controller", "surface view " + v);
 
         //figuring out which tile to place
         Tile t = null;

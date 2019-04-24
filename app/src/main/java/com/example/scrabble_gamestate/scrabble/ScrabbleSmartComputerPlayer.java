@@ -1,13 +1,4 @@
 package com.example.scrabble_gamestate.scrabble;
-/**
- *Smart computer player for the Scrabble game. Makes
- *
- *  @author Sydney Wells
- *  @author Sarah Bunger
- *  @author Kavya Mandla
- *  @author Meredith Marcinko
- *  @version February 2019
- */
 
 import android.util.Log;
 
@@ -19,7 +10,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
-//TODO add class header
+/**
+ *Smart computer player for the Scrabble game.
+ * The computer only plays words vertically, and only starting with the letter it finds, instead of
+ * trying to make words with a found letter in any place in a them.
+ *
+ *  @author Sydney Wells
+ *  @author Sarah Bunger
+ *  @author Kavya Mandla
+ *  @author Meredith Marcinko
+ *  @version February 2019
+ */
 public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
     ArrayList<Character> letters;
     String alreadyPlayedLetter = null;
@@ -27,12 +28,11 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
     boolean foundWord = false;
     int player2 = playerNum;
 
-    // String word = read in line from dumbDictionary.txt
     String word = " ";
     ScrabbleGameState latestState;
 
     /**
-     * Constructor for objects of class CounterComputerPlayer1
+     * Constructor
      *
      * @param name the player's name
      */
@@ -40,9 +40,6 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
         // invoke superclass constructor
         super(name);
 
-        // start the timer, ticking 20 times per second
-        //getTimer().setInterval(50);
-        //getTimer().start();
     }
 
 
@@ -60,25 +57,17 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
         if(info instanceof NotYourTurnInfo){
             return;
         }
-//        else {
-//
+
         this.latestState = (ScrabbleGameState) info;
         if(latestState.getTurn()==this.playerNum) {
-
-            //skip turn half the time
-            /**if(Math.random() >= .5) {
-             SkipTurnAction skip = new SkipTurnAction(this);
-             game.sendAction(skip);//skips so we can test if we can play multiple words
-             }
-             else {*/
             findLocation();
-            //}
-
-
         }
 
     }
 
+    /**
+     * A helper function that finds a viable location to play a vertical word
+     */
     public void findLocation(){
 
         Tile alreadyPlayedLetter = null;
@@ -128,6 +117,16 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
         game.sendAction(skip);
     }
 
+
+    /**
+     * Helper method for determining a word for the AI to play, based on the letters it has and
+     * the letter it has chosen to build a word off of, as well as the amount of space where letters
+     * can legally be placed.
+     *
+     * @param length  the length we found for a word
+     * @param alreadyPlayed the tile that was already played, which we will try to build a word off
+     * @return the word to play
+     */
     public String determineWord(int length, Tile alreadyPlayed){
         HashSet<String> dictionary = latestState.getDictionary();
 
@@ -144,8 +143,6 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
 
             //make sure that the first letters match
             if(testWord.length() <= length + 1 && testWord.length() > 0){
-                Log.i("dumbAI", testWord);
-                Log.i("tile",Character.toString(alreadyPlayed.getTileLetter()));
                 if(testWord.charAt(0) == alreadyPlayed.getTileLetter()){
 
                     //start at the second letter of the word, since the first is already played
@@ -186,6 +183,12 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
 
     }
 
+    /** helper function to make the computer place the tiles for the word it found, then play the
+     * word
+     *
+     * @param toPlay  the word we are attempting to play
+     * @param alreadyPlayedTile  the tile we are playing off of
+     */
     public void computerPlaceTiles(String toPlay, Tile alreadyPlayedTile){
 
 

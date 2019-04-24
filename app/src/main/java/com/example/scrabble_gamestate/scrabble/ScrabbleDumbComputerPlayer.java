@@ -1,34 +1,26 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.graphics.Paint;
 import android.util.Log;
-import android.util.Pair;
-import android.view.SurfaceView;
-import android.widget.Switch;
-
 import com.example.scrabble_gamestate.game.GameComputerPlayer;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
 import com.example.scrabble_gamestate.game.infoMsg.NotYourTurnInfo;
 import com.example.scrabble_gamestate.game.util.Tickable;
 import com.example.scrabble_gamestate.game.Tile;
-import com.example.scrabble_gamestate.scrabble.ScrabbleGameState;
-import com.example.scrabble_gamestate.scrabble.ScrabbleLocalGame;
-
-
-import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * A computer-version of a counter-player.  Since this is such a simple game,
- * it just sends "+" and "-" commands with equal probability, at an average
- * rate of one per second.
+ * A Dumb AI that plays words 50% of the time and skips its turn the other 50%.
+ * The computer only plays words vertically, and only starting with the letter it finds, instead of
+ * trying to make words with a found letter in any place in a them.
  *
- * @author Steven R. Vegdahl
- * @author Andrew M. Nuxoll
- * @version September 2013*/
+ * @author Sydney Wells
+ * @author Sarah Bunger
+ * @author Kavya Mandla
+ * @author Meredith Marcinko
+ * @version February 2019
+ * */
 public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
 
     ArrayList<Character> letters;
@@ -41,28 +33,21 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
     String word = " ";
     ScrabbleGameState latestState;
 
-/**
-     * Constructor for objects of class CounterComputerPlayer1
+    /**
+     * Constructor
      *
-     * @param name the player's name*/
-
-
+     * @param name the player's name
+     */
     public ScrabbleDumbComputerPlayer(String name) {
         // invoke superclass constructor
         super(name);
-
-        // start the timer, ticking 20 times per second
-        //getTimer().setInterval(50);
-        //getTimer().start();
     }
 
-
-/**
+    /**
      * callback method--game's state has changed
      *
      * @param info the information (presumably containing the game's state)
      */
-
     @Override
     protected void receiveInfo(GameInfo info) {
         if (!(info instanceof ScrabbleGameState)) {
@@ -72,26 +57,39 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         if(info instanceof NotYourTurnInfo){
             return;
         }
-//        else {
-//
-           this.latestState = (ScrabbleGameState) info;
-            if(latestState.getTurn()==this.playerNum) {
 
-                //skip turn half the time
-                if(Math.random() >= .5) {
-                    SkipTurnAction skip = new SkipTurnAction(this);
-                    game.sendAction(skip);//skips so we can test if we can play multiple words
-                }
-                else {
-                    findLocation();
-                }
+        this.latestState = (ScrabbleGameState) info;
+        if(latestState.getTurn()==this.playerNum) {
 
-
+            //skip turn half the time
+            if(Math.random() >= .5) {
+                SkipTurnAction skip = new SkipTurnAction(this);
+                game.sendAction(skip);
+            }
+            else {
+                findLocation();
             }
 
+        }
     }
 
+
+    /**
+     * A helper function that finds a viable location to play a vertical word
+     */
     public void findLocation(){
+
+        /**
+         * External Citation
+         *
+         * Date: 13 April 2019
+         * Problem: Struggled to understand how to implement such a complex algorithm; would get
+         * caught in an infinite loop of not knowing how to gather the right information at the
+         * right time.
+         * Resource: Jason Twigg, tutor
+         * Solution: Jason walked us through a basic idea of what the code would look like, and
+         * assisted with further questions for implementation.
+         */
 
         Tile alreadyPlayedLetter = null;
         int wordLength = 0; //not counting already played tile
@@ -112,6 +110,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                         continue;
                     }
 
+                    //we won't play words at the edges of the board
                     while(row + offset < 14 && latestState.getBoard()[col][row + offset] == null &&
                             latestState.getBoard()[col - 1][row + offset] == null &&
                             latestState.getBoard()[col + 1][row + offset] == null &&
@@ -129,10 +128,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                     else{
                         break;
                     }
-
                 }
-
-
             }
         }
 
@@ -140,7 +136,26 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         game.sendAction(skip);
     }
 
+    /**
+     * Helper method for determining a word for the AI to play, based on the letters it has and
+     * the letter it has chosen to build a word off of, as well as the amount of space where letters
+     * can legally be placed.
+     *
+     * @param length  the length we found for a word
+     * @param alreadyPlayed the tile that was already played, which we will try to build a word off
+     * @return the word to play
+     */
     public String determineWord(int length, Tile alreadyPlayed){
+
+        /**
+         * External Citation
+         * Date: 14 April 2019
+         * Problem: AI would simply stop playing words after a certain point.
+         * Resource: Dr. Tribelhorn
+         * Solution: Various additions of if/else statements for determining if a legal word
+         * actually exists.
+         */
+
         HashSet<String> dictionary = latestState.getDictionary();
 
         Iterator<String> itr = dictionary.iterator();
@@ -156,8 +171,6 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
             //make sure that the first letters match
             if(testWord.length() <= length + 1 && testWord.length() > 0){
-                Log.i("dumbAI", testWord);
-                Log.i("tile",Character.toString(alreadyPlayed.getTileLetter()));
                 if(testWord.charAt(0) == alreadyPlayed.getTileLetter()){
 
                     //start at the second letter of the word, since the first is already played
@@ -198,8 +211,13 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
     }
 
+    /** helper function to make the computer place the tiles for the word it found, then play the
+     * word
+     *
+     * @param toPlay  the word we are attempting to play
+     * @param alreadyPlayedTile  the tile we are playing off of
+     */
     public void computerPlaceTiles(String toPlay, Tile alreadyPlayedTile){
-
 
         //for each letter in toPlay, look for that letter in the computer's hand
         //place that word in location of alreadyPlayedTile

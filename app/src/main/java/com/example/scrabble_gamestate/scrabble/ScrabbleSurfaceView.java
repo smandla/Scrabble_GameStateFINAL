@@ -32,6 +32,7 @@ public class ScrabbleSurfaceView extends SurfaceView {
     private Tile[][] aBoard;//way to get the board into this
     private Bitmap[] tileLetters = new Bitmap[26];//bitmap of all tile letters
     private Game ourGame;
+
     /**
      * Constructor
      */
@@ -60,7 +61,7 @@ public class ScrabbleSurfaceView extends SurfaceView {
 
 
     /**
-     * A helper method
+     * A helper method that creates a bitmap for all 26 different letters
      */
     private void init() {
         //puts the android ID's of every tile in an array
@@ -83,12 +84,11 @@ public class ScrabbleSurfaceView extends SurfaceView {
 
     /**
      * Overrides SurfaceView's onDraw method
-     * @param: Canvas  The Canvas object to draw on.
+     * @param canvas  The Canvas object to draw on.
      */
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(0xFFFFFF00);
-
 
         //make and resize the images for cells without bonuses
         Bitmap noBonusCellOrig = BitmapFactory.decodeResource(getResources(), R.drawable.nobonus);
@@ -277,17 +277,25 @@ public class ScrabbleSurfaceView extends SurfaceView {
         canvas.drawBitmap(tripleWordCell,14*TILE_WIDTH_AND_HEIGHT,14*TILE_WIDTH_AND_HEIGHT,
                 null);
 
+        /**
+         * External Citation
+         * Date: 29 March 2019
+         * Problem: Unsure how to make the tiles appear on the board
+         * Resource: Andrew, Sydney's boyfriend
+         * Solution: He offered suggestion on how to approach this problem.
+         */
+
         aBoard = ourState.getBoard();//gets the board from the current game state
-        for(int x = 0; x <15; x++ )//checks thru all x coords in board
-        {
-            for( int y = 0; y < 15; y++)//checks thru all y coords in board
-            {
-                if(aBoard[x][y] == null)//don't put stuff on the board if its empty
-                {
+        //checks thru all x coords in board
+        for(int x = 0; x <15; x++ ){
+            //checks thru all y coords in board
+            for( int y = 0; y < 15; y++) {
+
+                //don't put stuff on the board if its empty
+                if(aBoard[x][y] == null) {
                     //do nothing
                 }
-                else
-                {
+                else {
                     //changes board into an array of ints based on char
                     int indexIntoArray = aBoard[x][y].getTileLetter()-'a';
                     //draws a new Bitmap for the place in the index

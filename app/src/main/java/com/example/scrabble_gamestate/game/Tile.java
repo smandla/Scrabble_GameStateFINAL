@@ -5,7 +5,7 @@ package com.example.scrabble_gamestate.game;
  *
  * @author Sydney Wells
  * @author Sarah Bunger
- * @author Kavva Mandla
+ * @author Kavya Mandla
  * @author Meredith Marcinko
  * @version February 2019
  */
@@ -33,6 +33,10 @@ public class Tile {
 
     /**
      * Constructor for Tile class
+     *
+     * @param points  the Tile's point value
+     * @param letter  the Tile's letter
+     * @param id  the android id for the image of the tile
      */
     public Tile(int points, char letter, int id)
     {
@@ -45,6 +49,8 @@ public class Tile {
 
     /**
      * Copy Constructor
+     *
+     * @param tile the tile we will make a copy of
      */
     public Tile(Tile tile) {
         pointVal = tile.pointVal;
@@ -87,6 +93,14 @@ public class Tile {
         yCoord = y;
     }
 
+
+    /**
+     * Overridden method for comparing two tiles
+     *
+     * @param obj the object to compare to
+     *
+     * @return true if the tiles have same letter and coord values, false if otherwise
+     */
     @Override
     public boolean equals(Object obj){
 

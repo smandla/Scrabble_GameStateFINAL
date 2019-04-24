@@ -14,7 +14,7 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
  */
 public class QuitGameAction extends GameAction {
     /**
-     * constructor for GameAction
+     * constructor
      *
      * @param player the player who created the action
      */

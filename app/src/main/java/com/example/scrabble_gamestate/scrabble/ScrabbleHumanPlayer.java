@@ -30,7 +30,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     /* instance variables */
 
     // The TextView the displays the current counter value
-    private TextView counterValueTextView;
 
     private TextView ourScore;
     private TextView opponentScore;
@@ -72,7 +71,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     ScrabbleGameState latestState = new ScrabbleGameState();
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
-    //bool skipped  start it out as false; everytime they skip, check to see if true (if so,
+    //bool skipped  start it out as false; ever ytime they skip, check to see if true (if so,
     // forfeit); pop up yes/no
     //dialog asking if they actually want to forfeit, then send a quitgameaction instead
 
@@ -137,7 +136,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         //for each button...
         for(int i = 0; i < 7; i++){
-            //if i is less than the length of hand,
             int handLength = state.getHand1().size();
             if(i < handLength){
                 //find the corresponding thing in the hand and set the button to that
@@ -258,12 +256,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         rulesButton = activity.findViewById(R.id.rulesOfGames);
         rulesButton.setOnClickListener(theController);
-
-
-
-        // remember the field that we update to display the counter's value
-        /*this.counterValueTextView =
-                (TextView) activity.findViewById(R.id.counterValueTextView);*/
 
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
