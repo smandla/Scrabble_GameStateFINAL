@@ -1,5 +1,7 @@
 package com.example.scrabble_gamestate.game;
 
+import java.io.Serializable;
+
 /**
  * Holds the information of the tiles and their values.
  *
@@ -9,7 +11,7 @@ package com.example.scrabble_gamestate.game;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class Tile {
+public class Tile implements Serializable {
 
     //instance vars
     private int pointVal;

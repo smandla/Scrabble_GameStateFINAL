@@ -5377,8 +5377,7 @@ ices
 icky
 icon
 icons
-icy
-id
+icy//;lp
 idea
 ideal
 ideals
@@ -5392,11 +5391,8 @@ idlest
 idly
 idol
 idols
-ids
 idyl
 idyls
-if
-ifs
 igneous
 ignoble
 ignobly
@@ -5416,7 +5412,6 @@ imbeds
 imbue
 imbued
 imbues
-imp
 impact
 impacts
 impale
@@ -5449,7 +5444,6 @@ impure
 impute
 imputed
 imputes
-in
 inapt
 inboard
 inbred
@@ -5525,7 +5519,6 @@ inputs
 inquest
 inroad
 inroads
-ins
 inseam
 insect
 insert
@@ -5581,17 +5574,14 @@ is
 island
 isle
 islet
-ism
 isobar
 isolate
-it
 itch
 itched
 itches
 itchy
 item
-items
-its
+item
 itself
 ivory
 ivy
@@ -5891,9 +5881,7 @@ knows
 kosher
 krone
 krypton
-ks
 kudos
-la
 lab
 labium
 labor
@@ -6252,7 +6240,6 @@ lives
 livest
 lizard
 lizards
-lo
 load
 loader
 loaders
@@ -6382,7 +6369,6 @@ lowish
 lows
 lox
 loxes
-ls
 lube
 lubed
 lubes
@@ -6459,8 +6445,7 @@ lynxes
 lyre
 lyres
 lyric
-lyrics
-ma
+lyric
 mace
 maced
 maces
@@ -6597,7 +6582,6 @@ martins
 marts
 marvel
 marvels
-mas
 mascot
 mash
 mashed
@@ -6742,7 +6726,6 @@ mewl
 mewling
 mewls
 mews
-mi
 miaow
 miaowed
 miaows
@@ -7024,8 +7007,6 @@ mowers
 mowing
 mown
 mows
-ms
-mu
 much
 muck
 mucked
@@ -7088,11 +7069,6 @@ mutes
 muting
 mutiny
 my
-myna
-mynah
-mynahes
-mynahs
-mynas
 myopia
 myopic
 myriad
@@ -7228,7 +7204,6 @@ nits
 nix
 nixed
 nixes
-no
 noble
 nobler
 nobles
@@ -7299,8 +7274,6 @@ novices
 now
 noway
 nowise
-nth
-nu
 nub
 nubile
 nubs
@@ -7391,7 +7364,6 @@ oculist
 ode
 odes
 odium
-of
 oft
 often
 ogle
@@ -7399,9 +7371,6 @@ ogled
 ogles
 ogre
 ogres
-oh
-ohm
-ohms
 ohs
 oil
 oiled
@@ -7473,7 +7442,6 @@ opting
 opts
 opulent
 opus
-or
 oracle
 oracles
 oral
@@ -7554,7 +7522,6 @@ outside
 outsize
 outward
 outwear
-ova
 oval
 ovals
 ovaries
@@ -7577,7 +7544,6 @@ ovulate
 ovule
 ovules
 ovum
-ow
 owe
 owed
 owes
@@ -8523,7 +8489,6 @@ pyres
 pyrite
 python
 pythons
-pyx
 pyxes
 qua
 quack
@@ -8744,7 +8709,6 @@ raze
 razed
 razes
 razing
-re
 reach
 react
 reacts
@@ -8935,7 +8899,7 @@ ricked
 rickets
 rickety
 ricks
-ricksha
+rickshaw
 rid
 ride
 rides
@@ -9104,7 +9068,6 @@ rowing
 rows
 royal
 royals
-rs
 rub
 rubdown
 rube
@@ -9419,12 +9382,6 @@ setup
 sew
 sewing
 sewn
-sex
-sexing
-sexpot
-sexton
-sexual
-sexy
 sh
 shack
 shackle
@@ -9867,7 +9824,6 @@ snub
 snuck
 snug
 snugly
-so
 soak
 soaked
 soaking
@@ -10734,7 +10690,6 @@ thymi
 thymus
 thyroid
 thyself
-ti
 tic
 tick
 ticked
@@ -10804,7 +10759,6 @@ tired
 tires
 tiro
 tiros
-to
 toad
 toadies
 toads
@@ -11064,7 +11018,6 @@ trunk
 trunks
 try
 trying
-ts
 tsar
 tsunami
 tub
@@ -11144,6 +11097,7 @@ twangs
 tweak
 tweaks
 twerp
+twerk
 twerps
 twice
 twig
@@ -11185,7 +11139,6 @@ ugh
 uglier
 ugliest
 ugly
-uh
 ulcer
 ulcers
 ulna
@@ -11193,7 +11146,6 @@ ulnae
 ulnas
 ultra
 ultras
-um
 umbel
 umbels
 umber
@@ -11310,7 +11262,6 @@ unwrap
 unwraps
 unzip
 unzips
-up
 upbeat
 upbeats
 upbraid
@@ -11362,7 +11313,6 @@ urinate
 urine
 urn
 urns
-us
 usable
 usage
 use
@@ -11607,7 +11557,6 @@ voyager
 voyages
 voyeur
 voyeurs
-vs
 vulgar
 vying
 wackier
@@ -12075,7 +12024,6 @@ worst
 worsted
 worth
 worthy
-wot
 would
 woulds
 wound
@@ -12156,7 +12104,6 @@ yawn
 yawned
 yawns
 yaws
-ye
 yea
 yeah
 yeahs
@@ -12185,7 +12132,6 @@ yield
 yields
 yip
 yips
-yo
 yock
 yocks
 yodel

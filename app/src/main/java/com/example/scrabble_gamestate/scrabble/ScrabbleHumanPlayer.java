@@ -208,7 +208,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        //music still works despite error being shown 
+        //music still works despite error being shown
         mediaPlayer = MediaPlayer.create(activity.getApplicationContext(), R.raw.background_music);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);//makes the music repeat
@@ -271,6 +271,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
+
 
 
     }
