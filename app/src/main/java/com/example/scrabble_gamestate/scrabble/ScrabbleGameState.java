@@ -775,6 +775,8 @@ public class ScrabbleGameState extends GameState {
      * @param turnId the id of the player whose turn it is currently
      */
     public boolean skipTurn(int turnId) {
+        this.recallTiles(turnId);
+
         if(turnId == turn){
             if(turn == 1) {
                 turn--;
@@ -782,7 +784,6 @@ public class ScrabbleGameState extends GameState {
             else {
                 turn++;
             }
-            //this.recallTiles(turnId);
             return true;
         }
         else {
@@ -793,7 +794,7 @@ public class ScrabbleGameState extends GameState {
 
     /**
      * method that checks if it is the player's turn, recalls all tiles to the player's hand, and
-     * shuffles the visual display of the tiles in the hand.
+     * shuffles the tiles in the hand.
      *
      * @param turnId the id of the player whose turn it is currently
      */
