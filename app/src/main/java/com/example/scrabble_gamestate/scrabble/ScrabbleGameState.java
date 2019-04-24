@@ -743,27 +743,34 @@ public class ScrabbleGameState extends GameState {
                 //the Tile in that space isn't already in the list (each tile will almost
                 //always have at least one neighbor that's already part of the list, thanks to
                 //the connectedness of words)
-                if(board[t.getxCoord() - 1][t.getyCoord()] != null &&
-                        !onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()])){
-                    counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
-                }
+                try {
 
-                //tile above
-                if(board[t.getxCoord()][t.getyCoord() + 1] != null &&
-                        !onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1])){
-                    counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
-                }
+                    if (board[t.getxCoord() - 1][t.getyCoord()] != null &&
+                            !onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()])) {
+                        counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
+                    }
 
-                //tile to the right
-                if(board[t.getxCoord() + 1][t.getyCoord()] != null &&
-                        !onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()])){
-                    counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
-                }
+                    //tile above
+                    if (board[t.getxCoord()][t.getyCoord() + 1] != null &&
+                            !onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1])) {
+                        counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
+                    }
 
-                //tile below
-                if(board[t.getxCoord()][t.getyCoord() - 1] != null &&
-                        !onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1])){
-                    counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                    //tile to the right
+                    if (board[t.getxCoord() + 1][t.getyCoord()] != null &&
+                            !onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()])) {
+                        counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
+                    }
+
+                    //tile below
+                    if (board[t.getxCoord()][t.getyCoord() - 1] != null &&
+                            !onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1])) {
+                        counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException exception)
+                {
+                        //do nothing
                 }
             }
 
