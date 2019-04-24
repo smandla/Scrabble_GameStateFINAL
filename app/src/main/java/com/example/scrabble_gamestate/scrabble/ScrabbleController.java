@@ -1,5 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,18 +23,18 @@ import com.example.scrabble_gamestate.game.Tile;
  */
 public class ScrabbleController implements View.OnTouchListener, View.OnClickListener
 {
-
+    //textviews for scores and turns
     private TextView ourScore;
     private TextView opponentScore;
     private TextView playerTurn;
 
-
-    //menu with quit and save buttons
-
+    //imageviews for profiles
     private ImageView theirProfile = null;
     private ImageView ourProfile = null;
+
     //the gamestate that we are changing/making decisions based on
     private ScrabbleGameState ourGameState;
+
     //the image button in our hand which we've touched
     private View selectedView = null;
     private GameHumanPlayer ourPlayer = null;
@@ -65,9 +67,10 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
         ourGameState = state;
     }
 
+    //setter for the game
     public void setGame(Game local) {
         ourGame = local;
-    }//setter for the game
+    }
 
     /**
      * OnClick method that sets a view as selected or sends an action associated with a button
@@ -183,9 +186,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                     }
                     ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer,index);
                     ourGame.sendAction(swapTile);
-
                 }
-
                 break;
 
             case R.id.shuffleImageButton:
@@ -198,11 +199,6 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
                 QuitGameAction quitGameAction = new QuitGameAction(ourPlayer);
                 ourGame.sendAction(quitGameAction);
                 break;
-
-            case R.id.rulesOfGames:
-                RulesAction rulesAction = new RulesAction(ourPlayer);
-                ourGame.sendAction(rulesAction);
-                 break;
 
             default:
                 break;
@@ -219,14 +215,15 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
      */
     @Override
     public boolean onTouch (View v, MotionEvent event){
-        //if nothing's there, return
+        //if empty, return true
         if(ourGameState == null || ourGame == null){
             return true;
         }
         //finds out where is being touched
         int xTouch = (int) event.getX();
         int yTouch = (int) event.getY();
-            //if we haven't already touched a hand tile, return
+
+        //if we haven't already touched a hand tile, return
         if(selectedView == null || v == null){
             return true;
         }

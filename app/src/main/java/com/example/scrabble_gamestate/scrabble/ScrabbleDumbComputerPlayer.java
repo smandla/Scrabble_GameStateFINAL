@@ -13,7 +13,7 @@ import java.util.Iterator;
 /**
  * A Dumb AI that plays words 50% of the time and skips its turn the other 50%.
  * The computer only plays words vertically, and only starting with the letter it finds, instead of
- * trying to make words with a found letter in any place in a them.
+ * trying to make words with a found letter in any place in them.
  *
  * @author Sydney Wells
  * @author Sarah Bunger
@@ -23,9 +23,11 @@ import java.util.Iterator;
  * */
 public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Tickable {
 
+    //letters in hand and on board
     ArrayList<Character> letters;
     String alreadyPlayedLetter = null;
     Tile alreadyPlayedTile = null;
+
     boolean foundWord = false;
     int player2 = playerNum;
 
@@ -66,6 +68,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
                 SkipTurnAction skip = new SkipTurnAction(this);
                 game.sendAction(skip);
             }
+            //when turn is not skipped, AI plays a word on board
             else {
                 findLocation();
             }

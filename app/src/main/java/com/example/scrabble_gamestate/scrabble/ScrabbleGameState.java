@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Vector;
+import android.os.Bundle;
+
 
 
 /**
@@ -548,14 +550,18 @@ public class ScrabbleGameState extends GameState {
 
     }
 
-    public boolean newGame(){
-        return true;
+    public boolean rulesGame(){
+        //Intent rulesIntent = new Intent(this., ScrabbleRules.class);
 
+
+        return true;
     }
+
 
     /**
      * Method that shows player rules of the game.
      */
+
     public boolean rulesOfGame(){
         return true;
     }

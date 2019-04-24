@@ -1,6 +1,11 @@
 package com.example.scrabble_gamestate.scrabble;
 
 
+
+import android.content.Context;
+import android.widget.Button;
+
+
 import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.GamePlayer;
@@ -28,6 +33,8 @@ import java.util.Scanner;
 public class ScrabbleMainActivity extends GameMainActivity {
 
     private static final int PORT_NUMBER = 2234;
+    private Button rulesButton;
+
 
 
     /**

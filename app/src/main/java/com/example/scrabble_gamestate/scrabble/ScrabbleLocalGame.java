@@ -112,11 +112,6 @@ public class ScrabbleLocalGame extends LocalGame {
             gameState.quitGame();
             return true;
         }
-        else if( action instanceof RulesAction)
-        {
-            gameState.rulesOfGame();
-            return true;
-        }
         else if( action instanceof PlayWordActionComputer)
         {
             gameState.playWordComputer(gameState.getTurn());

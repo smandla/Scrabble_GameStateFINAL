@@ -144,6 +144,7 @@ public abstract class GameMainActivity extends Activity implements
     protected final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Initialize the layout
         setContentView(R.layout.game_config_main);
 

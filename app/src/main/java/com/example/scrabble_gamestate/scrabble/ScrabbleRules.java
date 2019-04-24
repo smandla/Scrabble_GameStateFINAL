@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.ProxyGame;
 import com.example.scrabble_gamestate.game.Game;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.GamePlayer;

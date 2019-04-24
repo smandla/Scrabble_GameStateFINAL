@@ -1,7 +1,11 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -55,8 +59,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ImageButton tileSevenButton;
 
     private Button recallButton;
-    private Button quitGame;
+    private Button quitGameButton;
     private Button rulesButton;
+    private Button newGameButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
@@ -67,6 +72,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ScrabbleSurfaceView surface;
 
     MediaPlayer mediaPlayer;
+    private AlertDialog dialog;
     ScrabbleGameState latestState = new ScrabbleGameState();
 
     /**
@@ -186,6 +192,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     }//note: we used Meredith's Uno game from last semester as an example and reference
 
+
     /**
      * callback method--our game has been chosen/rechosen to be the GUI,
      * called from the GUI thread
@@ -201,6 +208,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
+        //music still works despite error being shown 
         mediaPlayer = MediaPlayer.create(activity.getApplicationContext(), R.raw.background_music);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);//makes the music repeat
@@ -258,18 +266,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         recallButton = activity.findViewById(R.id.recallTiles);
         recallButton.setOnClickListener(theController);
 
-        quitGame = activity.findViewById(R.id.QuitGame);
-        quitGame.setOnClickListener(theController);
-
-        rulesButton = activity.findViewById(R.id.rulesOfGames);
-        rulesButton.setOnClickListener(theController);
-
+        quitGameButton = activity.findViewById(R.id.QuitGame);
+        quitGameButton.setOnClickListener(theController);
 
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
 
 
     }
+
 
 }// class ScrabbleHumanPlayer
 
