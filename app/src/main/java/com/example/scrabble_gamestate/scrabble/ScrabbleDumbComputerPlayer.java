@@ -220,7 +220,7 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
         }
 
         //play the word
-        PlayWordAction play = new PlayWordAction(this);
+        PlayWordActionComputer play = new PlayWordActionComputer(this);
         game.sendAction(play);
     }
 }

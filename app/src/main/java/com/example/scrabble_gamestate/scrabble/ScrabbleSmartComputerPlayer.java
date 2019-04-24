@@ -208,7 +208,7 @@ public class ScrabbleSmartComputerPlayer extends ScrabbleDumbComputerPlayer {
         }
 
         //play the word
-        PlayWordAction play = new PlayWordAction(this);
+        PlayWordActionComputer play = new PlayWordActionComputer(this);
         game.sendAction(play);
     }
 }

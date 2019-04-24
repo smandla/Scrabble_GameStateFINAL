@@ -127,21 +127,26 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         ImageButton[] buttons = {tileOneButton, tileTwoButton, tileThreeButton, tileFourButton,
                 tileFiveButton, tileSixButton, tileSevenButton};
         //updates the image resources in the hand to match the value in the tile array
-        //TODO after alpha, need to deal with the possibility that human isn't player one
         //make each image button look like the tiles in the human player's hand
-        for (Tile t: state.getHand1()) {
-            int androidId = t.getAndroidId();
-            int index = state.getHand1().indexOf(t);
-            buttons[index].setImageResource(androidId);
+        try {
+            for (Tile t : state.getHandCurrent()) {
+                int androidId = t.getAndroidId();
+                int index = state.getHandCurrent().indexOf(t);
+                buttons[index].setImageResource(androidId);
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException ae)
+        {
+            //do nothing
         }
 
         //for each button...
         for(int i = 0; i < 7; i++){
             //if i is less than the length of hand,
-            int handLength = state.getHand1().size();
+            int handLength = state.getHandCurrent().size();
             if(i < handLength){
                 //find the corresponding thing in the hand and set the button to that
-                Tile correspondingTile = state.getHand1().get(i);
+                Tile correspondingTile = state.getHandCurrent().get(i);
                 int androidId = correspondingTile.getAndroidId();
                 buttons[i].setImageResource(androidId);
             }
@@ -200,6 +205,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         mediaPlayer = MediaPlayer.create(activity.getApplicationContext(), R.raw.background_music);
         mediaPlayer.start();
+        mediaPlayer.setLooping(true);//makes the music repeat
 
         surface = myActivity.findViewById(R.id.surfaceView);//tells the surface what activity to
         // look for
@@ -213,7 +219,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         playerTurn = activity.findViewById(R.id.whosTurn);
         tileBag = activity.findViewById(R.id.tilesRemainingText);
 
-        theController = new ScrabbleController(ourScore, opponentScore, playerTurn , state, game, this );
+        theController = new ScrabbleController(ourScore, opponentScore, playerTurn , state, game,
+                this );
 
         //sets the listeners for the gameplay buttons
         swapTileButton = activity.findViewById(R.id.swapTileButtton);
@@ -260,20 +267,10 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         rulesButton.setOnClickListener(theController);
 
 
-
-        // remember the field that we update to display the counter's value
-        /*this.counterValueTextView =
-                (TextView) activity.findViewById(R.id.counterValueTextView);*/
-
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
-        //activity.setContentView(R.layout.activity_main);
 
-        // if we have a game state, "simulate" that we have just received
-        // the state from the game so that the GUI values are updated
-//        if (state != null) {
-//            receiveInfo(state);
-//        }
+
     }
 
 }// class ScrabbleHumanPlayer

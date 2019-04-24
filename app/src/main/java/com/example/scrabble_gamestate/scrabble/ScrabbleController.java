@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -154,8 +155,43 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
                 if(selectedView != null)
                 {
-                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer,
-                            (int)selectedView.getX());
+                    int index = 0;
+                    //check which button has been selected and set that button's place in the
+                    //array to the index
+                    switch( selectedView.getId())
+                    {
+                        case R.id.tileOneButton:
+                            index = 0;
+                            break;
+
+                        case R.id.tileTwoButton:
+                            index = 1;
+                            break;
+
+                        case R.id.tileThreeButton:
+                            index = 2;
+                            break;
+
+                        case R.id.tileFourButton:
+                            index = 3;
+                            break;
+
+                        case R.id.tileFiveButton:
+                            index = 4;
+                            break;
+
+                        case R.id.tileSixButton:
+                            index = 5;
+                            break;
+
+                        case R.id.tileSevenButton:
+                            index = 6;
+                            break;
+
+                        default:
+                            break;
+                    }
+                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer,index);
                     ourGame.sendAction(swapTile);
 
                 }
@@ -166,12 +202,6 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
                 ShuffleTileAction shuffleAction = new ShuffleTileAction(ourPlayer);
                 ourGame.sendAction(shuffleAction);
-                break;
-
-            case R.id.dictionaryButton:
-
-                CheckDictionaryAction dictionaryAction = new CheckDictionaryAction(ourPlayer);
-                ourGame.sendAction(dictionaryAction);
                 break;
 
             case R.id.QuitGame:
@@ -220,32 +250,32 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
             //must say getHand1
             case R.id.tileOneButton:
-                t = ourGameState.getHand1().get(0);
+                t = ourGameState.getHandCurrent().get(0);
                 break;
 
             case R.id.tileTwoButton:
-                t = ourGameState.getHand1().get(1);
+                t = ourGameState.getHandCurrent().get(1);
                 break;
 
             case R.id.tileThreeButton:
-                t = ourGameState.getHand1().get(2);
+                t = ourGameState.getHandCurrent().get(2);
                 break;
 
             case R.id.tileFourButton:
-                t = ourGameState.getHand1().get(3);
+                t = ourGameState.getHandCurrent().get(3);
                 break;
 
             case R.id.tileFiveButton:
-                t = ourGameState.getHand1().get(4);
+                t = ourGameState.getHandCurrent().get(4);
                 break;
 
             case R.id.tileSixButton:
-                t = ourGameState.getHand1().get(5);
+                t = ourGameState.getHandCurrent().get(5);
                 break;
 
-                case R.id.tileSevenButton:
-                    t = ourGameState.getHand1().get(6);
-                    break;
+            case R.id.tileSevenButton:
+                 t = ourGameState.getHandCurrent().get(6);
+                 break;
 
             default:
                 break;

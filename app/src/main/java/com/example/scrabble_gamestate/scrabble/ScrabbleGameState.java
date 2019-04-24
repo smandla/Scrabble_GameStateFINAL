@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
 
@@ -106,6 +107,7 @@ public class ScrabbleGameState extends GameState {
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7); //should be hand0
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7); //should be hand1
     //shows the location of any tile placed on the board during one turn
+    private ArrayList<Tile> handCurrent = new ArrayList<Tile>(7);
     private ArrayList<Tile> onBoard;
 
     private Tile[][] board;
@@ -118,7 +120,8 @@ public class ScrabbleGameState extends GameState {
     private boolean enoughPlayers; //because of quit functionality, must make sure there's at least
     // 2 players
 
-    private static HashSet<String> dictionary = null;//the basic dictionary for playWord
+    private static HashSet<String> dictionary = null;//the basic dictionary for playWord computer
+    private static HashSet<String> humanDictionary = null;//the basic dictionary for playWord human
 
     /**
      * Constructor for objects of class ScrabbleGameState
@@ -287,6 +290,18 @@ public class ScrabbleGameState extends GameState {
     }
     //no hand2 setter needed
 
+    public ArrayList<Tile> getHandCurrent(){
+        if(turn == 0)
+        {
+            handCurrent = hand1;
+        }
+        else
+        {
+            handCurrent = hand2;
+        }
+        return handCurrent;
+    }
+
     public Tile[][] getBoard(){
         return board;
     }
@@ -330,6 +345,14 @@ public class ScrabbleGameState extends GameState {
 
     public HashSet<String> getDictionary(){
         return dictionary;
+    }
+
+    public void setHumanDictionary( HashSet<String> sentDict)
+    {
+        humanDictionary = sentDict;
+    }
+    public HashSet<String> getHumanDictionary(){
+        return humanDictionary;
     }
     //end of getters and setters
 
@@ -576,6 +599,58 @@ public class ScrabbleGameState extends GameState {
     public boolean rulesOfGame(){
         return true;
     }
+    /**
+     * Method that checks if there's an adjacent tile- helper method for placeTile.
+     * @param xPosition the x coordinate of the selected board tile
+     * @param yPosition the y coordinate of the selected board tile
+     */
+    public boolean checkIfAdjacent(int xPosition, int yPosition)
+    {   //checks if there's a tile to the left if its not on an edge
+        if(xPosition != 0 && this.board[xPosition-1][yPosition] != null)
+        {
+            return true;
+        }
+        //checks if there's a tile to the right if its not on an edge
+        if(xPosition != 14 && this.board[xPosition+1][yPosition] != null)
+        {
+            return true;
+        }
+        //checks if there's a tile above if its not on an edge
+        if(yPosition != 0 && this.board[xPosition][yPosition-1] != null)
+        {
+            return true;
+        }
+        //checks if there's a tile below if its not on an edge
+        if(yPosition != 14 && this.board[xPosition][yPosition+1] != null)
+        {
+            return true;
+        }
+        //for any tile that's been placed this round, see if it's adjacent to the one we're placing
+        for( Tile t: this.onBoard)
+        {
+            //checks if there's a tile to the right
+            if(t.getxCoord() == xPosition + 1 && t.getyCoord() == yPosition)
+            {
+                return true;
+            }
+            //checks if there's a tile to the left
+            if(t.getxCoord() == xPosition - 1 && t.getyCoord() == yPosition)
+            {
+                return true;
+            }
+            //checks if there's a tile above
+            if(t.getxCoord() == xPosition && t.getyCoord() == yPosition - 1)
+            {
+                return true;
+            }
+            //checks if there's a tile below
+            if(t.getxCoord() == xPosition && t.getyCoord() == yPosition + 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     /**
@@ -590,35 +665,41 @@ public class ScrabbleGameState extends GameState {
      */
     public boolean placeTile(int turnId, int xPosition, int yPosition, Tile tile) {
         if(turnId == turn) {
+            //checks if there's a tile where we're placing one
             if(board[xPosition][yPosition] == null) {
-                if(board[7][7] != null || (playerOneScore == 0 && playerZeroScore == 0)) {
-                    board[xPosition][yPosition] = tile;
-                    tile.setxCoord(xPosition);
-                    tile.setyCoord(yPosition);
-                    onBoard.add(tile);
+                //checks if the center tile is empty, or if we're playing on that tile
+                if(board[7][7] != null || (xPosition == 7 && yPosition == 7)) {
+                    //checks if its adjacent to at least one tile
+                    if( checkIfAdjacent(xPosition, yPosition) == true ||
+                            (xPosition == 7 && yPosition == 7) ) {
 
-                    //look through player's hand for a Tile that matches tile (parameter), using equals
-                    //if the two match, remove that one from the hand
-                    Tile removeMe = null;
+                        board[xPosition][yPosition] = tile;
+                        tile.setxCoord(xPosition);
+                        tile.setyCoord(yPosition);
+                        onBoard.add(tile);
 
-                    ArrayList<Tile> currentHand;
-                    if (turn == 0) {
-                        currentHand = hand1;
-                    } else {
-                        currentHand = hand2;
-                    }
-                    for (Tile t : currentHand) {
-                        if (t.getTileLetter() == tile.getTileLetter()) {
-                            removeMe = t;
+                        //look through player's hand for a Tile that matches tile (parameter),
+                        // using equals if the two match, remove that one from the hand
+                        Tile removeMe = null;
+
+                        ArrayList<Tile> currentHand;
+                        if (turn == 0) {
+                            currentHand = hand1;
+                        } else {
+                            currentHand = hand2;
                         }
+                        for (Tile t : currentHand) {
+                            if (t.getTileLetter() == tile.getTileLetter()) {
+                                removeMe = t;
+                            }
+                        }
+                        if (removeMe != null) {
+                            currentHand.remove(removeMe);
+                        }
+                        return true;
                     }
-                    if (removeMe != null) {
-                        currentHand.remove(removeMe);
-                    }
-
-
                 }
-                return true;
+                return false;
             }
             else
             {
@@ -669,10 +750,6 @@ public class ScrabbleGameState extends GameState {
             //iterates thru the onBoard array and adds all of them to the new board array
             for( Tile t: onBoard)
             {
-//                if(tempBoard[t.getxCoord()][t.getyCoord()] != null)
-//                {
-//                    return false;
-//                }
                 tempBoard[t.getxCoord()][t.getyCoord()] = t;
             }
             for(int row = 0; row < 15; row++)//Scan each row for horizontal words
@@ -687,18 +764,18 @@ public class ScrabbleGameState extends GameState {
                     }
                     else
                     {
-                        if (wordToCheck.length()>2)	//Ignore empty word, single letter
+                        if (wordToCheck.length()>= 2)//Ignore empty word, single letter
                             wordsPlayed.add(wordToCheck);
                         wordToCheck="";	//Clear wordToCheck for next time
 
                     }
 
                 }
-                if (wordToCheck.length()>1)	//One more time in case we're at the
+                if (wordToCheck.length()> 1)	//One more time in case we're at the
                     // rightmost edge
                     wordsPlayed.add(wordToCheck);
             }
-            for(int col = 0; col < 15; col++)//Scan each row for horizontal words
+            for(int col = 0; col < 15; col++)//Scan each row for vertical words
             {
                 String wordToCheck="";	//Start with empty word
                 for(int position = 0; position < 15; position++)
@@ -710,7 +787,7 @@ public class ScrabbleGameState extends GameState {
                     }
                     else
                     {
-                        if (wordToCheck.length()>2)	//Ignore empty word, single letter
+                        if (wordToCheck.length()>= 2)	//Ignore empty word, single letter
                             wordsPlayed.add(wordToCheck);
                         wordToCheck="";	//Clear wordToCheck for next time
 
@@ -723,7 +800,8 @@ public class ScrabbleGameState extends GameState {
             }
             for(String s: wordsPlayed)
             {
-                if(dictionary.contains(s) == false)//if its not a word, dont do it
+
+                if(humanDictionary.contains(s) == false)//if its not a word, dont do it
                 {
                     return false;
                 }
@@ -794,6 +872,147 @@ public class ScrabbleGameState extends GameState {
         }
 
     }//end playWord
+
+
+    /**
+     * Method that checks if it's the player's turn, and if so, resets the game state to match the
+     * current view of the board when the player presses the "Play" button, as well as switches the
+     * current turn and updates the score. This checks with the computer's version of the dictionary
+     *
+     * @param turnId the id of the player whose turn it is currently
+     */
+    public boolean playWordComputer(int turnId) {
+
+        if(turnId == turn && onBoard != null) {
+
+            Vector<String> wordsPlayed = new Vector<>();
+            Tile[][] tempBoard = new Tile[15][15];
+            this.copyBoard(this, tempBoard);
+            //iterates thru the onBoard array and adds all of them to the new board array
+            for( Tile t: onBoard)
+            {
+                tempBoard[t.getxCoord()][t.getyCoord()] = t;
+            }
+            for(int row = 0; row < 15; row++)//Scan each row for horizontal words
+            {
+                String wordToCheck="";	//Start with empty word
+                for(int position = 0; position < 15; position++)
+                {
+                    if(tempBoard[position][row] != null)//If we got a letter
+                    {
+                        wordToCheck+=tempBoard[position][row].getTileLetter();
+                        //Add it to the current word
+                    }
+                    else
+                    {
+                        if (wordToCheck.length()>= 2)//Ignore empty word, single letter
+                            wordsPlayed.add(wordToCheck);
+                        wordToCheck="";	//Clear wordToCheck for next time
+
+                    }
+
+                }
+                if (wordToCheck.length()> 1)	//One more time in case we're at the
+                    // rightmost edge
+                    wordsPlayed.add(wordToCheck);
+            }
+            for(int col = 0; col < 15; col++)//Scan each row for vertical words
+            {
+                String wordToCheck="";	//Start with empty word
+                for(int position = 0; position < 15; position++)
+                {
+                    if(tempBoard[col][position] != null)//If we got a letter
+                    {
+                        wordToCheck+=tempBoard[col][position].getTileLetter();
+                        //Add it to the current word
+                    }
+                    else
+                    {
+                        if (wordToCheck.length()>= 2)	//Ignore empty word, single letter
+                            wordsPlayed.add(wordToCheck);
+                        wordToCheck="";	//Clear wordToCheck for next time
+
+                    }
+
+                }
+                if (wordToCheck.length()>1)	//One more time in case we're at the
+                    // bottom-most edge
+                    wordsPlayed.add(wordToCheck);
+            }
+            for(String s: wordsPlayed)
+            {
+
+                if(dictionary.contains(s) == false)//if its not a word, dont do it
+                {
+                    return false;
+                }
+            }//note:Sydney's boyfriend Andrew helped with some of the array logic here,
+            // and also we went to Kearney's office hours
+
+
+
+            int counter = 0;
+            int wordBonusVal = 1;
+            for(Tile t: onBoard) {
+                wordBonusVal *= (wordBonuses[t.getxCoord()][t.getyCoord()]);
+                counter += letterBonuses[t.getxCoord()][t.getyCoord()] * t.getPointVal();
+
+                //the following if statements take care of letters that have already been played
+                //(so will not show up in onBoard) but must be added to the player's score
+
+                //add tile value to points if the space to the left of Tile t isn't empty and
+                //the Tile in that space isn't already in the list (each tile will almost
+                //always have at least one neighbor that's already part of the list, thanks to
+                //the connectedness of words)
+                try {
+
+                    if (board[t.getxCoord() - 1][t.getyCoord()] != null &&
+                            !onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()])) {
+                        counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
+                    }
+
+                    //tile above
+                    if (board[t.getxCoord()][t.getyCoord() + 1] != null &&
+                            !onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1])) {
+                        counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
+                    }
+
+                    //tile to the right
+                    if (board[t.getxCoord() + 1][t.getyCoord()] != null &&
+                            !onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()])) {
+                        counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
+                    }
+
+                    //tile below
+                    if (board[t.getxCoord()][t.getyCoord() - 1] != null &&
+                            !onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1])) {
+                        counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException exception)
+                {
+                    //do nothing
+                }
+            }
+
+            if(turn == 0) {
+                playerZeroScore += (counter * wordBonusVal);
+                turn++;
+                this.drawTile(hand1);
+            }
+            else {
+                playerOneScore += (counter * wordBonusVal);
+                turn--;
+                this.drawTile(hand2);
+            }
+            onBoard.clear();
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }//end playWordComputer
 
     /**
      * Method that checks if it's the player's turn, and if so, calls the SkipTurnAction class,

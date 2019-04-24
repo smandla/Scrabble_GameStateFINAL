@@ -59,6 +59,10 @@ public class ScrabbleLocalGame extends LocalGame {
         gameState.setDictionary(sentDict);
     }
 
+    public void setHumanDictionary(HashSet<String> sentDict){
+        gameState.setHumanDictionary(sentDict);
+    }
+
 
 
     /**
@@ -110,9 +114,13 @@ public class ScrabbleLocalGame extends LocalGame {
             gameState.rulesOfGame();
             return true;
         }
+        else if( action instanceof PlayWordActionComputer)
+        {
+            gameState.playWordComputer(gameState.getTurn());
+            return true;
+        }
         //else if
         return true; //placeholder
-        //TODO make recall tiles button and method
     }//makeMove
 
     /**
