@@ -6,9 +6,7 @@ import com.example.scrabble_gamestate.R;
 import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
-import com.example.scrabble_gamestate.game.LocalGame;
-import com.example.scrabble_gamestate.scrabble.ScrabbleLocalGame;
-import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,7 +25,7 @@ import android.os.Bundle;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class ScrabbleGameState extends GameState implements Serializable {
+public class ScrabbleGameState extends GameState {
 
     //constants: the point value of each tile
     final int A_VAL = 1;
@@ -94,6 +92,7 @@ public class ScrabbleGameState extends GameState implements Serializable {
     //instance variable
     private int playerZeroScore;
     private int playerOneScore;
+    private TextView whosTurn;
 
     private int playerZeroId;
     private int playerOneId;
@@ -171,9 +170,6 @@ public class ScrabbleGameState extends GameState implements Serializable {
 
         turn = state.turn;
         positionInHand = state.positionInHand;
-
-
-
         //new board
         board = new Tile[15][15];
         copyBoard(state, board);
@@ -708,9 +704,6 @@ public class ScrabbleGameState extends GameState implements Serializable {
      * Method that checks if it's the player's turn, and if so, resets the game state to match the
      * current view of the board when the player presses the "Play" button, as well as switches the
      * current turn and updates the score.
-     *
-     * Player 1 must place first tile in center of the board. Tiles can only be
-     *placed when there is another tile next to it.
      *
      * @param turnId the id of the player whose turn it is currently
      */
