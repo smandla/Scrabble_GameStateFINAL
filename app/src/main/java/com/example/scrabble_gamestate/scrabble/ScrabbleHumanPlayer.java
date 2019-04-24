@@ -132,7 +132,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 tileFiveButton, tileSixButton, tileSevenButton};
         //updates the image resources in the hand to match the value in the tile array
         //make each image button look like the tiles in the human player's hand
-
             for (Tile t : state.getHandCurrent()) {
                 int androidId = t.getAndroidId();
                 int index = state.getHandCurrent().indexOf(t);
@@ -153,7 +152,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 buttons[i].setImageResource(R.drawable.empty_spot_in_hand_indicator);
             }
         }
-
     }
 
     /**
