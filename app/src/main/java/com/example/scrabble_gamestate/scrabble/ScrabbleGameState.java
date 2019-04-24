@@ -551,31 +551,33 @@ public class ScrabbleGameState extends GameState {
     public boolean placeTile(int turnId, int xPosition, int yPosition, Tile tile) {
         if(turnId == turn) {
             if(board[xPosition][yPosition] == null) {
-                board[xPosition][yPosition] = tile;
-                tile.setxCoord(xPosition);
-                tile.setyCoord(yPosition);
-                onBoard.add(tile);
+                if(board[7][7] != null || (playerOneScore == 0 && playerZeroScore == 0)) {
+                    board[xPosition][yPosition] = tile;
+                    tile.setxCoord(xPosition);
+                    tile.setyCoord(yPosition);
+                    onBoard.add(tile);
 
-                //look through player's hand for a Tile that matches tile (parameter), using equals
-                //if the two match, remove that one from the hand
-                Tile removeMe = null;
+                    //look through player's hand for a Tile that matches tile (parameter), using equals
+                    //if the two match, remove that one from the hand
+                    Tile removeMe = null;
 
-                ArrayList<Tile> currentHand;
-                if(turn == 0){
-                    currentHand = hand1;
-                }
-                else{
-                    currentHand = hand2;
-                }
-                for (Tile t: currentHand) {
-                    if(t.getTileLetter() == tile.getTileLetter()){
-                        removeMe = t;
+                    ArrayList<Tile> currentHand;
+                    if (turn == 0) {
+                        currentHand = hand1;
+                    } else {
+                        currentHand = hand2;
                     }
-                }
-                if(removeMe != null) {
-                    currentHand.remove(removeMe);
-                }
+                    for (Tile t : currentHand) {
+                        if (t.getTileLetter() == tile.getTileLetter()) {
+                            removeMe = t;
+                        }
+                    }
+                    if (removeMe != null) {
+                        currentHand.remove(removeMe);
+                    }
 
+
+                }
                 return true;
             }
             else
@@ -703,27 +705,34 @@ public class ScrabbleGameState extends GameState {
                 //the Tile in that space isn't already in the list (each tile will almost
                 //always have at least one neighbor that's already part of the list, thanks to
                 //the connectedness of words)
-                if(board[t.getxCoord() - 1][t.getyCoord()] != null &&
-                        !onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()])){
-                    counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
-                }
+                try {
 
-                //tile above
-                if(board[t.getxCoord()][t.getyCoord() + 1] != null &&
-                        !onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1])){
-                    counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
-                }
+                    if (board[t.getxCoord() - 1][t.getyCoord()] != null &&
+                            !onBoard.contains(board[t.getxCoord() - 1][t.getyCoord()])) {
+                        counter += board[t.getxCoord() - 1][t.getyCoord()].getPointVal();
+                    }
 
-                //tile to the right
-                if(board[t.getxCoord() + 1][t.getyCoord()] != null &&
-                        !onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()])){
-                    counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
-                }
+                    //tile above
+                    if (board[t.getxCoord()][t.getyCoord() + 1] != null &&
+                            !onBoard.contains(board[t.getxCoord()][t.getyCoord() + 1])) {
+                        counter += board[t.getxCoord()][t.getyCoord() + 1].getPointVal();
+                    }
 
-                //tile below
-                if(board[t.getxCoord()][t.getyCoord() - 1] != null &&
-                        !onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1])){
-                    counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                    //tile to the right
+                    if (board[t.getxCoord() + 1][t.getyCoord()] != null &&
+                            !onBoard.contains(board[t.getxCoord() + 1][t.getyCoord()])) {
+                        counter += board[t.getxCoord() + 1][t.getyCoord()].getPointVal();
+                    }
+
+                    //tile below
+                    if (board[t.getxCoord()][t.getyCoord() - 1] != null &&
+                            !onBoard.contains(board[t.getxCoord()][t.getyCoord() - 1])) {
+                        counter += board[t.getxCoord()][t.getyCoord() - 1].getPointVal();
+                    }
+                }
+                catch (ArrayIndexOutOfBoundsException exception)
+                {
+                        //do nothing
                 }
             }
 

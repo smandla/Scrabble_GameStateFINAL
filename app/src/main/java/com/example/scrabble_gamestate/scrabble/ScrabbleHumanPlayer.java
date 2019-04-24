@@ -29,7 +29,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     /* instance variables */
 
-    // The TextView the displays the current counter value
 
     private TextView ourScore;
     private TextView opponentScore;
@@ -71,7 +70,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     ScrabbleGameState latestState = new ScrabbleGameState();
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
-    //bool skipped  start it out as false; ever ytime they skip, check to see if true (if so,
+    //bool skipped  start it out as false; everytime they skip, check to see if true (if so,
     // forfeit); pop up yes/no
     //dialog asking if they actually want to forfeit, then send a quitgameaction instead
 
@@ -103,6 +102,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     public View getTopView() {
         return myActivity.findViewById(R.id.top_gui_layout);
     }
+
+    public GameMainActivity getActivity(){ return myActivity;}
 
     /**
      * displays the current player's hand to that player

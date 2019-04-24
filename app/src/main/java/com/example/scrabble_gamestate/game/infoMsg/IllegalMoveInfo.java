@@ -12,20 +12,10 @@ import com.example.scrabble_gamestate.scrabble.ScrabbleGameState;
  */
 public class IllegalMoveInfo extends GameInfo {
 
-    private ScrabbleGameState gameState;
-
-    private int turnId;
-
     // to satisfy Serializable interface
     private static final long serialVersionUID = 7165334825841353190L;
 
-    protected String checkifValid() {
-        if (gameState.playWord(turnId) != true) {
-            return "Your word is not a word.";
-        } else {
-            return null;
-        }
-    }
+
 
 }
 
