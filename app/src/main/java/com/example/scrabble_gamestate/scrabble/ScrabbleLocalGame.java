@@ -172,37 +172,31 @@ public class ScrabbleLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
+        if(gameState.getTileBag().size() == 0) {
 
-        if(gameState.getHand1().size() > 0 && gameState.getHand2().size() > 0){
-            //both players still have tiles in their hands
-            //TODO figure out way to track # consecutive skips (for after alpha)
+            //even if the tile bag is empty, we can still play if both people have tiles in hand
+            if (gameState.getHand1().size() > 0 && gameState.getHand2().size() > 0) {
+                //both players still have tiles in their hands
+                return null;
+            }
+            else {
+                //at least one of the players has run out of tiles
 
-            /*if(player1 skipped multiple times in a row){
-                return playerNames[1]+" has won."; //player 1 forfeits
-            }
-            else if(player2 skipped multiple times in a row){
-                return playerNames[0]+" has won."; //player 2 forfeits
-            }
-            else{
-                return null; //nobody has forfeited yet and tiles remain
-            }*/
-            return null; //placeholder
-        }
-        else{
-            //at least one of the players has run out of tiles
-
-            //whichever player has a larger score wins
-            if(gameState.getPlayerZeroScore() > gameState.getPlayerOneScore()){
-                return playerNames[0]+" has won.";
-            }
-            else if (gameState.getPlayerZeroScore() < gameState.getPlayerOneScore()){
-                return playerNames[1]+" has won.";
-            }
-            else{
-                //account for the unusual case in which they have the same score
-                return "Tie!";
+                //whichever player has a larger score wins
+                if (gameState.getPlayerZeroScore() > gameState.getPlayerOneScore()) {
+                    return playerNames[0] + " has won.";
+                }
+                else if (gameState.getPlayerZeroScore() < gameState.getPlayerOneScore()) {
+                    return playerNames[1] + " has won.";
+                }
+                else {
+                    //account for the unusual case in which they have the same score
+                    return "Tie!";
+                }
             }
         }
+
+        return null;
     }
 
 }// class ScrabbleLocalGame
