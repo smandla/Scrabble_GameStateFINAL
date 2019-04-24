@@ -88,6 +88,7 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //determine if any of the tiles have been touched
             case R.id.tileOneButton:
 
+                //prevents user from actually placing any of the red X indicators
                 if(ourGameState.getHandCurrent().size() >= 1) {
 
                     selectedView = button;
