@@ -152,7 +152,13 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
 
             case R.id.swapTileButtton:
 
-                selectedView = button;
+                if(selectedView != null)
+                {
+                    ExchangeTileAction swapTile = new ExchangeTileAction(ourPlayer,
+                            (int)selectedView.getX());
+                    ourGame.sendAction(swapTile);
+
+                }
 
                 break;
 
