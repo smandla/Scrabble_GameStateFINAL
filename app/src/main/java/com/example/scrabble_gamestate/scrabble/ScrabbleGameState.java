@@ -100,7 +100,6 @@ public class ScrabbleGameState extends GameState {
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7); //should be hand0
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7); //should be hand1
-    private ArrayList<Tile> handCurrent;
 
     //shows the location of any tile placed on the board during one turn
     private ArrayList<Tile> onBoard;
@@ -284,17 +283,24 @@ public class ScrabbleGameState extends GameState {
         return hand2;
     }
     //no hand2 setter needed
-
+    /**
+     * External Citation
+     * Date: 24 April 2019
+     * Problem: handCurrent wasn't updating with hands 1 and 2
+     * Resource: Dr. Tribelhorn
+     * Solution: instead of an instance variable, called getter method instead,
+     * and had getter method return hand1 or hand2
+     */
     public ArrayList<Tile> getHandCurrent(){
         if(turn == 0)
         {
-            handCurrent = hand1;
+            return hand1;
         }
         else
         {
-            handCurrent = hand2;
+            return hand2;
         }
-        return handCurrent;
+
     }
 
     public Tile[][] getBoard(){
@@ -683,7 +689,7 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn && onBoard != null) {
             for(Tile t: onBoard) {
                 board[t.getxCoord()][t.getyCoord()] = null;
-                hand1.add(t);
+                getHandCurrent().add(t);
             }
             onBoard.clear();
             return true;
@@ -966,12 +972,12 @@ public class ScrabbleGameState extends GameState {
             if(turn == 0) {
                 playerZeroScore += (counter * wordBonusVal);
                 turn++;
-                this.drawTile(hand1);
+                this.drawTile(getHandCurrent());
             }
             else {
                 playerOneScore += (counter * wordBonusVal);
                 turn--;
-                this.drawTile(hand2);
+                this.drawTile(getHandCurrent());
             }
             onBoard.clear();
             return true;
@@ -1017,10 +1023,10 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn){
             this.recallTiles(turnId);
             if(turn == 0) {
-                Collections.shuffle(hand1);
+                Collections.shuffle(getHandCurrent());
             }
             else {
-                Collections.shuffle(hand2);
+                Collections.shuffle(getHandCurrent());
             }
             return true;
         }
@@ -1040,15 +1046,15 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn){
             this.recallTiles(turnId);
             if(turn == 0) {
-                tileBag.add(hand1.get(position));
-                hand1.remove(position);
-                this.drawTile(hand1);
+                tileBag.add(getHandCurrent().get(position));
+                getHandCurrent().remove(position);
+                this.drawTile(getHandCurrent());
             }
             else
             {
-                tileBag.add(hand2.get(position));
-                hand2.remove(position);
-                this.drawTile(hand2);
+                tileBag.add(getHandCurrent().get(position));
+                getHandCurrent().remove(position);
+                this.drawTile(getHandCurrent());
             }
             return true;
         }
