@@ -1,6 +1,8 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
@@ -13,6 +15,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Vector;
+
+import static android.support.v4.content.ContextCompat.startActivity;
+
 /**
  *The State of the game. Includes values for all tiles, the tile bag, and each square on the board.
  *
@@ -557,6 +562,11 @@ public class ScrabbleGameState extends GameState {
         //enoughPlayers = false;
 
         return true; //should always remain true, because you should be able to quit whenever
+
+    }
+
+    public boolean newGame(){
+        return true;
 
     }
 

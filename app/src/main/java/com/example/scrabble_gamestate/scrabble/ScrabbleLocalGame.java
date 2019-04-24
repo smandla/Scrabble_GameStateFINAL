@@ -1,5 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.media.MediaPlayer;
+
 import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.LocalGame;
 import com.example.scrabble_gamestate.game.Tile;
@@ -26,6 +28,7 @@ public class ScrabbleLocalGame extends LocalGame {
     private Tile selectedTile;
     private int turnId;
 
+    private MediaPlayer mediaPlayer;
     /**
      * This actor should be called when a new scrabble game is started
      */

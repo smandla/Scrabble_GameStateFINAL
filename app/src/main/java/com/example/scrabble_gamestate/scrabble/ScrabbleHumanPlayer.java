@@ -1,5 +1,6 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.media.MediaPlayer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +12,7 @@ import com.example.scrabble_gamestate.game.GameHumanPlayer;
 import com.example.scrabble_gamestate.game.GameMainActivity;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameInfo;
+import com.example.scrabble_gamestate.game.LocalGame;
 
 /**
  *This is the human player for the Scrabble Game. It makes sure the current player gets the info
@@ -56,6 +58,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     private Button recallButton;
     private Button quitGame;
+    private Button rulesButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
@@ -65,6 +68,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     //the surfaceView we're drawing on
     private ScrabbleSurfaceView surface;
 
+    MediaPlayer mediaPlayer;
     ScrabbleGameState latestState = new ScrabbleGameState();
 
     //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
@@ -107,11 +111,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     protected void updateDisplay() {
         //updates the gui to match the current turn and score
         if(state.getTurn() == 0) {
-            this.playerTurn.setText("It is player 1's turn");
+            this.playerTurn.setText("It is Player 1's Turn");
         }
         else
         {
-            this.playerTurn.setText("It is player 2's turn");
+            this.playerTurn.setText("It is Player 2's Turn");
         }
 
 
@@ -194,6 +198,9 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
+        mediaPlayer = MediaPlayer.create(activity.getApplicationContext(), R.raw.background_music);
+        mediaPlayer.start();
+
         surface = myActivity.findViewById(R.id.surfaceView);//tells the surface what activity to
         // look for
 
@@ -248,6 +255,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         quitGame = activity.findViewById(R.id.QuitGame);
         quitGame.setOnClickListener(theController);
+
+        rulesButton = activity.findViewById(R.id.rulesOfGames);
+        rulesButton.setOnClickListener(theController);
+
+
 
         // remember the field that we update to display the counter's value
         /*this.counterValueTextView =
