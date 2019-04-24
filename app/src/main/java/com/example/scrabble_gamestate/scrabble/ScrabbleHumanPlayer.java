@@ -177,8 +177,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         theController.setGame(this.game);
        // scrabbleRulesButton.setGame(this.game);
 
-
-
         updateDisplay();
 
         surface.setState((ScrabbleGameState) info);//makes sure the state isn't null
@@ -267,7 +265,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
-
 
     }
 

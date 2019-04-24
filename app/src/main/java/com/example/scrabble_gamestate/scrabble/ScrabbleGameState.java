@@ -100,8 +100,9 @@ public class ScrabbleGameState extends GameState {
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7); //should be hand0
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7); //should be hand1
+    private ArrayList<Tile> handCurrent;
+
     //shows the location of any tile placed on the board during one turn
-    private ArrayList<Tile> handCurrent = new ArrayList<Tile>(7);
     private ArrayList<Tile> onBoard;
 
     private Tile[][] board;

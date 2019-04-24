@@ -88,37 +88,58 @@ public class ScrabbleController implements View.OnTouchListener, View.OnClickLis
             //determine if any of the tiles have been touched
             case R.id.tileOneButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() >= 1) {
+
+                    selectedView = button;
+                }
                 break;
 
             case R.id.tileTwoButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() >= 2) {
+
+                    selectedView = button;
+                }
                 break;
 
             case R.id.tileThreeButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() >= 3) {
+
+                    selectedView = button;
+                }
                 break;
 
             case R.id.tileFourButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() >= 4) {
+
+                    selectedView = button;
+                }
                 break;
 
             case R.id.tileFiveButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() >= 5) {
+
+                    selectedView = button;
+                }
                 break;
 
             case R.id.tileSixButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() >= 6) {
+
+                    selectedView = button;
+                }
                 break;
 
             case R.id.tileSevenButton:
 
-                selectedView = button;
+                if(ourGameState.getHandCurrent().size() == 7) {
+
+                    selectedView = button;
+                }
                 break;
 
             //the next cases check if its a certain action type and then send that action
