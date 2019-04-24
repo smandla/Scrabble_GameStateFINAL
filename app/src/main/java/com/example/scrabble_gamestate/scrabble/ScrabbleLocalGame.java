@@ -126,15 +126,9 @@ public class ScrabbleLocalGame extends LocalGame {
             gameState = new ScrabbleGameState();
         }
 
-        //TODO implement how to copy without letting players know each others
-        //aka make a tiles that aren't real tiles and fill the opponents hand with as many of those
-        //as they had of real tiles
-
-        // make a copy of the state; null out all cards except for the
-        // top card in the middle deck
         ScrabbleGameState stateForPlayer = new ScrabbleGameState(gameState); // copy of state
-        //TODO read this method
-        //stateForPlayer.preventCheating(); // put nulls except for visible card
+
+        stateForPlayer.preventCheating();
 
         // send the modified copy of the state to the player
         p.sendInfo(stateForPlayer);

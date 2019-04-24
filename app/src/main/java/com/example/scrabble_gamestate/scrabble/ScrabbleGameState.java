@@ -855,4 +855,27 @@ public class ScrabbleGameState extends GameState {
         }
     }
 
+    /**
+     * Replaces each tile in the opponent's hand with a fake one (not to be confused with a blank)
+     * so that we can still check the win condition (running out of tiles after the tile bag is
+     * empty) while preventing players from knowing what tiles their opponent has
+     */
+    public void preventCheating(){
+        ArrayList<Tile> opponentHand;
+
+        Tile genericTile = new Tile(-1, '#', R.drawable.empty_spot_in_hand_indicator);
+
+        if(this.turn == 0){
+            opponentHand = hand2;
+        }
+        else{
+            opponentHand = hand1;
+        }
+
+        for(int i = 0; i < opponentHand.size(); i++){
+            opponentHand.remove(i);
+            opponentHand.add(genericTile);
+        }
+    }
+
 }
