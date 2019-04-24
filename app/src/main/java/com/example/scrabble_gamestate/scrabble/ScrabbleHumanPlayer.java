@@ -69,11 +69,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     MediaPlayer mediaPlayer;
     ScrabbleGameState latestState = new ScrabbleGameState();
 
-    //TODO for after alpha, deal with the unusual case where players can't get rid of their letters
-    //bool skipped  start it out as false; everytime they skip, check to see if true (if so,
-    // forfeit); pop up yes/no
-    //dialog asking if they actually want to forfeit, then send a quitgameaction instead
-
     /**
      * constructor
      * @param name
@@ -109,6 +104,15 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
      * displays the current player's hand to that player
      */
     protected void updateDisplay() {
+
+        /**
+         * External Citation
+         * Date: 10 March 2019
+         * Reason: Struggled to understand how to update GUI to show the human player's hand
+         * Resource: Kyle Kearney, lab professor
+         * Solution: He helped us to understand what was going on in the game framework to get this
+         * the GUI to update.
+         */
         //updates the gui to match the current turn and score
         if(state.getTurn() == 0) {
             this.playerTurn.setText("It is Player 1's Turn");
@@ -128,17 +132,11 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 tileFiveButton, tileSixButton, tileSevenButton};
         //updates the image resources in the hand to match the value in the tile array
         //make each image button look like the tiles in the human player's hand
-        try {
             for (Tile t : state.getHandCurrent()) {
                 int androidId = t.getAndroidId();
                 int index = state.getHandCurrent().indexOf(t);
                 buttons[index].setImageResource(androidId);
             }
-        }
-        catch (ArrayIndexOutOfBoundsException ae)
-        {
-            //do nothing
-        }
 
         //for each button...
         for(int i = 0; i < 7; i++){

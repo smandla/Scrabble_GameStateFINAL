@@ -1,8 +1,5 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
@@ -10,14 +7,11 @@ import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Vector;
 
-import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  *The State of the game. Includes values for all tiles, the tile bag, and each square on the board.
@@ -540,40 +534,6 @@ public class ScrabbleGameState extends GameState {
         }
     }//drawTile
 
-    @Override
-    public String toString() {
-
-        String str = "Player One's Score: " + playerZeroScore + "\nPlayer Two's Score: "
-                + playerOneScore + "\nPlayer One's ID: " + playerZeroId + "\nPlayer Two's ID: "
-                + playerOneId + "\nTurn: " + turn + "\n Enough players? " + enoughPlayers + "\n " +
-                "Game Won? " + gameWon + "\n Tile Bag after shuffling: ";
-
-        for (Tile t: tileBag) {
-            str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
-
-        }
-
-        str = str + "\n Hand 1: ";
-        for (Tile t: hand1) {
-            str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
-        }
-
-        str = str + "\n Hand 2: ";
-        for (Tile t: hand2) {
-            str = str + "\nPoints: " + t.getPointVal() + " Letter: " + t.getTileLetter();
-        }
-
-        for (int i = 0; i < 15; i++) {
-            //returns after every row, so board prints in a 15 x 15 grid
-            str = str + "\n" + i + " ";
-
-            for (int j = 0; j < 15; j++) {
-                str = str + board[i][j] + " ";
-            }
-        }
-
-        return str;
-    }
 
     /**
      * Method that halts the game, reverting it to the original game state
@@ -742,6 +702,15 @@ public class ScrabbleGameState extends GameState {
      */
     public boolean playWord(int turnId) {
 
+        /**
+         * External Citation
+         * Date: 15 March 2019
+         * Reason: Struggles with logic of checking to make sure that the words were valid
+         * Resources: Sydney's boyfriend Andrew; Kyle Kearney
+         * Solution: Both assisted with walking through the logic involved in this method and
+         * offered guidance on how to approach the problem.
+         */
+
         if(turnId == turn && onBoard != null) {
 
             Vector<String> wordsPlayed = new Vector<>();
@@ -805,8 +774,7 @@ public class ScrabbleGameState extends GameState {
                 {
                     return false;
                 }
-            }//note:Sydney's boyfriend Andrew helped with some of the array logic here,
-            // and also we went to Kearney's office hours
+            }
 
 
 
@@ -946,8 +914,7 @@ public class ScrabbleGameState extends GameState {
                 {
                     return false;
                 }
-            }//note:Sydney's boyfriend Andrew helped with some of the array logic here,
-            // and also we went to Kearney's office hours
+            }
 
 
 
@@ -1111,6 +1078,29 @@ public class ScrabbleGameState extends GameState {
         }
         else {
             return false;
+        }
+    }
+
+    /**
+     * Replaces each tile in the opponent's hand with a fake one (not to be confused with a blank)
+     * so that we can still check the win condition (running out of tiles after the tile bag is
+     * empty) while preventing players from knowing what tiles their opponent has
+     */
+    public void preventCheating(){
+        ArrayList<Tile> opponentHand;
+
+        Tile genericTile = new Tile(-1, '#', R.drawable.empty_spot_in_hand_indicator);
+
+        if(this.turn == 0){
+            opponentHand = hand2;
+        }
+        else{
+            opponentHand = hand1;
+        }
+
+        for(int i = 0; i < opponentHand.size(); i++){
+            opponentHand.remove(i);
+            opponentHand.add(genericTile);
         }
     }
 

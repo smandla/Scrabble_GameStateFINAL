@@ -9,7 +9,7 @@ import com.example.scrabble_gamestate.game.actionMsg.GameAction;
  *
  * @author Sydney Wells
  * @author Sarah Bunger
- * @author Kavva Mandla
+ * @author Kavya Mandla
  * @author Meredith Marcinko
  * @version February 2019
  */
@@ -18,7 +18,7 @@ public class ExchangeTileAction extends GameAction {
     private int pos; //position in hand of tile to be swapped
 
     /**
-     * constructor for GameAction
+     * constructor
      *
      * @param player the player who created the action
      */

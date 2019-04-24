@@ -11,6 +11,8 @@ import com.example.scrabble_gamestate.game.config.GamePlayerType;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import com.example.scrabble_gamestate.game.config.GamePlayerType;
+
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -28,7 +30,11 @@ public class ScrabbleMainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2234;
 
 
-
+    /**
+     * establishes the game's default configuration of player names and types
+     *
+     * @return the game's configuration
+     */
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
@@ -65,6 +71,8 @@ public class ScrabbleMainActivity extends GameMainActivity {
     /**
      * loads the dictionary file in
      *
+     * @return the hashset containing all the strings (words) in the dictionary file
+     *
      */
     public HashSet<String> loadDictionary()
     {
@@ -81,6 +89,8 @@ public class ScrabbleMainActivity extends GameMainActivity {
     }
     /**
      * loads the human dictionary file in
+     *
+     * @return the hashset containing all the strings (words) in the human_dictionary file
      *
      */
     public HashSet<String> loadHumanDictionary()

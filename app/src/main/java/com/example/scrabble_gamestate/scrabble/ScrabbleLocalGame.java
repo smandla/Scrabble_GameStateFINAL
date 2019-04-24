@@ -16,7 +16,7 @@ import java.util.HashSet;
  *
  * @author Sydney Wells
  * @author Sarah Bunger
- * @author Kavva Mandla
+ * @author Kavya Mandla
  * @author Meredith Marcinko
  * @version February 2019
  */
@@ -29,20 +29,21 @@ public class ScrabbleLocalGame extends LocalGame {
     private int turnId;
 
     private MediaPlayer mediaPlayer;
+
     /**
-     * This actor should be called when a new scrabble game is started
+     * constructor
      */
     public ScrabbleLocalGame() {
         // initialize the game state, with all default start values
         this.gameState = new ScrabbleGameState();
     }
+
     /**
      * can this player move
      *
      * @return
      * 		true if the index param is the same as the turnID in the game state and false if not
      */
-
     @Override
     public boolean canMove(int playerIdx) {
         if(gameState.getTurn() == playerIdx)
@@ -55,6 +56,7 @@ public class ScrabbleLocalGame extends LocalGame {
         }
     }
 
+    //setter method
     public void setDictionary(HashSet<String> sentDict){
         gameState.setDictionary(sentDict);
     }
@@ -74,6 +76,7 @@ public class ScrabbleLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
 
+        //determine what type of action it is and call the appropriate method
         if(action instanceof ExchangeTileAction){
             gameState.exchangeTile(gameState.getTurn(), ((ExchangeTileAction) action).getPos());
             return true;
@@ -120,30 +123,23 @@ public class ScrabbleLocalGame extends LocalGame {
             return true;
         }
         //else if
-        return true; //placeholder
+        return true;
     }//makeMove
 
     /**
      * sends the updated state to the given player and makes a copy of the appropriate hand,
-     * and nulls out all the cards except the top card
-     * in the middle deck, since that's the only one they can "see"
+     * and places dummy tiles in the other player's hand to prevent cheating
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
-        // if there is no state to send, ignore
+        //if there is no state to send, ignore
         if (gameState == null) {
             gameState = new ScrabbleGameState();
         }
 
-        //TODO implement how to copy without letting players know each others
-        //aka make a tiles that aren't real tiles and fill the opponents hand with as many of those
-        //as they had of real tiles
-
-        // make a copy of the state; null out all cards except for the
-        // top card in the middle deck
         ScrabbleGameState stateForPlayer = new ScrabbleGameState(gameState); // copy of state
-        //TODO read this method
-        //stateForPlayer.preventCheating(); // put nulls except for visible card
+
+        stateForPlayer.preventCheating();
 
         // send the modified copy of the state to the player
         p.sendInfo(stateForPlayer);
