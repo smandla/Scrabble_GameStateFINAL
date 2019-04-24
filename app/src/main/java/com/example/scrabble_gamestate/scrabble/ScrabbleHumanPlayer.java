@@ -29,8 +29,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     /* instance variables */
 
-    // The TextView the displays the current counter value
-    private TextView counterValueTextView;
 
     private TextView ourScore;
     private TextView opponentScore;
@@ -104,6 +102,8 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     public View getTopView() {
         return myActivity.findViewById(R.id.top_gui_layout);
     }
+
+    public GameMainActivity getActivity(){ return myActivity;}
 
     /**
      * displays the current player's hand to that player
