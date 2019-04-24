@@ -621,6 +621,15 @@ public class ScrabbleGameState extends GameState {
      */
     public boolean playWord(int turnId) {
 
+        /**
+         * External Citation
+         * Date: 15 March 2019
+         * Reason: Struggles with logic of checking to make sure that the words were valid
+         * Resources: Sydney's boyfriend Andrew; Kyle Kearney
+         * Solution: Both assisted with walking through the logic involved in this method and
+         * offered guidance on how to approach the problem.
+         */
+
         if(turnId == turn && onBoard != null) {
 
             Vector<String> wordsPlayed = new Vector<>();
@@ -683,12 +692,11 @@ public class ScrabbleGameState extends GameState {
             }
             for(String s: wordsPlayed)
             {
-                if(dictionary.contains(s) == false)//if its not a word, dont do it
+                if(dictionary.contains(s) == false)//if its not a word, don't do it
                 {
                     return false;
                 }
-            }//note:Sydney's boyfriend Andrew helped with some of the array logic here,
-            // and also we went to Kearney's office hours
+            }
 
 
 

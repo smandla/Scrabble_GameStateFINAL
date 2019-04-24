@@ -169,8 +169,11 @@ public class ScrabbleDumbComputerPlayer extends GameComputerPlayer implements Ti
 
             legalWord = true;
 
-            //make sure that the first letters match
-            if(testWord.length() <= length + 1 && testWord.length() > 0){
+            //make sure we don't try to play something longer than we have room for
+            //also, limit the length of words that can be played since it's "dumb"
+            if(testWord.length() <= length + 1 && testWord.length() > 0 && testWord.length() <= 4){
+
+                //make sure that the first letters match
                 if(testWord.charAt(0) == alreadyPlayed.getTileLetter()){
 
                     //start at the second letter of the word, since the first is already played
