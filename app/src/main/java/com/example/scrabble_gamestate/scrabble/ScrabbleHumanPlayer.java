@@ -1,11 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.media.MediaPlayer;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -61,7 +57,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private Button recallButton;
     private Button quitGameButton;
     private Button rulesButton;
-    private Button newGameButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
@@ -72,7 +67,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ScrabbleSurfaceView surface;
 
     MediaPlayer mediaPlayer;
-    private AlertDialog dialog;
     ScrabbleGameState latestState = new ScrabbleGameState();
 
     /**
@@ -138,6 +132,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 tileFiveButton, tileSixButton, tileSevenButton};
         //updates the image resources in the hand to match the value in the tile array
         //make each image button look like the tiles in the human player's hand
+
             for (Tile t : state.getHandCurrent()) {
                 int androidId = t.getAndroidId();
                 int index = state.getHandCurrent().indexOf(t);
@@ -158,6 +153,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 buttons[i].setImageResource(R.drawable.empty_spot_in_hand_indicator);
             }
         }
+
     }
 
     /**
@@ -191,7 +187,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         surface.invalidate();//updates the gui view
 
     }//note: we used Meredith's Uno game from last semester as an example and reference
-
 
     /**
      * callback method--our game has been chosen/rechosen to be the GUI,
@@ -271,8 +266,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
-
-
 
     }
 
