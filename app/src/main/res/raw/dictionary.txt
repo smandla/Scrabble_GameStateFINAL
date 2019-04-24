@@ -1,4 +1,3 @@
-
 abdomen
 abduct
 abducts
@@ -85,7 +84,6 @@ acute
 acutely
 acuter
 acutes
-ad
 adept
 adeptly
 adepts
