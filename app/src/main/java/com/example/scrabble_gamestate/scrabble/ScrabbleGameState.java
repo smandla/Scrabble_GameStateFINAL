@@ -1,19 +1,13 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
-import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
-import com.example.scrabble_gamestate.game.LocalGame;
-import com.example.scrabble_gamestate.scrabble.ScrabbleLocalGame;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Vector;
-import android.os.Bundle;
 
 
 
@@ -27,7 +21,7 @@ import android.os.Bundle;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class ScrabbleGameState extends GameState implements Serializable {
+public class ScrabbleGameState extends GameState{
 
     //constants: the point value of each tile
     final int A_VAL = 1;
@@ -985,12 +979,12 @@ public class ScrabbleGameState extends GameState implements Serializable {
             if(turn == 0) {
                 playerZeroScore += (counter * wordBonusVal);
                 turn++;
-                this.drawTile(getHandCurrent());
+                this.drawTile(hand1);
             }
             else {
                 playerOneScore += (counter * wordBonusVal);
                 turn--;
-                this.drawTile(getHandCurrent());
+                this.drawTile(hand2);
             }
             onBoard.clear();
             return true;
