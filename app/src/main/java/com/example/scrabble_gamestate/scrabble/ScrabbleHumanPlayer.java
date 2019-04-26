@@ -1,11 +1,7 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.media.MediaPlayer;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -61,7 +57,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private Button recallButton;
     private Button quitGameButton;
     private Button rulesButton;
-    private Button newGameButton;
     // the most recent game state, as given to us by the ScrabbleLocalGame
     private ScrabbleGameState state;
 
@@ -72,7 +67,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
     private ScrabbleSurfaceView surface;
 
     MediaPlayer mediaPlayer;
-    private AlertDialog dialog;
     ScrabbleGameState latestState = new ScrabbleGameState();
 
     /**
@@ -138,24 +132,27 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
                 tileFiveButton, tileSixButton, tileSevenButton};
         //updates the image resources in the hand to match the value in the tile array
         //make each image button look like the tiles in the human player's hand
+
+        if(this.playerNum == state.getTurn()) {
+
             for (Tile t : state.getHandCurrent()) {
                 int androidId = t.getAndroidId();
                 int index = state.getHandCurrent().indexOf(t);
                 buttons[index].setImageResource(androidId);
             }
 
-        //for each button...
-        for(int i = 0; i < 7; i++){
-            //if i is less than the length of hand,
-            int handLength = state.getHandCurrent().size();
-            if(i < handLength){
-                //find the corresponding thing in the hand and set the button to that
-                Tile correspondingTile = state.getHandCurrent().get(i);
-                int androidId = correspondingTile.getAndroidId();
-                buttons[i].setImageResource(androidId);
-            }
-            else{
-                buttons[i].setImageResource(R.drawable.empty_spot_in_hand_indicator);
+            //for each button...
+            for (int i = 0; i < 7; i++) {
+                //if i is less than the length of hand,
+                int handLength = state.getHandCurrent().size();
+                if (i < handLength) {
+                    //find the corresponding thing in the hand and set the button to that
+                    Tile correspondingTile = state.getHandCurrent().get(i);
+                    int androidId = correspondingTile.getAndroidId();
+                    buttons[i].setImageResource(androidId);
+                } else {
+                    buttons[i].setImageResource(R.drawable.empty_spot_in_hand_indicator);
+                }
             }
         }
     }
@@ -192,7 +189,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
     }//note: we used Meredith's Uno game from last semester as an example and reference
 
-
     /**
      * callback method--our game has been chosen/rechosen to be the GUI,
      * called from the GUI thread
@@ -208,7 +204,7 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
         // Load the layout resource for our GUI
         activity.setContentView(R.layout.activity_main);
 
-        //music still works despite error being shown 
+        //music still works despite error being shown
         mediaPlayer = MediaPlayer.create(activity.getApplicationContext(), R.raw.background_music);
         mediaPlayer.start();
         mediaPlayer.setLooping(true);//makes the music repeat
@@ -271,7 +267,6 @@ public class ScrabbleHumanPlayer extends GameHumanPlayer {
 
         surface = myActivity.findViewById(R.id.surfaceView);
         surface.setOnTouchListener(theController);
-
 
     }
 

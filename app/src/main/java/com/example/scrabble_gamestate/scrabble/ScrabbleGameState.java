@@ -1,17 +1,13 @@
 package com.example.scrabble_gamestate.scrabble;
 
-import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
-import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Vector;
-import android.os.Bundle;
 
 
 
@@ -25,7 +21,7 @@ import android.os.Bundle;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class ScrabbleGameState extends GameState {
+public class ScrabbleGameState extends GameState{
 
     //constants: the point value of each tile
     final int A_VAL = 1;
@@ -92,7 +88,6 @@ public class ScrabbleGameState extends GameState {
     //instance variable
     private int playerZeroScore;
     private int playerOneScore;
-    private TextView whosTurn;
 
     private int playerZeroId;
     private int playerOneId;
@@ -102,7 +97,6 @@ public class ScrabbleGameState extends GameState {
     private ArrayList<Tile> tileBag = new ArrayList<Tile>(100);
     private ArrayList<Tile> hand1 = new ArrayList<Tile>(7); //should be hand0
     private ArrayList<Tile> hand2 = new ArrayList<Tile>(7); //should be hand1
-    private ArrayList<Tile> handCurrent;
 
     //shows the location of any tile placed on the board during one turn
     private ArrayList<Tile> onBoard;
@@ -286,17 +280,24 @@ public class ScrabbleGameState extends GameState {
         return hand2;
     }
     //no hand2 setter needed
-
+    /**
+     * External Citation
+     * Date: 24 April 2019
+     * Problem: handCurrent wasn't updating with hands 1 and 2
+     * Resource: Dr. Tribelhorn
+     * Solution: instead of an instance variable, called getter method instead,
+     * and had getter method return hand1 or hand2
+     */
     public ArrayList<Tile> getHandCurrent(){
         if(turn == 0)
         {
-            handCurrent = hand1;
+            return hand1;
         }
         else
         {
-            handCurrent = hand2;
+            return hand2;
         }
-        return handCurrent;
+
     }
 
     public Tile[][] getBoard(){
@@ -689,7 +690,7 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn && onBoard != null) {
             for(Tile t: onBoard) {
                 board[t.getxCoord()][t.getyCoord()] = null;
-                hand1.add(t);
+                getHandCurrent().add(t);
             }
             onBoard.clear();
             return true;
@@ -704,6 +705,9 @@ public class ScrabbleGameState extends GameState {
      * Method that checks if it's the player's turn, and if so, resets the game state to match the
      * current view of the board when the player presses the "Play" button, as well as switches the
      * current turn and updates the score.
+     *
+     * Player 1 must place first tile in center of the board. Tiles can only be
+     *placed when there is another tile next to it.
      *
      * @param turnId the id of the player whose turn it is currently
      */
@@ -1023,10 +1027,10 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn){
             this.recallTiles(turnId);
             if(turn == 0) {
-                Collections.shuffle(hand1);
+                Collections.shuffle(getHandCurrent());
             }
             else {
-                Collections.shuffle(hand2);
+                Collections.shuffle(getHandCurrent());
             }
             return true;
         }
@@ -1046,15 +1050,15 @@ public class ScrabbleGameState extends GameState {
         if(turnId == turn){
             this.recallTiles(turnId);
             if(turn == 0) {
-                tileBag.add(hand1.get(position));
-                hand1.remove(position);
-                this.drawTile(hand1);
+                tileBag.add(getHandCurrent().get(position));
+                getHandCurrent().remove(position);
+                this.drawTile(getHandCurrent());
             }
             else
             {
-                tileBag.add(hand2.get(position));
-                hand2.remove(position);
-                this.drawTile(hand2);
+                tileBag.add(getHandCurrent().get(position));
+                getHandCurrent().remove(position);
+                this.drawTile(getHandCurrent());
             }
             return true;
         }

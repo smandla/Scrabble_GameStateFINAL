@@ -9,7 +9,7 @@ package com.example.scrabble_gamestate.game;
  * @author Meredith Marcinko
  * @version February 2019
  */
-public class Tile {
+public class Tile{
 
     //instance vars
     private int pointVal;
