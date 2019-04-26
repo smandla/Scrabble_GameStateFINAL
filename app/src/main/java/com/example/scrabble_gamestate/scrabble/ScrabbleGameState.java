@@ -1,13 +1,17 @@
 package com.example.scrabble_gamestate.scrabble;
 
+import android.widget.TextView;
 
 import com.example.scrabble_gamestate.R;
+import com.example.scrabble_gamestate.game.GamePlayer;
 import com.example.scrabble_gamestate.game.Tile;
 import com.example.scrabble_gamestate.game.infoMsg.GameState;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Vector;
+import android.os.Bundle;
 
 
 
@@ -176,16 +180,16 @@ public class ScrabbleGameState extends GameState{
             tileBag.add(copy);
         }
 
-        for (Tile t : state.hand1) {
+        for (Tile t : state.getHandCurrent()) {
             Tile copy = new Tile(t);
-            hand1.add(copy);
+            getHandCurrent().add(copy);
         }
 
 
-        for (Tile t : state.hand2) {
-            Tile copy = new Tile(t);
-            hand2.add(copy);
-        }
+//        for (Tile t : state.hand2) {
+//            Tile copy = new Tile(t);
+//            hand2.add(copy);
+//        }
 
         onBoard = new ArrayList<Tile>(7);
         for (Tile t : state.onBoard) {
@@ -1027,10 +1031,10 @@ public class ScrabbleGameState extends GameState{
         if(turnId == turn){
             this.recallTiles(turnId);
             if(turn == 0) {
-                Collections.shuffle(getHandCurrent());
+                Collections.shuffle(hand1);
             }
             else {
-                Collections.shuffle(getHandCurrent());
+                Collections.shuffle(hand2);
             }
             return true;
         }
@@ -1050,15 +1054,15 @@ public class ScrabbleGameState extends GameState{
         if(turnId == turn){
             this.recallTiles(turnId);
             if(turn == 0) {
-                tileBag.add(getHandCurrent().get(position));
-                getHandCurrent().remove(position);
-                this.drawTile(getHandCurrent());
+                tileBag.add(hand1.get(position));
+                hand1.remove(position);
+                this.drawTile(hand1);
             }
             else
             {
-                tileBag.add(getHandCurrent().get(position));
-                getHandCurrent().remove(position);
-                this.drawTile(getHandCurrent());
+                tileBag.add(hand2.get(position));
+                hand2.remove(position);
+                this.drawTile(hand2);
             }
             return true;
         }
